@@ -20,6 +20,7 @@ var vdpCarousel = {
 
 		// Make sure it is public or set to Anyone with link can view 
 		var url = "https://spreadsheets.google.com/feeds/list/" + spreadsheetID + "/od6/public/values?alt=json";
+
 		$.getJSON(url, function (data) {
 
 			var entry = data.feed.entry;
@@ -85,38 +86,46 @@ var vdpCarousel = {
 
 		var countBlock = 0;
 
-		$.ajax({
-			url: imgPathNamex,
-			success: function (data) {
-				$(hostPageArrayContainer, data).each(function () {
-
-					countBlock++;
-
-					if (countBlock <= maxUnitDisplayed) {
-
-						//--------------------
-						var newImage = "";
-
-						if (countBlock > 4) {
-							newImage = $(this).find('img').data('src');
-							//console.log('=========> newImage [' + newImage + ']');
-						}
-						//--------------------
-						var divCode = $(this).find(hostPageArray).html();
-						if (newImage !== "") {
-							//console.log('=========> switch [' + newImage + ']');
-							divCode = divCode.replace('src="/images/blank.gif', 'src="' + newImage + '"');
-						}
-
-						$('.jcarousel ul').append('<li class="jcarousel-item jcarousel-item-horizontal jcarousel-item-' + countBlock + 'jcarousel-item-' + countBlock + '-horizontal jcarousel-item-placeholder jcarousel-item-placeholder-horizontal" jcarouselindex="' + countBlock + '" style="float: left; list-style: none;  max-height: 200px;">' + divCode + '</li>');
-						$('.jcarousel ul.jcarousel-list  a.btn-link').remove();
-						$('.jcarousel ul.jcarousel-list  li.jcarousel-item div.mycars-vlp.large-cta').remove();
-
-					}
-
-				});
-			}
+		jQuery.ajaxSetup({
+			cache: false
 		});
+
+		//if (!jQuery.active) {
+
+			$.ajax({
+				url: imgPathNamex,
+				success: function (data) {
+					$(hostPageArrayContainer, data).each(function () {
+
+						countBlock++;
+
+						if (countBlock <= maxUnitDisplayed) {
+
+							//--------------------
+							var newImage = "";
+
+							if (countBlock > 4) {
+								newImage = $(this).find('img').data('src');
+								//console.log('=========> newImage [' + newImage + ']');
+							}
+							//--------------------
+							var divCode = $(this).find(hostPageArray).html();
+							if (newImage !== "") {
+								//console.log('=========> switch [' + newImage + ']');
+								divCode = divCode.replace('src="/images/blank.gif', 'src="' + newImage + '"');
+							}
+
+							$('.jcarousel ul').append('<li class="jcarousel-item jcarousel-item-horizontal jcarousel-item-' + countBlock + 'jcarousel-item-' + countBlock + '-horizontal jcarousel-item-placeholder jcarousel-item-placeholder-horizontal" jcarouselindex="' + countBlock + '" style="float: left; list-style: none;  max-height: 200px;">' + divCode + '</li>');
+							$('.jcarousel ul.jcarousel-list  a.btn-link').remove();
+							$('.jcarousel ul.jcarousel-list  li.jcarousel-item div.mycars-vlp.large-cta').remove();
+
+						}
+
+					});
+				}
+			});
+
+		//}
 
 		//=====================================================================================
 		//=====================================================================================

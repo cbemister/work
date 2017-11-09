@@ -1,0 +1,79 @@
+</script>  <style> 
+
+/* Search Container CSS */
+.searchContainer {
+ text-align: center;
+ background: rgba(34, 116, 172, 0.50);
+ padding: 25px;
+}
+.searchContainer button, .searchContainer input {
+	padding: 5px 10px;
+}
+button#showPrevious, button#searchBtn {
+	background: #2274ac;
+	color: white;
+	font-weight: 600;
+}
+button#showPrevious {
+	margin-right: 2px;
+}
+p.instruction, p#message {
+	font-size: larger;
+}
+/* Table CSS */
+.tableizer-table tr:nth-child(odd) {
+	background-color: initial;
+}
+tr.tableizer-firstrow.ddc-row:before {
+	content: initial;
+}
+tr.tableizer-firstrow, tr.heading {
+	visibility: initial;
+}
+tr {
+	visibility: hidden;
+}
+tr.visible {
+	visibility: visible;
+}
+tr.heading > td {
+	background-color: aliceblue!important;
+}
+tr:hover {
+	background: rgb(145, 186, 214)!important;
+	cursor: pointer;
+}
+/* Parts Form CSS */
+.ddc-content.parts-lead.type-1 > form fieldset:nth-of-type(1) div.form-group, .ddc-content.parts-lead.type-1 > form fieldset:nth-of-type(2) div.form-group, .ddc-content.parts-lead.type-1 > form fieldset:nth-of-type(1) div.form-group, .ddc-content.parts-lead.type-1 > form fieldset:nth-of-type(3) div.form-group {
+	width: 24%;
+	float: left;
+	margin-left: 1%;
+}
+.ddc-content.parts-lead.type-1 {
+	background-color: rgb(204, 204, 204);
+	padding: 28px 16px 16px;
+	margin-top: -29px;
+}
+.ddc-content.parts-lead.type-1 > form fieldset:nth-of-type(3) div.form-group {
+	width: 32%;
+}
+.contact-form .form-group label span {
+	width: 100%;
+}
+fieldset h2 {
+	display: none;
+}
+.ddc-content.contact-form.type-1 > h3, .contact-form .form-group label span {
+	font-family: Raleway, arial, sans-serif;
+	color: black;
+}
+button.btn.btn-primary.pull-right.ui-button-submit {
+	width: 906px;
+	background-color: #126aae;
+	padding: 10px 0;
+	font-size: 25px;
+	text-align: center;
+}
+button.btn.btn-primary.pull-right.ui-button-submit:hover {
+	background-color: #679bc2;
+}
