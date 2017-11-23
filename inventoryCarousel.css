@@ -1,0 +1,168 @@
+
+/*  Mobile CSS */
+
+</script><style>
+
+.row.car {
+    display: none;
+}
+
+.row.car.active {
+    display: block;
+}
+
+nav#menu {
+    display: none;
+}
+
+select#modelDropDown {
+    border: 1px solid #989898;
+    color: white;
+    padding-left: 40%;
+    background: url(https://pictures.dealer.com/a/autocanadatc/0197/eee3b752b4cfc2a26d1b6f215837ca6cx.jpg) no-repeat 97% 50% #5a5a5a;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+select#modelDropDown option {
+    background: #e6e6e6;
+    color: black;
+}
+
+#cars a.btn {
+    background-color: #bb0a30;
+    margin: 0 auto;
+    display: block;
+}
+
+</style><script>
+
+
+/*  Desktop CSS */
+
+</script><style>
+
+
+#container{
+	margin:15px auto;
+	text-align:center;
+	width:1200px;
+	position:relative;
+}
+
+#menu a, #menu a:visited{
+	text-decoration:none;
+	outline:none;
+}
+
+#menu a:hover{
+	text-decoration:underline;
+}
+
+div#cars a {
+    margin-bottom: 10px;
+}
+
+header{
+	background:url(../img/panel.jpg) repeat-x bottom center #ffffff;
+	height:30px;
+	padding-top:10px;
+	border-bottom:1px solid #ccc;
+}
+
+#slider{
+	-moz-box-shadow:0 0 3px #aaaaaa;
+	-webkit-box-shadow:0 0 3px #aaaaaa;
+	box-shadow:0 0 3px #aaaaaa;
+	
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	
+	background:url(../img/panel.jpg) repeat-x bottom center #ffffff;
+	width:1200px;
+	overflow:hidden;
+}
+
+#cars{
+	height:335px;
+	width:1200px;
+	overflow:hidden;
+	padding-top:20px;
+}
+
+#cars .col-sm-4 {
+    margin-bottom: 10px;
+}
+
+.car{
+	float:left !important;
+        width: 1200px;
+}
+
+#menu {
+    height: 160px;
+    width: 900px;
+    margin: 0 auto;
+}
+
+#menu ul{
+	margin:0;
+	padding:0;
+}
+
+#menu li{
+	width: 33%;
+	margin-left:-4px;
+	display:inline-block;
+	list-style:none;
+	height: 135px;
+	overflow:hidden;
+}
+
+#menu li.active,#menu li.active:hover{
+	background:url(../img/active_bg.png) no-repeat;
+}
+
+#menu li.active{
+	cursor:default;
+}
+
+#menu .sep{
+	width:2px;
+	background:url(../img/seperator.png) no-repeat right;
+	margin-right:-2px;
+}
+
+#menu li a{
+	display:block;
+	background:url(../img/seperator.png) no-repeat right;
+	height:60px;
+	padding-top:10px;
+}
+
+#menu a img{
+	border:none;
+}
+
+#menu h5 {
+    padding-top: 50px;
+    text-align: center;
+}
+
+.row.car {
+    opacity: .2;
+}
+
+.row.car.active {
+    opacity: initial;
+}
+
+img.photo.thumb {
+    width: 110px;
+    margin-top: 5px;
+}
+		
+
+</style><script>
+

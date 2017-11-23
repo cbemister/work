@@ -1,0 +1,93 @@
+
+/* Desktop CSS */
+
+</script><style>
+
+img.my_wheel_img {
+    max-width: 250px;
+    margin: 0 auto;
+    display: block;
+}
+
+#tire-selector-tool .row {
+    display: none;
+}
+
+section#audi-selector {
+    margin-bottom: 50px;
+}
+
+div#tireSize {
+    text-align: center;
+}
+
+/* Parts Form CSS */
+
+.ddc-content.parts-lead.type-1 {
+
+display: none;
+}
+
+.ddc-content.parts-lead.type-1 > form fieldset:nth-of-type(1) div.form-group, .ddc-content.parts-lead.type-1 > form fieldset:nth-of-type(2) div.form-group, .ddc-content.parts-lead.type-1 > form fieldset:nth-of-type(1) div.form-group, .ddc-content.parts-lead.type-1 > form fieldset:nth-of-type(3) div.form-group {
+	width: 24%;
+	float: left;
+	margin-left: 1%;
+}
+.ddc-content.parts-lead.type-1 {
+	background-color: rgb(204, 204, 204);
+	padding: 28px 16px 16px;
+        margin-top: -29px;    
+        height: 400px;
+        margin-top: 25px;
+}
+.ddc-content.parts-lead.type-1 > form fieldset:nth-of-type(3) div.form-group {
+	width: 32%;
+}
+.contact-form .form-group label span {
+	width: 100%;
+}
+fieldset h2 {
+	display: none;
+}
+button.btn.btn-primary.pull-right.ui-button-submit {
+    width: 1105px;
+    background-color: #126aae;
+    padding: 10px 0;
+    font-size: 25px;
+    text-align: center;
+    position: absolute;
+    margin-left: 22px;
+}
+.form-group.ddc-form-group span {
+    width: 260px;
+}
+
+#audi-selector {
+    width: 100%;
+    margin: 0 auto;
+    background-color: #dedede;
+    min-height: 326px;
+    background: url(//pictures.dealer.com/s/stjamesauditc/1099/f68f7fae21457bf6b1a05a1d3c10051bx.jpg) no-repeat center center;
+    /* background: url(../images/bg/main_car_background.jpg) no-repeat center center; */
+    /* background: url(../images/bg/placeholder-v3.jpg) no-repeat center center; */
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+.audi-options-container {
+    width: 100%;
+    max-width: 400px;
+    height: 326px;
+    min-height: 175px;
+    background-color: rgba(0,0,0,.7);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 15px;
+    z-index: 10;
+}
+
+</style><script>
