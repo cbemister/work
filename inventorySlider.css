@@ -1,0 +1,39 @@
+@charset "utf-8";
+/* CSS Document */
+
+</script>
+
+<style>
+
+.jcarousel-container .jcarousel-item a img {
+    max-height: 148px;
+    width: 100%;
+    max-width: 200px;
+    display: inline;
+}
+.jcarousel-container .jcarousel-item {
+    width: 200px;
+    margin-right: 20px;
+}
+.jcarousel-wrapper, .jcarousel-container {
+    height: 170px;
+}
+span.details {
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    color: #333332;
+}
+
+<!--[if IE]>
+
+.jcarousel-container .jcarousel-item a img {
+  -ms-interpolation-mode: bicubic;
+}
+
+<![endif]-->
+
+</style>
+
+<script>
