@@ -9,13 +9,13 @@ var $legend = $('#legend');
 var $disclaimer = $('.disclaimer');
 
 var $enterBtn = $inputContainer.find('.enterBtn');
-var $resetBtn = $accessCode.find('.resetBtn');
+//var $resetBtn = $accessCode.find('.resetBtn');
 
 var prizeWheel = $('#prizeWheel')[0];
 
 //BindEvents
 $enterBtn.on('click', toggleBtn);
-$resetBtn.on('click', reset);
+//$resetBtn.on('click', reset);
 
 function toggleBtn() {
 	$inputContainer.toggle();
@@ -27,11 +27,13 @@ function toggleBtn() {
 
 function reset() {
 
-	toggleBtn();
+	$('div#wheel').toggle();
 
 	$('#inner-wheel').css({
 		'transform': 'initial'
 	});
+
+	$('div#wheel').toggle();
 
 }
 
@@ -46,7 +48,7 @@ function reset() {
 
 
 //set default degree (360*5)
-var degree = 1800;
+var degree = 3600;
 //number of clicks = 0
 var clicks = 0;
 
@@ -58,11 +60,37 @@ $(document).ready(function () {
 		//add 1 every click
 		clicks++;
 
+		//create odds for spin
+		
+		//1000 spin 500 tv 750 plane 
+		
+		//var weights = [0.05, 0, 0.4, 0.225, 0.175, 0.15]; // probabilities
+		//var weights = [0.05, 0.1, 0.15, 0.175, 0.225, 0.3]; // probabilities
+		var weights = [0.225, 0.175, 0.15, 0.4, 0, 0.05]; // probabilities
+		var results = [0.1666666666666667, 0.3333333333333333, 0.5, 0.6666666666666666, 0.8333333333333333, 1]; // values to return
+
+		function getRandom () {
+			var num = Math.random(),
+				s = 0,
+				lastIndex = weights.length - 1;
+
+			for (var i = 0; i < lastIndex; ++i) {
+				s += weights[i];
+				if (num < s) {
+					return results[i];
+				}
+			}
+			
+			return results[lastIndex];
+		};
+		
+		
+		
 		/*multiply the degree by number of clicks
 	  generate random number between 1 - 360, 
     then add to the new degree*/
 		var newDegree = degree * clicks;
-		var extraDegree = Math.floor(Math.random() * (720 - 1 + 1)) + 1;
+		var extraDegree = Math.floor(getRandom() * (360 - 1 + 1)) + 1;
 		totalDegree = newDegree + extraDegree;
 
 		/*let's make the spin btn to tilt every
@@ -117,8 +145,11 @@ $(document).ready(function () {
 
 				var Prize = $(this).attr('class');
 
-				var prizeClass = Prize.replace(' ', '.');
+				var prizeClass = Prize.replace(/ /g, ".");
 
+				//var prizeArray = Prize.split(' ');
+
+				//var prizeValue = prizeArray[1].split('-');
 
 				scoreArray.push({
 					'prize': prizeClass,
@@ -131,22 +162,14 @@ $(document).ready(function () {
 
 			});
 
-			var difference = scoreArray[1].rank - scoreArray[0].rank;
+			var prizeVoucher = $('span.' + scoreArray[0].prize + ' > span.prize').text();
+			
 
-			if (difference < 10) {
+			alert('Congratulations! You\'ve Won a Vouncher To Receive a ' + prizeVoucher + ' With Purchase');
 
-				alert('Please Spin Again!');
 
-			} else {
 
-				var prizeVoucher = $('span.' + scoreArray[0].prize + ' > span.prize').text();
-
-				alert('Congratulations! You\'ve Won a Vouncher To Receive a ' + prizeVoucher + ' With Purchase');
-			}
-
-			console.log(scoreArray[0]);
-
-			console.log(scoreArray);
+			reset();
 
 
 		}, 18000);
@@ -157,6 +180,7 @@ $(document).ready(function () {
 
 
 	});
+
 
 
 
