@@ -1,0 +1,36 @@
+
+/* VDP */
+.inventory-detail-pricing + span.payment {
+    background: #2274ac;
+    display: block;
+    padding: 20px 10px;
+    text-align: center;
+    color: #fff;
+
+}
+.inventory-detail-pricing + span.payment + span.disclaimer {
+    line-height: 30px!important;
+}
+
+.inventory-detail-pricing + span strong {    
+    display: block;
+    font-size: 2em;
+}
+.payment strong > small {
+    font-size: small;
+}
+.payment {
+    text-shadow: 2px 2px 1px black;
+}
+
+
+/* VLP */
+span.payment {
+    font-size: 16px;
+    text-align: center!important;
+}
+span.amount {
+    font-size: 28px;
+    color: #2274ac;
+    line-height: 32px;
+}

@@ -1,0 +1,69 @@
+
+
+.ddc-content.contact-form.type-1 img.wysiwyg-image, .ddc-content.contact-form.type-1 p {
+	display: none;
+}
+.ddc-content.contact-form.type-1 {
+	width: 366.66px;
+}
+.ddc-content.contact-form.type-1.middle {
+	position: fixed;
+	top: 200px;
+}
+.ddc-content.contact-form.type-1.bottom {
+	position: absolute;
+	bottom: 0px;
+}
+.yui3-u-1-3.ddc-span4 {
+	position: relative;
+	height: 1808px;
+}
+.tab_container input {
+	display: none;
+}
+.tab_container label {
+	display: none;
+}
+.tab-content {
+	padding-top: 10px;
+}
+section {
+	display: block;
+}
+p.caption {
+	width: 100%;
+	text-align: center;
+}
+.tab-content .image {
+	width: 100%;
+	border-top: 1px solid #97a9b2;
+	margin-bottom: 30px;
+}
+.row {
+	margin: 0 -5px;
+}
+.price-table span {
+	color: #000;
+}
+.tab-content span.amount {
+	font-size: 20px;
+}
+.tab-content span.amount sup {
+	font-size: 0.5em;
+	vertical-align: top;
+	line-height: 1.8em;
+}
+/* Hide Content */
+p.caption {
+	display: none;
+}
+.col-sm-12 ul {
+	display: none;
+}
+a.btn.btn-lrg.btn-primary.btn-block {
+	display: none;
+}
+h3.head_5 {
+	font-size: 20px!important;
+	margin-top: 85px;
+}
