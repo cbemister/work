@@ -1,4 +1,8 @@
 //CHRYSLER CALL TRACKING CUSTOMIZATION
+
+$('.ddc-footer .navbar-default .btn-call').attr('data-target','#call-collapse').attr('data-toggle','collapse').removeAttr('href');
+
+
 $(function () {
 	
 	//HEADER PHONE REPLACEMENT
@@ -14,7 +18,7 @@ $(function () {
 
 			//$('div#iconInvite_597EA604-F7F3').css('bottom', '231px');
 
-			$('div#iconInvite_597EA604-F7F3').animate({
+			$('div#livechat-compact-container').animate({
 				bottom: 231
 			}, 375, function () {
 				// Animation complete.
@@ -24,7 +28,7 @@ $(function () {
 
 		} else {
 
-			$('div#iconInvite_597EA604-F7F3').animate({
+			$('div#livechat-compact-container').animate({
 				bottom: 0
 			}, 250, function () {
 				// Animation complete.
