@@ -1,0 +1,40 @@
+h1.ddc-page-title {display: none;}
+
+li.item {display: none;}
+
+/*li.item.active {display: initial;}*/
+
+li.item.hide.active {display: initial;}
+
+span.internetPrice.final-price span.value {
+    margin-left: -10px;
+}
+
+a#loadMore {
+    visibility: hidden;
+}
+
+#loadMore a.btn.btn-default {
+    margin: 0 auto;
+    display: block;
+}
+
+.mycars-vlp.large-cta, li.clearfix.monthly-payment, li.clearfix.paymentInformation, .item-compare {
+    display: none;
+}
+
+li.clearfix.monthly-payment, span.h3.label.paymentInformation {
+    display: none!important;
+}
+
+
+span.eprice.dialog.pointer {
+    display: none!important;
+}
+
+.inventoryCount {
+    margin-bottom: 1vw;
+    font-size: 15px;
+    padding: 15px;
+    text-align: center;
+}

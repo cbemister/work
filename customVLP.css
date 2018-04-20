@@ -1,0 +1,68 @@
+h1.ddc-page-title {display: none;}
+
+li.item {display: none;}
+
+/*li.item.active {display: initial;}*/
+
+li.item.hide.active {display: initial;}
+
+span.internetPrice.final-price span.value {
+    margin-left: -10px;
+}
+
+a#loadMore {
+    visibility: hidden;
+}
+
+#loadMore ~ p > a.btn.btn-default {
+    margin: 0 auto;
+    display: block;
+}
+
+.mycars-vlp.large-cta, li.clearfix.monthly-payment, li.clearfix.paymentInformation, .item-compare {
+    display: none;
+}
+
+span.eprice.dialog.pointer {
+    display: none!important;
+}
+
+a.btn.btn-default.view-link {
+    margin-top: 50px;
+}
+
+.ddc-span9, .yui3-u-3-4 {
+    margin-left: 12.5%;
+}
+
+#preloader {
+    position: fixed;
+    top: 174px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #fff;
+    z-index: 90210;
+}
+
+#status {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    background-image: url(https://actrader.wpengine.com/wp-content/trader/F11_MOBILE_EVOLVE/MEDIA/PRELOADERS/PRELOADER_GREY_CIRCLE.gif);
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: -100px 0 0 -100px;
+}
+
+.facet-breadcrumb-title.vehicle-count {
+    width: 225px;
+    float: left;
+    line-height: 44px;
+}
+
+.facet-breadcrumb-item {
+    float: left;
+}
