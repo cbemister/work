@@ -1,134 +1,236 @@
-var customVLP = (function () {
-	
-	var protocal = document.location.protocol;
-	var tld = document.domain;
-	var vlp: "/all-inventory/index.htm",
-	searchParam: "?search=",
-	//Enter stock numbers in a javascript array format (MAXIMUM 16) ['stockNumber1','stockNumber2','stockNumber3','stockNumber4','stockNumber5']
-	stockNumbersArray: ['ZT758311', 'ZC347004', 'ZC105339', 'ST101677', 'ST183492', 'ST193327', 'PA815888', 'PA727101', 'PA727044', 'PA727056'],
-	//var stockNumbersString = "PA727056+OR+PA727044+OR+PA727101+OR+PA815888+OR+ST193327+OR+ST183492+OR+ST101677+OR+ZC105339+OR+ZT758311+OR+ZC347004";
-	stockNumbersString: "",
-	layout: DDC.dataLayer.page.attributes.layoutType,
-	destTarget: ['.ddc-content.type-2', 'div#ddc-mobile-vlp-inventory'],
-	dataTarget: [' .ddc-content.inventory-listing-default .bd', ' div#ddc-mobile-vlp-inventory'],
-	index: 0,
-	vinArray: [],
-	vinArrayLength: null,
-	pageviewsArray: [],
-	cacheSearch: {},
-	
-	
-
-})();
-
-
-
-
-
-
-
-
-
-
 'use strict';
-var customVLP = {
+
+
+var customVLP = (function () {
+
+	//var protocal = document.location.protocol;
+	//var tld = document.domain;
+	var vlp = "/new-inventory/index.htm";
+	var searchParam = "search=";
+	var listItemsArray = [];
+	var domContainer = $('ul.inventoryList.data.full.list-unstyled');
+	var model = getParameterByName("model");
+	var year = getParameterByName("year");
+	var yearParam = "year=";
+	var modelParam = "model=";
+	var item = {};
 	
-	init: function () {
-		//this.cacheDom();
-		//this.bindEvents();
-		this.joinStockNumbers();
-		this.setLayout();
-		this.loadVehicles();
-		this.storeEachVin();
-	},
-	joinStockNumbers: function () {
-		this.stockNumbersString = this.stockNumbersArray.join('+OR+');
-	},
-	setLayout: function () {
-		if (this.layout === 'desktop') {
-			return this.index;
-		} else {
-			this.index = 1;
-		}
-	},
-	loadVehicles: function () {
-		jQuery(this.destTarget[this.index]).load(this.protocal + '//' + this.tld + this.vlp + this.searchParam + this.stockNumbersString + this.dataTarget[this.index]);
-	},
-	storeEachVin: function () {
-		jQuery(document).ajaxStop(function () {
-			jQuery('li.item').each(function () {
-				var vinItem = $(this).find('.hproduct').attr('data-vin');
-				customVLP.vinArray.push(vinItem);
-			});
-		});
-				customVLP.saveVinData();
-	},
-	saveVinData: function () {
+	// CONTENT PERSONALIZATION JS 
+	function getParameterByName(e, a) {
+		a || (a = window.location.href), e = e.replace(/[\[\]]/g, "\\$&");
+		var n = new RegExp("[?&]" + e + "(=([^&#]*)|&|#|$)"),
+			r = n.exec(a);
+		return r ? r[2] ? decodeURIComponent(r[2].replace(/\+/g, " ")) : "" : null
+	}
+
+	//CREATE SEARCH PARAM
+	
+	
+	
 		
-		this.vinArrayLength = this.vinArray.length;
+	if (year === null && model) {
+
+		var searchParam = modelParam + model;
+
+	} else if (model === null && year) {
+
+		var searchParam = yearParam + year;
+
+	} else if (model && year) {
+
+		var searchParam = yearParam + year + '&' + modelParam + model;
+	}
 		
-		// ID of the Google Spreadsheet
-		var spreadsheetID = "1cMqvEw-rQeKLhRIU3JMqTrCsLODjeqZlJESWdbuibik";
+		
+	$.when($.ajax({
+			url: '/new-inventory/index.htm?' + searchParam,
+			dataType: 'html',
+			success: function (html) {
+				var qtyInStock = $(html).find('span.vehicle-count').text();
 
-		// Make sure it is public or set to Anyone with link can view 
-		var url = "https://spreadsheets.google.com/feeds/list/" + spreadsheetID + "/od6/public/values?alt=json";
-		$.getJSON(url, function (data) {
+				item.quantity = parseInt(qtyInStock);
+			}
+		}))
+		.then(function () {
+		
+			// GET NUMBER OF PAGES
+			//var quantity = $('span.vehicle-count').text();
+			var pageQty = item.quantity / 16;
+			var pageQtyInt = Math.round(pageQty);
 
-			var entry = data.feed.entry;
-			
-			var currentDealership = customVLP.tld;
-			
-			$(entry).each(function () {
-				
-					//if ((this.gsx$profile.$t.indexOf(currentDealership) > -1) && this.gsx$pageviews.$t > 10 )  {
+			// CREATE SEARCH QUERY ARRAY
+			var vehiclesPerPage = 16;
+			var paginationArray = [];
 
-					if (this.gsx$profile.$t.indexOf(currentDealership) > -1)  {	
-						
-						customVLP.cacheSearch[this.gsx$vin.$t] = this.gsx$pageviews.$t;
+			for (var i = 0; i <= pageQtyInt; i++) {
+				var pagination = vehiclesPerPage * i;
+				var searchQuery = vlp + '?start=' + pagination + '&' + searchParam;
+
+				paginationArray.push(searchQuery);
+
+			}
+		
+			$.when.apply($, paginationArray.map(function (url) {
+				return $.ajax(url);
+			})).done(function () {
+				// there will be one argument passed to this callback for each ajax call 
+				// each argument is of this form [data, statusText, jqXHR] 
+				var results = [];
+
+				for (var i = 0; i < arguments.length; i++) {
+					results.push(arguments[i][0]);
+					// all data is now in the results array in order
 				}
 
-			});
-			
-		});
-			customVLP.addViewData();
-	},
-	addViewData: function () {
-		
-		this.vinArrayLength = this.vinArray.length;
-		
-		jQuery(document).ajaxStop(function () {
+				// loop through results array
+				$.each(results, function (index, value) {
 
-					
-			jQuery('.hproduct').each(function (index, value) {
-			
-				var vin = jQuery(this).attr('data-vin');
-					
-				jQuery(this).closest('li.item').attr('data-pageviews', customVLP.cacheSearch[vin]);
-				
-				//jQuery(this).closest('li.item')
-					
-			});
-			
-				//customVLP.sortByPageview();
-			
-		});
-		
-		
-		
-	},
-	sortByPageview: function () {
+					var $this = this;
 
-			jQuery('ul.inventoryList:gt(0)').detach().children('li').appendTo('ul.inventoryList:eq(0)');
+					// loop through each item in each results array
+					$($this).find('li.item').each(function () {
+						var listItem = $(this)[0].outerHTML //.parent().html();
+							// REMOVE RETURN CHARACTER
+						var listItemClean = listItem.replace(/\r?\n/g, "");
 
-				jQuery("ul.inventoryList").each(function(){
+						// STORE LIST ITEMS IN ARRAY
+						
+						var currentYear = $(listItem).find('.hproduct').attr('data-year');
+						var currentModel = $(listItem).find('.hproduct').attr('data-model');
 
-					  jQuery(this).html(jQuery(this).children('li').sort(function(a, b){
-					return (jQuery(b).data('pageviews')) > (jQuery(a).data('pageviews')) ? 1 : -1;
-				  }));
+							if ( (year === null && (currentModel === model)) || (model === null && (currentYear === year)) || ((currentModel === model) && (currentYear === year))  ) {
+
+								listItemsArray.push(listItemClean);
+								
+								//ADD EACH LIST ITEM TO PAGE
+								$(domContainer).append(listItemClean);
+
+							} 
+
+					});
 
 				});
+				
+				// SHOW VEHICLE COUNT
+				
+				//13 Vehicles matching: Model: Tiguan  Year: 2017
+
+				
+				var count = $('li.item').length;
+				
+				//var count = 13; var year = 2017; var model = 'Golf'
+				
+				//$('.ddc-content.inventory-listing-default .bd').prepend('<div><div class="facet-breadcrumb-title vehicle-count "><span class="count"> ' + count + ' </span> Vehicles matching:</div> <div class="facet-breadcrumb-item"><span class="facet-breadcrumb-close-icon"></span> Year: <span class="year"> ' + year + '</span></div><div class="facet-breadcrumb-item"><span class="facet-breadcrumb-close-icon"></span>  Model: <span class="model"> ' + model + '</span></div></div>');
+				
+				$('.ddc-content.inventory-listing-default .bd').prepend('<div><div class="facet-breadcrumb-title vehicle-count "><span class="count"> ' + count + ' </span> Vehicles matching:</div> <div class="facet-breadcrumb-item"> Year: <span class="year"> ' + year + '</span></div><div class="facet-breadcrumb-item">  Model: <span class="model"> ' + model + '</span></div></div>');
+				
+				
+
+				//loadFacets('li.item');
+				
+				//HIDE PRELOADER
+				$('#status').hide();
+				$('#preloader').hide();
+
+				//HIDE FACET IF NULL
+				$('span.model:contains(null)').closest('.facet-breadcrumb-item').hide();
+				$('span.year:contains(null)').closest('.facet-breadcrumb-item').hide();
+				
+
+				showListItems();
+				lazyLoad();
+
+			});
+		});
 		
+
+	//
+
+	function showListItems() {
+
+		$('li.item').each(function (i) {
+
+			if (i < 4) {
+
+				$(this).show();
+			} else {
+				$(this).addClass('lazyLoad');
+			}
+		});
+	}
+
+	function loadImages() {
+		
+		$('li.item').each(function(){
+	
+			var imgTag = $('img.lazy-image.photo.thumb');
+
+			var imgSrc = $(this).find(imgTag).attr('data-src');
+
+			$(this).find(imgTag).attr('src', imgSrc);
+	
+		});
 	}
 	
-};
-customVLP.init();
+	
+	function lazyLoad() {
+
+		$("li.item.lazyLoad").slice(0, 4).toggleClass('lazyLoad').show();
+		
+		$("#loadMore").on('click', function (e) {
+
+			e.preventDefault();
+			$("li.item.lazyLoad:hidden").slice(0, 4).slideDown();
+			loadImages();
+			//			if ($("li.item.lazyLoad:hidden").length == 0) {
+			//				$("#load").fadeOut('slow');
+			//			}
+
+			//			$('html,body').animate({
+			//				scrollTop: $(this).offset().top
+			//			}, 1500);
+		});
+
+	}
+
+	$(window).scroll(function () {
+		var hT = $('#loadMore').offset().top,
+			hH = $('#loadMore').outerHeight(),
+			wH = $(window).height(),
+			wS = $(this).scrollTop(),
+			scrolled = false;
+		
+		//console.log((hT-wH) , wS);
+		if (wS > (hT + hH - wH)) {
+			$('#loadMore').click();
+
+		}		
+		
+		if (((wS + 1000) > (hT + hH - wH)) && !scrolled) {
+			loadImages();
+			scrolled = true;
+		}
+	
+	});
+
+	// Return to top button
+	$('a[href=#top]').click(function () {
+		$('body,html').animate({
+			scrollTop: 0
+		}, 600);
+		return false;
+	});
+
+
+	// MAKE ACCESSIBLE OUTSIDE FUNCTION
+	return {
+		model: model,
+		year: year
+		
+		//selectedFacets: selectedFacets,
+		//listItemsArray: listItemsArray,
+
+		//paginationArray: paginationArray
+	};
+
+})();
