@@ -1,0 +1,33 @@
+
+input:focus ~ .floating-label {
+  top: -18px;
+  left: 10px;
+  font-size: 11px;
+  opacity: 1;
+  color: black;
+  display: initial;
+}
+
+.floating-label {
+  position: absolute;
+  pointer-events: none;
+  transition: 0.3s ease all;
+  display: none;
+}
+
+.input {
+    position: relative;
+}
+
+input:focus::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: transparent;
+  opacity: 1; /* Firefox */
+}
+
+input:focus:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: transparent;
+}
+
+input:focus::-ms-input-placeholder { /* Microsoft Edge */
+  color: transparent;
+}
