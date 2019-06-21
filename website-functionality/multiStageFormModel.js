@@ -11,7 +11,7 @@ $(document).ready(function() {
 			modal: true,
 			resizable: false,
 			autoOpen: false,
-			title: 'We Buy Your Vehicle',
+			title: 'We Will Buy Your Vehicle',
 			height: 600,
 			width: 600,
 			open: function () {
@@ -20,7 +20,8 @@ $(document).ready(function() {
 
 			},
 			close: function () {
-				formStep = 1;
+				console.log('closed');
+				formStep = 0;
 				formCompleted = false;
 				renderForm();
 			}
@@ -33,6 +34,7 @@ $(document).ready(function() {
 		// prevent the default action, e.g., following a link
 		return false;
 	});	
+
 	
 // FORM STAGE
 
@@ -46,16 +48,17 @@ jQuery('.ui-dialog-titlebar.ui-widget-header.ui-corner-all.ui-helper-clearfix').
 		<li data-form-step="6">Appraisal</li>
 	</ul>
 `)
-
-// JUMP TO FORM STAGE ON CLICK
+	
 jQuery('.formStage li').click(function(){
 	var formStepClick = jQuery(this).data('form-step')
 	formStep = formStepClick;
-	renderForm();
+	renderForm(formStep, true);
 })
 	
 // MULTISTAGE FORM LOGIC
-
+	
+changeToNextButton();
+	
 // SET FORM STAGE BG COLOUR 
 jQuery('ul.formStage li:nth-of-type('+ formStep + ')').css('background', '#0a2972');
 	
@@ -65,26 +68,40 @@ jQuery('ul.formStage li:nth-of-type('+ formStep + ')').css('background', '#0a297
 		
 	});
 	
-	function renderForm() {
+	function changeToNextButton() {
+		// CHANGED SUBMIT BUTTON TO NEXT BUTTON
+		jQuery(".type-1.contact-form button").prop("type", "button");
+		jQuery(".type-1.contact-form button").html('Next  <i class="fa fa-arrow-right"></i>');
+	}
+	
+	function renderForm(step, menuClick) {
+		
+		if (!step) {
+			step = formStep;
+		}
+		
+		var numAdj = menuClick ? 0 : 1
+		
+		jQuery('ul.formStage li').css('background', '#303a51');
+		jQuery('ul.formStage li:nth-of-type('+ (step + numAdj)  + ')').css('background', '#0a2972');
 
 		if (!formCompleted) {
 
+
+			
 			jQuery('.contact-form fieldset').css('visibility', 'hidden').css('position', 'absolute');
 
-			jQuery('.contact-form fieldset:nth-of-type('+ formStep + ')').css('visibility', 'initial').css('position', 'relative');
-
-				if (formStep !== 6) {
-					
-				// CHANGED SUBMIT BUTTON TO NEXT BUTTON
-				jQuery(".type-1.contact-form button").prop("type", "button");
-				jQuery(".type-1.contact-form button").html('Next  <i class="fa fa-arrow-right"></i>');
+			jQuery('.contact-form fieldset:nth-of-type('+ (step + numAdj) + ')').css('visibility', 'initial').css('position', 'relative');
+			
+			if (step === (6 - numAdj)) {
 				formCompleted = true;
-			} else {
 				jQuery(".contact-form button.ui-button-submit").prop("type", "submit");
 				jQuery(".contact-form button").text("Get Your Cash!");
+			} else {
+				changeToNextButton();
 			}
-			
-			formStep++;
+			step++;
+			formStep = step;
 
 		} else {
 			
@@ -105,8 +122,8 @@ jQuery('ul.formStage li:nth-of-type('+ formStep + ')').css('background', '#0a297
 			formStep = 1;
 		}
 		
-		jQuery('ul.formStage li').css('background', '#303a51');
-		jQuery('ul.formStage li:nth-of-type('+ (formStep - 1) + ')').css('background', '#0a2972');
+		console.log(formStep)
+		
 	}
 	
 });
