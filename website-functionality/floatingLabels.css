@@ -31,3 +31,62 @@ input:focus:-ms-input-placeholder { /* Internet Explorer 10-11 */
 input:focus::-ms-input-placeholder { /* Microsoft Edge */
   color: transparent;
 }
+
+/* AutoTrader */
+
+/* Float Form Labels */
+
+.lp-template-active .type-1.contact-form.lp-float-labels .form-group.ddc-form-group input:focus ~ .floating-label, .lp-template-active .type-1.contact-form.lp-float-labels .form-group.ddc-form-group
+input:not(:active):valid ~ .floating-label, .lp-template-active .type-1.contact-form.lp-float-labels .form-group.ddc-form-group textarea:focus ~ .floating-label, .lp-template-active .type-1.contact-form.lp-float-labels .form-group.ddc-form-group
+textarea:not(:focus):valid ~ .floating-label {
+  top: 7px;
+  bottom: 10px;
+  left: 10px;
+  font-size: 11px;
+  opacity: 1;
+  color: black;
+}
+
+.lp-template-active .type-1.contact-form.lp-float-labels .form-group.ddc-form-group input:not(:focus):invalid ~ .floating-label {
+  font-size: 13px;
+  opacity: 1;
+  color: red;
+}
+
+.lp-template-active .type-1.contact-form.lp-float-labels.inputText, .lp-template-active .type-1.contact-form.lp-float-labels .inputArea  {
+  padding-top: 20px;
+}
+
+.lp-template-active .type-1.contact-form.lp-float-labels .textArea  {
+  padding-top: 25px;
+
+}
+
+.lp-template-active .type-1.contact-form.lp-float-labels .floating-label {
+  position: absolute;
+  pointer-events: none;
+  left: 11px;
+  top: 7px;
+  transition: 0.2s ease all;
+}
+
+.lp-template-active .type-1.contact-form.lp-float-labels .form-group.ddc-form-group span.floating-label  {
+    color: grey;
+}
+
+.lp-template-active .type-1.contact-form.lp-float-labels .form-group.ddc-form-group label > span, .lp-template-active .type-1.contact-form.lp-float-labels .form-group.ddc-form-group label.textarea {
+    display: none;
+}
+
+.lp-template-active .type-1.contact-form.lp-float-labels .form-group.ddc-form-group label.textarea > span, .lp-template-active .type-1.contact-form.lp-float-labels .form-group.ddc-form-group label.preferred-contact > span {
+    display: initial;
+}
+
+.lp-template-active .type-1.contact-form.lp-float-labels .form-group.ddc-form-group select.preferred-contact {
+    border-radius: initial;
+}
+
+.lp-template-active .type-1.contact-form.lp-float-labels input  {
+  height: 50px;
+  padding-top: 25px;
+}
