@@ -1,0 +1,105 @@
+<style>
+  .inventoryCount {
+    font-size: 3vw;
+    font-weight: 600;
+    text-align: center
+  }
+
+  .inventoryCount span.remaining {
+    font-size: 5vw;
+    padding: 0
+  }
+
+  .inventoryCount span.remaining>span {
+    padding: 0 8px
+  }
+
+  .inventoryCount span.remaining>span:first-child {
+    padding-left: 0 !important
+  }
+
+  .inventoryCount span.remaining>span:last-child {
+    padding-right: 0 !important
+  }
+
+  .inventoryCount span.remaining>span:not(:last-child) {
+    text-decoration: line-through
+  }
+
+  .inventoryCount span span:last-child {
+    color: #ff0505
+  }
+
+  .inventoryCount span.remaining span.truncated {
+    color: #ff0505;
+    padding: 0;
+    text-decoration: none
+  }
+
+  @media screen and (max-width:864px) {
+    .inventoryCount {
+      font-size: 4.2vw;
+      line-height: 5vw;
+      padding: 10px
+    }
+
+    .inventoryCount span.remaining {
+      font-size: 5vw
+    }
+  }
+
+  .invisible {
+    visibility: hidden
+  }
+</style>
+<div class="countContainer">
+  <img src="https://www.bmwlaval.com/wp-content/uploads/sites/27/2020/06/1320551_LAV_Z4_LastPush-JUNE_VLP_FR.jpg" alt=""
+    width="1100" height="148" class="aligncenter size-full wp-image-6692" />
+  <div class="countContainer invisible">
+    <div class="inventoryCount">Seulement <span class="remaining">#</span><span class="new-line"> les véhicules restent en stock.</span></div>
+  </div>
+  [show_inventory model="z4" year="2020" carousel="false" show_full_name="true"]
+  Les véhicules peuvent ne pas être exactement comme indiqué.Le modèle peut varier. Les prix et les paiements affichés
+  sont majorés des frais taxes. Les conditions de prix et de financement sont basées sur OAC. Tous les rabais,
+  escomptes, incitatifs d'usine, prix et taux d'intérêt des concessionnaires peuvent changer ou se terminer sans préavis
+  au fur et à mesure que de nouveaux programmes incitatifs au détail sont annoncés. Tous les incitatifs et remises sont
+  reflétés sur les véhicules annoncés. Les Paiements en location du stock# 2201307 sont $ 799 par mois plus taxes basé
+  sur un prix de $ 65,263plus taxes à 3.99% sur 48mois; Obligation total de location de $ 38,352; dû à la livraison$
+  2,095 valeur résiduelle standard à la location basée sur 12,000 km par année. Les frais sur le km excédentaire 12,000
+  sont de $.15. † Les véhicules neufs BMW achetés chez un concessionnaire BMW autorisé au Canada sont couverts par un
+  plan d'entretien planifié sans frais pour quatre ans ou 80 000 km, selon la première éventualité. Certaines
+  limitations s'appliquent. recevoir jusqu'à 3 mois d'exonérations de paiement; valeur maximale de 1500 $. Les offres
+  expirent 2 Juillet, 2020,Mercedes-Benz ou Range Rover recevront les 6 dernières mensualités de leur véhicules quand
+  ils l’échangent pour un X7 2020;Valeur maximale jusqu’à $2000/mois ou un total de $12000.cette offre expire le 2
+  Juillet 2020.
+  <script>
+    jQuery(window).load(function () {
+      const startingInventory = 10; //Set Starting Inventory Count
+      const vehicleCount = jQuery('[convertus-data-id="show-inventory__view-all"] h4').text().split(' ')[0];
+      const currentInventory = parseInt(vehicleCount)
+      let soldInventory = startingInventory - currentInventory;
+      let countdown = [];
+      let truncated = false;
+      let i;
+      for (i = startingInventory; i >= vehicleCount; i--) {
+        if (i > (startingInventory - 3) || i < (currentInventory + 3)) {
+          countdown.push('<span>' + i + '</span>');
+        } else {
+          if (!truncated) {
+            countdown.push('<span class="truncated"> ... </span>');
+            truncated = true;
+          }
+        }
+      }
+      let inventoryCountdown = countdown.join('')
+      const remainingInventory = jQuery('.inventoryCount span.remaining');
+      remainingInventory.html(inventoryCountdown);
+      if (jQuery('span.remaining > span').length > 0 && jQuery('span.remaining > span').length < 4 || jQuery(
+          'span.remaining > span').length > 4 && truncated) {
+        jQuery('.countContainer.invisible').removeClass('invisible');
+      }
+      if (truncated) {
+        jQuery('span.new-line').css('display', 'block');
+      }
+    });
+  </script>
