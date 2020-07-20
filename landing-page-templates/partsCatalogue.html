@@ -9,6 +9,9 @@
     width: 70%;
     display: inline-block;
 }
+.singlePart span.right {
+    float: right;
+}
 .singlePart .pricing {
     display: flex;
     justify-content: space-between;
@@ -40,11 +43,6 @@ border: 1px solid #bfa86d;
 }
 .savings{color: red;}
 h3.h2 {overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display:block; width:100%; min-width:1px; font-size: 26px;}
-@media Screen and (min-width: 768px) and (max-width: 1180px) {
-.singlePart span.left {
-    width: 100%;
-}
-}
 </style>
 <h2>Give our parts department a call at <a href="tel:+18555469352">(855)546-9352</a> to inquire about any of the parts listed below.</h2>
 <div id="partsContainer"></div>
@@ -70,7 +68,7 @@ jQuery.getJSON("https://spreadsheets.google.com/feeds/cells/1qDaQAwDo2UBeGE-IF_s
                 partIndex++
             }
     }
-    const htmlTemplate = `<div class="row">${partsDirectory.map(part => `<div class="col-sm-6 col-md-4"><div class="singlePart"><h3 class="h2">${part['DESCRIPTION']}</h3><span class="left">Part Number: ${part['PART NUMBER']}</span><span class="right">Quantity: ${part['QUANTITY']}</span><img alt="${part['DESCRIPTION']}"src="https://di-uploads-pod25.dealerinspire.com/mannnorthwaychevygmcbuickcadillac/uploads/2019/09/${part['PART NUMBER']}.jpg"><div><h4>Vehicle: ${part['FITMENT']}</h4><div class="pricing"><span>Was: ${'$' + part['RETAIL PRICE']}</span><span class="savings">Save: ${'$' + part['SAVINGS PRICE']}</span><span class="salePrice">Now: ${'$' + part['BLOWOUT PRICE']}</span></div></div></div></div>`)}</div>`;
+    const htmlTemplate = `<div class="row">${partsDirectory.map(part => `<div class="col-sm-6 col-md-4"><div class="singlePart"><h3 class="h2">${part['DESCRIPTION']}</h3><span class="left">Part #: ${part['PART NUMBER']}</span><span class="right">Qty: ${part['QUANTITY']}</span><img alt="${part['DESCRIPTION']}"src="https://di-uploads-pod25.dealerinspire.com/mannnorthwaychevygmcbuickcadillac/uploads/2019/09/${part['PART NUMBER']}.jpg"><div><h4>Vehicle: ${part['FITMENT']}</h4><div class="pricing"><span>Was: ${'$' + part['RETAIL PRICE']}</span><span class="savings">Save: ${'$' + part['SAVINGS PRICE']}</span><span class="salePrice">Now: ${'$' + part['BLOWOUT PRICE']}</span></div></div></div></div>`)}</div>`;
     partsContainer.innerHTML = htmlTemplate;
 });
 </script>
