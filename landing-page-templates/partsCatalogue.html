@@ -1,4 +1,7 @@
 <style>
+:root {
+  --brand-colour: #bfa86d;
+}
 .col-sm-6 ~ p, .col-md-4 ~ p {
     display: none;
 }
@@ -32,19 +35,24 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     overflow-y: hidden;
     width: 100%;
     object-fit: cover;
-border: 1px solid #bfa86d;
+    border: 1px solid var(--brand-colour);
+    margin-bottom: 0;
 }
 .pricing {
     font-size: 18px;
     font-weight: 800;
     margin-top: 10px;
-    background: #bfa86d;
+    background: var(--brand-colour);
     padding: 5px;
+}
+.pricing span:not(.savings) {
+    color: var(--secondary);
 }
 .savings{color: red;}
 h3.h2 {overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display:block; width:100%; min-width:1px; font-size: 26px;}
+h4 {height: 35px;}
 </style>
-<h2>Give our parts department a call at <a href="tel:+18555469352">(855)546-9352</a> to inquire about any of the parts listed below.</h2>
+<h2>Give our parts department a call at <a href='tel:+1[di_option option="di_phone_parts"]'>1-[di_option option="di_phone_parts"]</a> to inquire about any of the parts listed below.</h2>
 <div id="partsContainer"></div>
 <script>
 const partsContainer = document.getElementById('partsContainer')
@@ -68,7 +76,12 @@ jQuery.getJSON("https://spreadsheets.google.com/feeds/cells/1qDaQAwDo2UBeGE-IF_s
                 partIndex++
             }
     }
-    const htmlTemplate = `<div class="row">${partsDirectory.map(part => `<div class="col-sm-6 col-md-4"><div class="singlePart"><h3 class="h2">${part['DESCRIPTION']}</h3><span class="left">Part #: ${part['PART NUMBER']}</span><span class="right">Qty: ${part['QUANTITY']}</span><img alt="${part['DESCRIPTION']}"src="https://di-uploads-pod25.dealerinspire.com/mannnorthwaychevygmcbuickcadillac/uploads/2019/09/${part['PART NUMBER']}.jpg"><div><h4>Vehicle: ${part['FITMENT']}</h4><div class="pricing"><span>Was: ${'$' + part['RETAIL PRICE']}</span><span class="savings">Save: ${'$' + part['SAVINGS PRICE']}</span><span class="salePrice">Now: ${'$' + part['BLOWOUT PRICE']}</span></div></div></div></div>`)}</div>`;
+    const htmlTemplate = `<div class="row">${partsDirectory.map(part => `<div class="col-sm-6 col-md-4"><div class="singlePart"><h3 class="h2" data-toggle="tooltip" title="${part['DESCRIPTION']}">${part['DESCRIPTION']}</h3><span class="left">Part #: ${part['PART NUMBER']}</span><span class="right">Qty: ${part['QUANTITY']}</span><img alt="${part['DESCRIPTION']}"src="https://di-uploads-pod25.dealerinspire.com/mannnorthwaychevygmcbuickcadillac/uploads/2019/09/${part['PART NUMBER']}.jpg" onerror="imgError(this);"><div><h4>Vehicle: ${part['FITMENT']}</h4><div class="pricing"><span>Was: ${'$' + part['RETAIL PRICE']}</span><span class="savings">Save: ${'$' + part['SAVINGS PRICE']}</span><span class="salePrice">Now: ${'$' + part['BLOWOUT PRICE']}</span></div></div></div></div>`)}</div>`;
     partsContainer.innerHTML = htmlTemplate;
 });
+function imgError(image) {
+    image.onerror = "";
+    image.src = "https://di-uploads-pod25.dealerinspire.com/mannnorthwaychevygmcbuickcadillac/uploads/2020/07/partsCatalogueIcon.jpg";
+    return true;
+}
 </script>
