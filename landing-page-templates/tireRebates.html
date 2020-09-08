@@ -1,0 +1,262 @@
+<style>
+    .singleRebate img {
+        max-width: 196px;
+        display: block;
+        margin: 0 auto;
+    }
+    .singleRebate {
+        text-align: center;
+        border: 1px solid black;
+        min-height: 475px;
+        margin-bottom: 30px;
+        padding: 30px;
+    }
+    span.offer {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+    h6.value {
+        font-size: 32px;
+    }
+    p.disclaimer {
+        font-size: 14px;
+        margin-top: 10px;
+    }
+    @media only screen and (min-width: 768px) and (max-width: 990px) {
+        .singleRebate {
+            min-height: 375px;
+        }
+    }
+    @media only screen and (max-width: 767px) {
+        .singleRebate {
+            min-height: initial;
+        }      
+    }
+</style>
+<div id="tireRebates"></div>
+<script>
+    const currentDate = new Date();
+    const rebatesContainer = document.getElementById('tireRebates')
+    const tireRebates = [{
+            primaryLogo: 'https://www.bmwlaval.com/wp-content/uploads/sites/27/2020/09/87_logo_v_crossclimate_b.jpg',
+            rebateIntro: 'Get a ',
+            rebateValue: '$100',
+            rebateOffer: 'mail-in rebate',
+            rebateCondition: 'with the purchase of 4 new eligible <strong>Michelin CrossClimate</strong> tires.',
+            rebateStart: new Date("September 1, 2020 08:00:00"),
+            rebateEnd: new Date("September 15, 2020 20:00:00"),
+            rebateDisclaimer: '*Certain conditions apply. See details on manufacturer rebate.'
+        },
+        {
+            primaryLogo: 'https://www.bmwlaval.com/wp-content/uploads/sites/27/2020/09/11_logo_v_michelin.png',
+            secondaryLogo: '',
+            rebateIntro: 'With the purchase or lease of a new vehicle, get up to ',
+            rebateValue: '$100',
+            rebateOffer: 'mail-in rebate',
+            rebateCondition: 'with the purchase of 4 eligible new Michelin winter tires.',
+            rebateStart: new Date("June 15, 2020 08:00:00"),
+            rebateEnd: new Date("December 31, 2020 20:00:00"),
+            rebateDisclaimer: '*Certain conditions apply. See details on manufacturer rebate.'
+        }, {
+            primaryLogo: 'https://www.bmwlaval.com/wp-content/uploads/sites/27/2020/09/11_logo_v_michelin.png',
+            rebateIntro: 'Get a ',
+            rebateValue: '$70',
+            rebateOffer: 'mail-in rebate',
+            rebateCondition: 'with the purchase of 4 eligible new Michelin tires.',
+            rebateStart: new Date("October 1, 2020 08:00:00"),
+            rebateEnd: new Date("December 15, 2020 20:00:00"),
+            rebateDisclaimer: '*Certain conditions apply. See details on manufacturer rebate.'
+        }, {
+            primaryLogo: 'https://www.bmwlaval.com/wp-content/uploads/sites/27/2020/09/15_logo_v_bfgoodrich.png',
+            rebateIntro: 'With the purchase or lease of a new vehicle, get up to',
+            rebateValue: '$70',
+            rebateOffer: 'mail-in rebate',
+            rebateCondition: 'with the purchase of 4 eligible new BFGoodrich winter tires.',
+            rebateStart: new Date("June 15, 2020 08:00:00"),
+            rebateEnd: new Date("December 31, 2020 20:00:00"),
+            rebateDisclaimer: '*Certain conditions apply. See details on manufacturer rebate.'
+        }, {
+            primaryLogo: 'https://www.bmwlaval.com/wp-content/uploads/sites/27/2020/09/15_logo_v_bfgoodrich.png',
+            rebateIntro: 'Get up to ',
+            rebateValue: '$70',
+            rebateOffer: 'mail-in rebate',
+            rebateCondition: 'with the purchase of 4 eligible new BFGoodrich tires.',
+            rebateStart: new Date("October 1, 2020 08:00:00"),
+            rebateEnd: new Date("December 15, 2020 20:00:00"),
+            rebateDisclaimer: '*Certain conditions apply. See details on manufacturer rebate.'
+        }, {
+            primaryLogo: 'https://www.bmwlaval.com/wp-content/uploads/sites/27/2020/09/18_logo_v_uniroyal_hors-ue.png',
+            rebateIntro: 'With the purchase or lease of a new vehicle, get up to',
+            rebateValue: '$40',
+            rebateOffer: 'mail-in rebate',
+            rebateCondition: 'with the purchase of 4 eligible new Uniroyal winter tires.',
+            rebateStart: new Date("June 15, 2020 08:00:00"),
+            rebateEnd: new Date("December 31, 2020 20:00:00"),
+            rebateDisclaimer: '*Certain conditions apply. See details on manufacturer rebate.'
+        }, {
+            primaryLogo: 'https://www.bmwlaval.com/wp-content/uploads/sites/27/2020/09/18_logo_v_uniroyal_hors-ue.png',
+            rebateIntro: 'Get a ',
+            rebateValue: '$40',
+            rebateOffer: 'mail-in rebate',
+            rebateCondition: 'with the purchase of 4 eligible new Uniroyal tires.',
+            rebateStart: new Date("October 1, 2020 08:00:00"),
+            rebateEnd: new Date("December 15, 2020 20:00:00"),
+            rebateDisclaimer: '*Certain conditions apply. See details on manufacturer rebate.'
+        }, {
+            primaryLogo: 'https://www.bmwlaval.com/wp-content/uploads/sites/27/2020/09/14_logo_v_yokohama.png',
+            rebateIntro: 'With the purchase or lease of a new vehicle, get up to',
+            rebateValue: '$100',
+            rebateOffer: 'mail-in rebate',
+            rebateCondition: 'with the purchase of 4 eligible new Yokohama winter tires.',
+            rebateStart: new Date("June 15, 2020 08:00:00"),
+            rebateEnd: new Date("December 31, 2020 20:00:00"),
+            rebateDisclaimer: '*Certain conditions apply. See details on manufacturer rebate.'
+        }, {
+            primaryLogo: 'https://www.bmwlaval.com/wp-content/uploads/sites/27/2020/09/14_logo_v_yokohama.png',
+            rebateIntro: 'Get up to ',
+            rebateValue: '$100',
+            rebateOffer: 'mail-in rebate',
+            rebateCondition: 'with the purchase of 4 eligible new Yokohama tires. *Yokohama Prepaid Visa card.',
+            rebateStart: new Date("September 15, 2020 08:00:00"),
+            rebateEnd: new Date("December 15, 2020 20:00:00"),
+            rebateDisclaimer: '*Certain conditions apply. See details on manufacturer rebate.'
+        }, {
+            primaryLogo: 'https://www.bmwlaval.com/wp-content/uploads/sites/27/2020/09/16_logo_v_bridgestone.png',
+            rebateIntro: 'Get up to ',
+            rebateValue: '$100',
+            rebateOffer: 'mail-in rebate',
+            rebateCondition: 'with the purchase of 4 eligible new Bridgestone tires. *Bridgestone Prepaid Visa card.',
+            rebateStart: new Date("October 5, 2020 08:00:00"),
+            rebateEnd: new Date("December 13, 2020 20:00:00"),
+            rebateDisclaimer: '*Certain conditions apply. See details on manufacturer rebate.'
+        }, {
+            primaryLogo: 'https://www.bmwlaval.com/wp-content/uploads/sites/27/2020/09/27_logo_v_logo_continental.png',
+            rebateIntro: 'Get up to ',
+            rebateValue: '$100',
+            rebateOffer: 'mail-in rebate',
+            rebateCondition: 'with the purchase of 4 eligible new Continental tires. *Continental Prepaid Visa card.',
+            rebateStart: new Date("October 1, 2020 08:00:00"),
+            rebateEnd: new Date("December 1, 2020 20:00:00"),
+            rebateDisclaimer: '*Certain conditions apply. See details on manufacturer rebate.'
+        }, {
+            primaryLogo: 'https://www.bmwlaval.com/wp-content/uploads/sites/27/2020/09/26_logo_v_logo_general.png',
+            rebateIntro: 'Get a ',
+            rebateValue: '$35',
+            rebateOffer: 'mail-in rebate',
+            rebateCondition: 'with the purchase of 4 eligible new General tires. *General Prepaid Visa card.',
+            rebateStart: new Date("October 1, 2020 08:00:00"),
+            rebateEnd: new Date("December 1, 2020 20:00:00"),
+            rebateDisclaimer: '*Certain conditions apply. See details on manufacturer rebate.'
+        }, {
+            primaryLogo: 'https://www.bmwlaval.com/wp-content/uploads/sites/27/2020/09/21_logo_v_hankook.png',
+            rebateIntro: 'Get a ',
+            rebateValue: '$100',
+            rebateOffer: 'mail-in rebate',
+            rebateCondition: 'with the purchase of 4 eligible new Hankook tires.',
+            rebateStart: new Date("October 19, 2020 08:00:00"),
+            rebateEnd: new Date("November 27, 2020 20:00:00"),
+            rebateDisclaimer: '*Certain conditions apply. See details on manufacturer rebate.'
+        }, {
+            primaryLogo: 'https://www.bmwlaval.com/wp-content/uploads/sites/27/2020/09/23_logo_v_goodyear.png',
+            rebateIntro: 'Get up to ',
+            rebateValue: '$100',
+            rebateOffer: 'mail-in rebate',
+            rebateCondition: 'with the purchase of 4 eligible new Goodyear tires.',
+            rebateStart: new Date("September 14, 2020 08:00:00"),
+            rebateEnd: new Date("December 31, 2020 20:00:00"),
+            rebateDisclaimer: '*Certain conditions apply. See details on manufacturer rebate.'
+        }, {
+            primaryLogo: 'https://www.bmwlaval.com/wp-content/uploads/sites/27/2020/09/29_logo_v_logo-laufenn.png',
+            rebateIntro: 'Get a ',
+            rebateValue: '$40',
+            rebateOffer: 'mail-in rebate',
+            rebateCondition: 'with the purchase of 4 eligible new Laufenn tires.',
+            rebateStart: new Date("October 19, 2020 08:00:00"),
+            rebateEnd: new Date("November 27, 2020 20:00:00"),
+            rebateDisclaimer: '*Certain conditions apply. See details on manufacturer rebate.'
+        }, {
+            primaryLogo: 'https://www.bmwlaval.com/wp-content/uploads/sites/27/2020/09/20_logo_v_toyo.png',
+            rebateIntro: 'Get up to ',
+            rebateValue: '$70',
+            rebateOffer: 'mail-in rebate',
+            rebateCondition: 'with the purchase of 4 eligible new Toyo tires.',
+            rebateStart: new Date("September 19, 2020 08:00:00"),
+            rebateEnd: new Date("December 15, 2020 20:00:00"),
+            rebateDisclaimer: '*Certain conditions apply. See details on manufacturer rebate.'
+        }, {
+            primaryLogo: 'https://www.bmwlaval.com/wp-content/uploads/sites/27/2020/09/60_logo_v_kumho-2020-v2.png',
+            rebateIntro: 'Get up to ',
+            rebateValue: '$80',
+            rebateOffer: 'mail-in rebate',
+            rebateCondition: 'with the purchase of 4 eligible new Kumho tires.',
+            rebateStart: new Date("September 1, 2020 08:00:00"),
+            rebateEnd: new Date("December 30, 2020 20:00:00"),
+            rebateDisclaimer: '*Certain conditions apply. See details on manufacturer rebate.'
+        }, {
+            primaryLogo: 'https://www.bmwlaval.com/wp-content/uploads/sites/27/2020/09/24_logo_v_gtradial.png',
+            rebateIntro: 'Get a ',
+            rebateValue: '$30',
+            rebateOffer: 'mail-in rebate',
+            rebateCondition: 'with the purchase of 4 eligible new GT Radial tires. *Giti Prepaid Visa card.',
+            rebateStart: new Date("October 1, 2020 08:00:00"),
+            rebateEnd: new Date("December 31, 2020 20:00:00"),
+            rebateDisclaimer: '*Certain conditions apply. See details on manufacturer rebate.'
+        }, {
+            primaryLogo: 'https://www.bmwlaval.com/wp-content/uploads/sites/27/2020/09/42_logo_v_nexen-new-logo-.jpg',
+            rebateIntro: 'Get a ',
+            rebateValue: '$40',
+            rebateOffer: 'mail-in rebate',
+            rebateCondition: 'with the purchase of 4 eligible new Nexen tires.',
+            rebateStart: new Date("September 1, 2020 08:00:00"),
+            rebateEnd: new Date("December 6, 2020 20:00:00"),
+            rebateDisclaimer: '*Certain conditions apply. See details on manufacturer rebate.'
+        }, {
+            primaryLogo: 'https://www.bmwlaval.com/wp-content/uploads/sites/27/2020/09/54_logo_v_logo-dunlop_350x200.png',
+            rebateIntro: 'Get up to ',
+            rebateValue: '$75',
+            rebateOffer: 'mail-in rebate',
+            rebateCondition: 'with the purchase of 4 eligible new Dunlop tires.',
+            rebateStart: new Date("September 14, 2020 08:00:00"),
+            rebateEnd: new Date("December 31, 2020 20:00:00"),
+            rebateDisclaimer: '*Certain conditions apply. See details on manufacturer rebate.'
+        }, {
+            primaryLogo: 'https://www.bmwlaval.com/wp-content/uploads/sites/27/2020/09/51_logo_v_firestone.jpg',
+            rebateIntro: 'Get up to ',
+            rebateValue: '$100',
+            rebateOffer: 'mail-in rebate',
+            rebateCondition: 'with the purchase of 4 eligible new Firestone tires. *Firestone Prepaid Visa card.',
+            rebateStart: new Date("August 31, 2020 08:00:00"),
+            rebateEnd: new Date("November 1, 2020 20:00:00"),
+            rebateDisclaimer: '*Certain conditions apply. See details on manufacturer rebate.'
+        }, {
+            primaryLogo: 'https://www.bmwlaval.com/wp-content/uploads/sites/27/2020/09/53_logo_v_pirelli_350x200.png',
+            rebateIntro: 'Get up to ',
+            rebateValue: '$100 or 125 CAA Dollars ',
+            rebateOffer: 'mail-in rebate',
+            rebateCondition: 'with the purchase of 4 eligible new Pirelli tires.',
+            rebateStart: new Date("October 8, 2020 08:00:00"),
+            rebateEnd: new Date("December 15, 2020 20:00:00"),
+            rebateDisclaimer: '*Certain conditions apply. See details on manufacturer rebate.'
+        }, {
+            primaryLogo: 'https://www.bmwlaval.com/wp-content/uploads/sites/27/2020/09/53_logo_v_pirelli_350x200.png',
+            rebateIntro: 'Get ',
+            rebateValue: '25 CAA Dollars',
+            rebateOffer: 'with the purchase of 4 eligible new Pirelli tires.',
+            rebateCondition: 'If the purchase is made outside of the validity period of any other Pirelli promotions, the customer will receive 25 CAA DOLLARS.',
+            rebateStart: new Date("September 1, 2020 08:00:00"),
+            rebateEnd: new Date("September 30, 2030 20:00:00"),
+            rebateDisclaimer: '*Certain conditions apply. See details on manufacturer rebate.'
+        }
+    ]
+    const htmlTemplate = `<div class="row">${tireRebates.map(
+            rebate => rebate.rebateStart < currentDate && currentDate < rebate.rebateEnd ? `<div class="col-xs-12 col-sm-6 col-lg-4"><div class="singleRebate">
+                <img alt="Tire Rebate" src="${rebate.primaryLogo}">
+                <span class="intro">${rebate.rebateIntro}</span>
+                <h6 class="h2 value">${rebate.rebateValue}</h6>
+                <span class="offer">${rebate.rebateOffer}</span>
+                <span class="valid">From ${rebate.rebateCondition}</span>
+                <p class="disclaimer">${rebate.rebateDisclaimer}</p>
+                </div></div>` : '' ).join('')}</div>`;
+    rebatesContainer.innerHTML = htmlTemplate;
+</script>
