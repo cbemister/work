@@ -1,0 +1,63 @@
+<style>
+.disclaimer {
+    display: none;
+}
+.disclaimer.hidden-xxs-up {
+    display: block !important;
+}
+.show-slider__main {
+    display: none;
+}
+@media only screen and (min-width: 768px) {
+  .tns-inner img:nth-child(2) {
+    display: none;
+}
+}
+@media only screen and (max-width: 767px) {
+  .tns-inner img:nth-child(1) {
+    display: none;
+}
+}
+</style>
+<script>
+	// function getImgSrc(t) {
+	// 	let e = jQuery(`.show-slider__main a:nth-of-type(${t}) img`);
+	// 	return jQuery(e).attr("src")
+	// }
+	function showStaticSlide(t) {
+		jQuery(".show-slider__main").first().before(`<img src="${t}" class="dynamic-banner" alt="Campaign Banner">`)
+	}
+	function getParams(t) {
+		var e = {},
+			n = document.createElement("a");
+		n.href = t;
+		for (var o = n.search.substring(1), s = o.split("&"), a = 0; a < s.length; a++) {
+			var r = s[a].split("=");
+			e[r[0]] = decodeURIComponent(r[1])
+		}
+		return e
+	}
+	jQuery(document).ready(function () {
+		const t = ["8 Series,M8", "3 Series", "Z4"],
+			e = [
+				"https://www.bmwlaval.com/wp-content/uploads/sites/27/2020/10/1411139_LAV_M8-DODsBack_VLP_ENG.jpg",
+				"https://www.bmwlaval.com/wp-content/uploads/sites/27/2020/10/1410670_LAV_M340i-DODsBack_VLP_ENG.jpg",
+				"https://www.bmwlaval.com/wp-content/uploads/sites/27/2020/10/1411139_LAV_Z4-DODsBack_VLP_ENG.jpg"
+			],
+			f = [
+				"https://www.bmwlaval.com/wp-content/uploads/sites/27/2020/10/1411139_LAV_M8-DODsBack_MB_ENG.jpg",
+				"https://www.bmwlaval.com/wp-content/uploads/sites/27/2020/10/x1410670_LAV_M340i_DODBack_MB_ENG.jpg",
+				"https://www.bmwlaval.com/wp-content/uploads/sites/27/2020/10/1411139_LAV_Z4-DODsBack_MB_ENG.jpg"
+			],
+			n = t.length - 1;
+		let o;
+		var s = getParams(window.location.href);
+		t.forEach(function (t, a) {
+			if (s.md === t ) return showStaticSlide(e[a]), showStaticSlide(f[a]), o = !0, !1;
+			n !== a || o || jQuery(".show-slider__main").show()
+		})
+	});
+</script>
+[show_slider id="7711" design="2"]
+[show_slider id="9286" design="2"]
+[convertus_tradesii style="black" type="default"]
