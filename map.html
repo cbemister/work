@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>TAdvantage Template</title>
+	<link rel="stylesheet" href="./CSS/TA_main.css">
+</head>
+
+<body>
+
+	<style>
+		.textwidget.custom-html-widget {
+			text-align: center;
+		}
+
+		.map {
+			display: inline-block;
+			margin: 1em auto;
+			position: relative;
+		}
+
+		.map img {
+			max-width: 100%;
+			display: block;
+			z-index: 1;
+		}
+
+		.pin {
+			position: absolute;
+			display: block;
+			width: 7%;
+			height: 7%;
+			background: url('https://autocanadaprod-com.cdn-convertus.com/uploads/sites/84/2021/07/pin.png') no-repeat center center;
+			background-size: contain;
+			/* filter: brightness(1) contrast(1.1); */
+			transition: all .3s ease;
+			z-index: 999;
+		}
+
+		.pin:hover {
+			cursor: pointer;
+			transform: scale(1.05);
+		}
+
+		.kelowna {
+			bottom: 24%;
+			left: 10%;
+		}
+
+		.calgary {
+			bottom: 23%;
+			left: 18%;
+		}
+
+		.edmonton {
+			bottom: 30%;
+			left: 18%;
+		}
+
+		.saskatoon {
+			bottom: 26%;
+			left: 28%;
+		}
+
+		.winnipeg {
+			bottom: 18%;
+			left: 38%;
+		}
+
+		.ottawa {
+			bottom: 10%;
+			left: 68%;
+		}
+
+		.guelph {
+			bottom: 5%;
+			left: 65%;
+		}
+
+		.tooltip {
+			position: relative;
+			display: block;
+		}
+
+		.tooltip .tooltiptext,
+		.tooltip.hover_effect .tooltiptext {
+			visibility: hidden;
+			width: 193px;
+			max-width: 80vw;
+			height: 60;
+			background-color: #555;
+			color: #fff;
+			text-align: center;
+			border-radius: 6px;
+			padding: 10px;
+			position: absolute;
+			z-index: 100;
+			bottom: 150%;
+			left: 50%;
+			transform: translateX(-50%);
+			opacity: 0;
+			transition: opacity 0.3s;
+		}
+
+		.kelowna .tooltip .tooltiptext,
+		.calgary .tooltip .tooltiptext,
+		.kelowna .edmonton .tooltiptext {
+			transform: translateX(-20%);
+		}
+
+		.tooltip .tooltiptext::after {
+			content: "";
+			position: absolute;
+			top: 100%;
+			left: 50%;
+			margin-left: -5px;
+			border-width: 5px;
+			border-style: solid;
+			border-color: #555 transparent transparent transparent;
+		}
+
+		.kelowna .tooltip .tooltiptext::after,
+		.calgary .tooltip .tooltiptext::after,
+		.edmonton .tooltip .tooltiptext::after {
+			left: 20%;
+		}
+
+		.tooltip:hover .tooltiptext,
+		.tooltip.hover_effect .tooltiptext {
+			visibility: visible;
+			opacity: 1;
+		}
+
+		.tooltip {
+			font-size: smaller;
+			line-height: 25px;
+		}
+
+		.map .phone a:hover {
+			color: #2693ff;
+		}
+
+		.map .buttonList a {
+			margin: 5px 0;
+			font-size: small;
+		}
+
+		span.tooltiptext i {
+			margin-right: 5px;
+		}
+
+		.map .buttonList .button {
+			border-radius: 25px;
+			max-width: 146px;
+			max-height: 50px;
+		}
+	</style>
+	<div class="map">
+		<img src="https://autocanadaprod-com.cdn-convertus.com/uploads/sites/84/2021/07/map.png" alt="">
+		<div class="pin edmonton">
+			<div class="tooltip">&nbsp;
+				<span class="tooltiptext">
+					<h5>RightRide Edmonton</h5>
+					<div class="phone"><i class="fas fa-phone"></i><a href="tel:15877356300">587.735.6300</a></div>
+					<div class="address"><i class="fas fa-map-marker-alt"></i>17452 103 Avenue NW, Edmonton, AB • T5S
+						2C8</div>
+					<div class="buttonList">
+						<a href="https://goo.gl/maps/yy4qKheY4eo9vijd7" class="button">Get Directions</a><br>
+						<a href="/vehicles/used/?view=grid&amp;sc=used&amp;fn=RightRide%20Edmonton" class="button">View
+							Inventory</a>
+					</div>
+				</span>
+			</div>
+		</div>
+		<div class="pin calgary">
+			<div class="tooltip">&nbsp;
+				<span class="tooltiptext">
+					<h5>RightRide Calgary</h5>
+					<div class="phone"><i class="fas fa-phone"></i><a href="tel:18252224488">825.222.4488</a></div>
+					<div class="address"><i class="fas fa-map-marker-alt"></i>7800 Macleoad Trail SE, Calgary, AB • T2H
+						0L9</div>
+					<div class="buttonList">
+						<a href="https://goo.gl/maps/917UERC6DfLSG2wT8" class="button">Get Directions</a><br>
+						<a href="https://www.rightride.com/vehicles/used/?view=grid&amp;sc=used&amp;fn=RightRide%20Calgary"
+							class="button">View Inventory</a>
+					</div>
+				</span>
+			</div>
+		</div>
+		<div class="pin kelowna">
+			<div class="tooltip">&nbsp;
+				<span class="tooltiptext">
+					<h5>RightRide Kelowna</h5>
+					<div class="phone" style="width:100%;"><i class="fas fa-phone"></i><a
+							href="tel:12509802440">250.980.2440</a>
+					</div>
+					<div class="address"><i class="fas fa-map-marker-alt"></i>2690 HWY 97 N, Kelowna, BC • V1X 4J4</div>
+					<div class="buttonList">
+						<a href="https://goo.gl/maps/BnKt17dpZBiqQ2k58" class="button">Get Directions</a><br>
+						<a href="/vehicles/used/?view=grid&amp;sc=used" class="button">View Inventory</a>
+					</div>
+				</span>
+			</div>
+		</div>
+		<div class="pin saskatoon">
+			<div class="tooltip">&nbsp;
+				<span class="tooltiptext">
+					<h5>RightRide Saskatoon</h5>
+					<div class="phone"><i class="fas fa-phone"></i><a href="tel:13062420149">306.242.0149</a></div>
+					<div class="address"><i class="fas fa-map-marker-alt"></i>105 Wakooma Street, Saskatoon, SK • S7R
+						1A8</div>
+					<div class="buttonList">
+						<a href="https://goo.gl/maps/jtwsQse4aKAD4r78A" class="button">Get Directions</a><br>
+						<a href="/vehicles/used/?view=grid&amp;sc=used&amp;fn=RightRide%20Saskatoon" class="button">View
+							Inventory</a>
+					</div>
+				</span>
+			</div>
+		</div>
+		<div class="pin winnipeg">
+			<div class="tooltip">&nbsp;
+				<span class="tooltiptext">
+					<h5>RightRide Winnipeg</h5>
+					<div class="phone"><i class="fas fa-phone"></i><a href="tel:14314890199">431.489.0199</a></div>
+					<div class="address"><i class="fas fa-map-marker-alt"></i>712 Portage Avenue, Winnipeg, MB • R3G 0M6
+					</div>
+					<div class="buttonList">
+						<a href="https://goo.gl/maps/RZdc2dYShcLqcaTY8" class="button">Get Directions</a><br>
+						<a href="/vehicles/used/?view=grid&amp;sc=used&amp;fn=RightRide%20Winnipeg" class="button">View
+							Inventory</a>
+					</div>
+				</span>
+			</div>
+		</div>
+		<div class="pin ottawa">
+			<div class="tooltip">&nbsp;
+				<span class="tooltiptext">
+					<h5>RightRide Ottawa</h5>
+					<div class="phone"><i class="fas fa-phone"></i><a href="tel:16136966425">613.696.6425</a></div>
+					<div class="address"><i class="fas fa-map-marker-alt"></i>1599 Star Top Rd, Gloucester, ON • K1B 5P5
+					</div>
+					<div class="buttonList">
+						<a href="https://goo.gl/maps/fCBJCLVgDRuuLepQ8" class="button">Get Directions</a><br>
+						<a href="/vehicles/used/?view=grid&amp;sc=used" class="button">View Inventory</a>
+					</div>
+				</span>
+			</div>
+		</div>
+		<div class="pin guelph">
+			<div class="tooltip">&nbsp;
+				<span class="tooltiptext">
+					<h5>RightRide Guelph</h5>
+					<div class="phone"><i class="fas fa-phone"></i><a href="tel:12262171600">226.217.1600</a></div>
+					<div class="address"><i class="fas fa-map-marker-alt"></i>Unit C, 450 Michener Road, Guelph, ON •
+						N1K 1E4
+					</div>
+					<div class="buttonList">
+						<a href="https://goo.gl/maps/rNDpLEQyRoMmzCbv6" class="button">Get Directions</a><br>
+						<a href="/vehicles/used/?view=grid&amp;sc=used&amp;fn=RightRide%20Guelph" class="button">View
+							Inventory</a>
+					</div>
+				</span>
+			</div>
+		</div>
+	</div>
+
+	<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> -->
+
+	<script>
+		jQuery(document).ready(function () {
+			jQuery('.pin').on('click touchstart touchend', function (e) {
+				// 			e.preventDefault();
+				jQuery(this).find('.tooltip').toggleClass('hover_effect');
+				jQuery('.pin').not(this).find('.tooltip').removeClass('hover_effect');
+
+			});
+		});
+	</script>
+
+
+</body>
+
+</html>
