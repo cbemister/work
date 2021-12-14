@@ -241,6 +241,6 @@ function createSideBarNotice(selectedHours) {
 
 	});
 
-	// Build Holidy Hours Notice Mark-Up
+	// Build Holiday Hours Notice Mark-Up
 	holidayHoursNotice = '<h4 class="sidebar-title hours--holiday mt-md">Holiday Hours <i aria-hidden="true" class="fas fa-clock"></i></h4>' + holidayHoursOpen + holidayHoursBody.join('') + holidayHoursClose;
 }
