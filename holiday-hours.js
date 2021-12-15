@@ -32,7 +32,7 @@ var holidayHours = {
 			'1/3/2022': {
 				'label': 'January 3rd',
 				'time': 'Closed'
-			},
+			}
 		},
 		'Service': {
 			'12/23/2021': {
@@ -66,7 +66,7 @@ var holidayHours = {
 			'1/3/2022': {
 				'label': 'January 3rd',
 				'time': 'Open'
-			},
+			}
 		},
 		'Parts': {
 			'12/23/2021': {
@@ -100,7 +100,43 @@ var holidayHours = {
 			'1/3/2022': {
 				'label': 'January 3rd',
 				'time': 'Closed'
+			}
+		}
+	},
+	'Parkland Chrysler Dodge Jeep Ram': {
+		'Sales': {
+			'12/23/2021': {
+				'label': 'December 23rd',
+				'time': 'Closed'
 			},
+			'12/24/2021': {
+				'label': 'Christmas Eve',
+				'time': 'Closed'
+			},
+			'12/25/2021': {
+				'label': 'Christmas Day',
+				'time': 'Closed'
+			},
+			'12/26/2021': {
+				'label': 'Boxing Day',
+				'time': 'Closed'
+			},
+			'12/31/2021': {
+				'label': 'New Years Eve',
+				'time': 'Closed'
+			},
+			'1/1/2022': {
+				'label': 'New Years Day',
+				'time': 'Closed'
+			},
+			'1/2/2022': {
+				'label': 'January 2nd',
+				'time': 'Closed'
+			},
+			'1/3/2022': {
+				'label': 'January 3rd',
+				'time': 'Closed'
+			}
 		}
 	}
 };
@@ -147,11 +183,12 @@ var holidayHoursEnabled = currentDate < endDate ? true : false;
 
 jQuery(document).ready(function () {
 
-	// CREATE HOLIDAY NOTICE ON PAGE LOAD
-	createSideBarNotice(currentDepartmentHours);
-	setHeaderFooterText(currentDepartmentHours);
-
 	if (holidayHoursEnabled && currentDepartmentHours) {
+
+		// CREATE HOLIDAY NOTICE ON PAGE LOAD
+		createSideBarNotice(currentDepartmentHours);
+		setHeaderFooterText(currentDepartmentHours);
+
 		// SET HOLIDAY HOURS IN SIDEBAR
 		jQuery('.sidebar__widget.sidebar-hours-of-operation-widget').append('<div id="hours--holiday">' + sidebarNoticeHTML + '</div>');
 
@@ -161,7 +198,7 @@ jQuery(document).ready(function () {
 
 		// SET EVENT LISTENER ON SELECT
 		jQuery('.hours-select').change(function () {
-			currentDepartment = this.options[this.selectedIndex].text // GET DEPARTEMENT LABEL
+			currentDepartment = this.options[this.selectedIndex].text; // GET DEPARTEMENT LABEL
 			currentDepartmentHours = holidayHours[currentDealership][currentDepartment]; // GET DEALERSHIP HOURS
 			noticeBody = []; // RESET CURRENT HOLIDAY HOURS
 			// SET HOLIDAY HOURS BASED ON SELECTION
@@ -175,12 +212,12 @@ jQuery(document).ready(function () {
 
 function setHeaderFooterText(selectedHours) {
 	if (selectedHours[today]) {
-		headerMessageText = selectedHours[today]['time'] === 'Closed' ? 'Closed Today For The Holiday' : selectedHours[today]['time']
+		headerMessageText = selectedHours[today]['time'] === 'Closed' ? 'Closed Today For The Holiday' : selectedHours[today].time;
 
 		footerMessageText = `
 		<tr class="hours__row">
-			<th scope="row" class="hours__day hours__day--en"><strong>${selectedHours[today]['label']}</strong></th>
-			<td class="hours__time">${selectedHours[today]['time']}</td>
+			<th scope="row" class="hours__day hours__day--en"><strong>${selectedHours[today].label}</strong></th>
+			<td class="hours__time">${selectedHours[today].time}</td>
 		</tr>`;
 		// SET HOLIDAY HOURS IN HEADER
 		jQuery('.header-popout label.header-popout__label').text(headerMessageText);
@@ -197,9 +234,9 @@ function createSideBarNotice(selectedHours) {
 		if (currentDate <= currentHours && (currentDate <= endDate)) {
 			noticeBody.push(`
 			<tr class="hours__row">
-				<th scope="row" class="hours__day hours__day--en"><strong>${selectedHours[key]['label']}</strong></th>
-				<td class="hours__time">${selectedHours[key]['time']}</td>
-			</tr>`)
+				<th scope="row" class="hours__day hours__day--en"><strong>${selectedHours[key].label}</strong></th>
+				<td class="hours__time">${selectedHours[key].time}</td>
+			</tr>`);
 			//console.log(`${key}: ${selectedHours[key]['label']}`);
 		}
 
