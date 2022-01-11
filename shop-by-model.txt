@@ -1,0 +1,14 @@
+// INSTALL IN CSS CUSTOMIZER
+@import url('https://fca1.wpengine.com/wp-content/uploads/custom-css-js/shop-by-model.css?version=1');
+
+
+// INSTALL IN JS CUSTOMIZER
+jQuery.getScript("https://fca1.wpengine.com/wp-content/uploads/custom-css-js/shop-by-model.js");
+
+jQuery('ul.navigation.navigation--light').on("click", function (event) {
+	var clickText = event.target.innerText;
+
+	if (clickText === 'New' && navFragmentContent) {
+		jQuery('li.node-tree').html(navFragmentContent);
+	}
+});
