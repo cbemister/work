@@ -1,0 +1,148 @@
+#custom-fragment-models {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.mega-menu .mega-menu__links-list .tree__list .node-tree .model-container a {
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+    padding: 2px 0 2px 15px;
+}
+
+.mega-menu .mega-menu__links-list .tree__list .node-tree .model-container a:hover {
+    background: #bd1f1b;
+    transition: all .5s;
+    color: white;
+    border-radius: 5px;
+}
+
+.mega-menu .mega-menu__links-list .tree__list .node-tree .model-container a p {
+	font-size: small;
+}
+
+.mega-menu .mega-menu__links-list .tree__list .node-tree .model-container a:before {
+	content: '';
+	width: 64px;
+	height: 44px;
+	display: inline-flex;
+	margin: 0 10px 0 0;
+	padding-bottom: 20px;
+}
+
+.mega-menu .mega-menu__links-list .tree__list .node-tree .model-container a.chrysler:before {
+	background: transparent url(https://vehicle-sprites.dealerinspire.com/cdn/chrysler-menu-sprite.png) no-repeat;
+	background-size: 150px auto;
+}
+
+/* SET X BACKGROUND POSITION TO -65PX TO SHOW LABEL */
+
+.mega-menu .mega-menu__links-list .tree__list .node-tree .model-container a.pacifica:before {
+	background-position: 0px -120px;
+}
+
+.mega-menu .mega-menu__links-list .tree__list .node-tree .model-container a.dodge:before {
+	background: transparent url(https://vehicle-sprites.dealerinspire.com/cdn/dodge-menu-sprite.png) no-repeat;
+	background-size: 150px auto;
+}
+
+.mega-menu .mega-menu__links-list .tree__list .node-tree .model-container a.challenger:before {
+	background-position: 0px 0px;
+}
+
+.mega-menu .mega-menu__links-list .tree__list .node-tree .model-container a.charger:before {
+	background-position: 0px -40px;
+}
+
+.mega-menu .mega-menu__links-list .tree__list .node-tree .model-container a.durango:before {
+	background-position: 0px -80px;
+}
+
+.mega-menu .mega-menu__links-list .tree__list .node-tree .model-container a.journey:before {
+	background-position: 0px -200px;
+}
+
+.mega-menu .mega-menu__links-list .tree__list .node-tree .model-container a.jeep:before {
+	background: transparent url(https://vehicle-sprites.dealerinspire.com/cdn/jeep-menu-sprite.png) no-repeat;
+	background-size: 150px auto;
+}
+
+.mega-menu .mega-menu__links-list .tree__list .node-tree .model-container a.cherokee:before {
+	background-position: 0px -40px;
+}
+
+.mega-menu .mega-menu__links-list .tree__list .node-tree .model-container a.grand-cherokee:before {
+	background-position: 0px -200px;
+}
+
+.mega-menu .mega-menu__links-list .tree__list .node-tree .model-container a.grand-cherokee-l:before {
+	background-position: 0px -480px;
+}
+
+
+.mega-menu .mega-menu__links-list .tree__list .node-tree .model-container a.compass:before {
+	background-position: 0px 0px;
+}
+
+.mega-menu .mega-menu__links-list .tree__list .node-tree .model-container a.renegade:before {
+	background-position: 0px -240px;
+}
+
+.mega-menu .mega-menu__links-list .tree__list .node-tree .model-container a.wagoneer:before {
+	background-position: 0px -400px;
+}
+
+.mega-menu .mega-menu__links-list .tree__list .node-tree .model-container a.grand-wagoneer:before {
+	background-position: 0px -520px;
+}
+
+.mega-menu .mega-menu__links-list .tree__list .node-tree .model-container a.gladiator:before {
+	background-position: 0px -280px;
+}
+
+.mega-menu .mega-menu__links-list .tree__list .node-tree .model-container a.wrangler:before {
+	background-position: 0px -120px;
+}
+
+.mega-menu .mega-menu__links-list .tree__list .node-tree .model-container a.ram:before {
+	background: transparent url(https://vehicle-sprites.dealerinspire.com/cdn/ram-menu-sprite.png) no-repeat;
+	background-size: 150px auto;
+}
+
+.mega-menu .mega-menu__links-list .tree__list .node-tree .model-container a.ram-1500:before {
+	background-position: 0px -120px;
+}
+
+.mega-menu .mega-menu__links-list .tree__list .node-tree .model-container a.ram-1500-classic:before {
+	background-position: 0px -600px;
+}
+
+.mega-menu .mega-menu__links-list .tree__list .node-tree .model-container a.ram-2500:before {
+	background-position: 0px -160px;
+}
+
+.mega-menu .mega-menu__links-list .tree__list .node-tree .model-container a.ram-3500:before {
+	background-position: 0px -200px;
+}
+
+/* Align Items */
+.mega-menu .mega-menu__links-list .tree__list .node-tree ul.model-links {
+	height: 384px;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+}
+
+.mega-menu .mega-menu__links-list .tree__list .node-tree li.menu-spacer {
+	height: 36.8px;
+}
+
+.mega-menu .mega-menu__links-list .tree__list .node-tree li.column-end {
+	flex-basis: 50%;
+}
+
+.mega-menu .mega-menu__links-list .tree__list .node-tree li {
+	width: 186px;
+}
