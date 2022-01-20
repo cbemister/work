@@ -1,0 +1,15 @@
+[honeypot email-pot class:cf7-honeypot validautocomplete:true]
+[honeypot name-pot class:cf7-honeypot validautocomplete:true]
+ <input cf-questions="Hi friend. Ready to signup for our demo newsletter?" cf-label="Yes, let's begin!" type="radio" value="0"> Start 
+<input cf-questions="What's your gender?" type="radio" name="gender" value="female" cf-label="female">
+ <input type="radio" name="gender" value="male" cf-label="male">
+ <input type="radio" name="gender" value="other" cf-label="other">
+ <input type="text" name="FNAME" cf-questions="What is your firstname?" required>
+ <input type="text" name="LNAME" cf-questions="What is your lastname?" required>
+ <input type="email" name="EMAIL" cf-questions="What is your email?" required>
+<fieldset cf-questions="Would you like to submit?"">
+	<input type="radio" name="cfc-intro" id="intro-yes" value="yes">
+	<label for="intro-yes">Yes
+</fieldset>
+<!--this input tag shows only if radio button with value yes was clicked-->
+<input type="submit" cf-conditional-cfc-intro="yes" class="wpcf7-form-control wpcf7-submit button button--centered">
