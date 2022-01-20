@@ -1,0 +1,49 @@
+<style>
+.conversational-form { 
+  visibility: hidden;
+} 
+#cf-context { 
+  width: 50vw; 
+  height: 50vh; 
+  margin: 0 auto; 
+} 
+@media (max-width: 768px) {
+#cf-context { 
+  width: 100%; 
+} 
+}
+.conversational-form--show {
+    border: 1px solid #2f2f2f;
+    border-radius: 13px;
+}
+cf-input {
+    padding: 3rem;
+}
+cf-input input[type=email] {
+    box-shadow: none;
+    border-radius: 3px;
+    background-color: #1c1c1e;
+    color: #fff;
+}
+</style>
+[custom_form title="Conversational Form"]
+<div id="cf-context" role="cf-context" cf-context></div>
+<script src="https://cdn.jsdelivr.net/gh/space10-community/conversational-form@latest/dist/conversational-form.min.js"></script>
+<script id="rendered-js">
+ window.onload = function () {
+  var conversationalForm = window.cf.ConversationalForm.startTheConversation({
+   formEl: document.querySelector(".conversational-form"),
+   theme: "dark",
+   showProgressBar: true,
+   context: document.getElementById("cf-context"),
+   submitCallback: function () {
+    var formData = conversationalForm.getFormData();
+    var formDataSerialized = conversationalForm.getFormData(true);
+    console.log("Formdata:", formData);
+    console.log("Formdata, serialized:", formDataSerialized);
+    conversationalForm.addRobotChatResponse("Alright, you are done.");
+    document.querySelector('.conversational-form .wpcf7-submit').click();
+   }
+  });
+ };
+</script>
