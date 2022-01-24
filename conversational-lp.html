@@ -1,39 +1,238 @@
+<link rel="stylesheet" href="https://fca1.wpengine.com/wp-content/uploads/custom-css-js/lp-template-1c.css">
 <style>
-.conversational-form { 
+ .dynamic-source-conversational-form {
   visibility: hidden;
-} 
-#cf-context { 
-  width: 50vw; 
-  height: 50vh; 
-  margin: 0 auto; 
-} 
-@media (max-width: 768px) {
-#cf-context { 
-  width: 100%; 
-} 
-}
-.conversational-form--show {
-    border: 1px solid #2f2f2f;
-    border-radius: 13px;
-}
-cf-input {
-    padding: 3rem;
-}
-cf-input input[type=email] {
-    box-shadow: none;
-    border-radius: 3px;
-    background-color: #1c1c1e;
-    color: #fff;
-}
+ }
+ #conversational-form textarea:empty {
+ display: none;
+ } 
+ .dynamic-source-conversational-form .conversational-form-inner {
+  background: #eee;
+ }
+ .dynamic-source-conversational-form .cf-progressBar .bar {
+  background-color: #f48322;
+ }
+ .dynamic-source-conversational-form input::placeholder {
+    color: #lightgray;
+ }
+ #cf-context {
+  height: 50vh;
+  margin: 0 auto;
+ }
+ .conversational-form--show {
+  box-shadow: 0 1px 4px rgb(0 0 0 / 40%);
+  -webkit-box-shadow: 0 1px 4px rgb(0 0 0 / 40%);
+ }
+ cf-input {
+  padding: 3rem;
+  background: transparent;
+ }
+ cf-input input[type=email] {
+  box-shadow: none;
+  border-radius: 3px;
+  background-color: #1c1c1e;
+  color: #fff;
+ }
+ #coupon-modal.modal--active .form {
+  display: initial;
+ }
+ /* Content Section  */
+ .contentContain {
+  padding: 6.4rem calc(50% - 55rem)
+ }
+ .heroLine {
+  background-color: rgb(245 131 33);
+  height: 4px;
+  width: 100px;
+  border-radius: 4px;
+  margin-left: 25px
+ }
+ .sectionHeader {
+  padding-bottom: 50px
+ }
+ .sectionHeader .heroLine {
+  margin: auto;
+  margin-bottom: 10px
+ }
+ .infoSection .infoIcon {
+  width: 100px;
+  margin: 0 auto;
+  padding-bottom: 3rem
+ }
+ .infoSection h2,
+ .sectionHeader h2 {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 5rem
+ }
+ .infoSection h4,
+ .sectionHeader h4 {
+  text-align: center;
+  font-weight: 200;
+  color: #777
+ }
+ .infoSection .blockInfo h3 {
+  text-align: center;
+  padding: 5px 0;
+  text-transform: uppercase;
+  font-size: 2rem;
+  letter-spacing: .2rem
+ }
+ .infoSection .blockInfo p {
+  text-align: center;
+  color: #777
+ }
+ .infoSection .blockInfo:last-of-type h3 {
+  padding-top: 0
+ }
+ /* Form Section*/
+ section.form {
+  padding: 10rem 20rem 0;
+ }
+ /* LP Template Overides */
+ .small .modal-content {
+  overflow: hidden;
+  width: 100%;
+ }
+ .small .modal-content {
+  background: linear-gradient(to left, #dedede, #f48321);
+  justify-content: center;
+ }
+ .cta {
+  background: #f58321;
+ }
+ .cta h3 {
+  color: #fff;
+ }
+ .button {
+  background: #000;
+ }
+ .button:hover {
+  background: #464646;
+ }
+ /* Embedded Contact Form */
+ #embedded-form h3 {
+  margin-bottom: -3rem;
+ }
+ .dynamic-source-vehicle-trade fieldset {
+  border-color: #f58321;
+  padding: 2rem;
+  background: #eee;
+ }
+ .dynamic-source-vehicle-trade fieldset.contact,
+ .dynamic-source-vehicle-trade fieldset.vehicle {
+  display: flex;
+  flex-flow: wrap;
+ }
+ .dynamic-source-vehicle-trade fieldset.vehicle {
+  margin-top: 3rem
+ }
+ .dynamic-source-vehicle-trade legend {
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+ }
+ .dynamic-source-vehicle-trade .wpcf7-list-item-label {
+  margin-top: 2rem;
+ }
+ @media screen and (max-width:768px) {
+  .blockInfo {
+   margin-bottom: 50px
+  }
+  figure.default {
+   background-color: #f48321;
+  }
+  #cf-context {
+   height: 45vh;
+  }
+  section.form {
+   padding: 2rem 4rem;
+  }
+ }
 </style>
-[custom_form title="Conversational Form"]
-<div id="cf-context" role="cf-context" cf-context></div>
+<div class="container">
+ <section class="hero">
+  <div class="row">
+   <a href="#embedded-form" title="Get Started Now">
+       <picture>
+    <source media="(max-width:960px)" srcset="https://autocanadaprod-com.cdn-convertus.com/uploads/sites/10/2022/01/1892657_DOM_DontSettleForLess_Feb2022_1920x520_MB.jpg" alt="Don't Settle For Less">
+    <source media="(min-width:961px)" srcset="https://autocanadaprod-com.cdn-convertus.com/uploads/sites/10/2022/01/1892657_DOM_DontSettleForLess_Feb2022_1920x520_WB.jpg" alt="Don't Settle For Less">
+    <img src="https://autocanadaprod-com.cdn-convertus.com/uploads/sites/10/2022/01/1892657_DOM_DontSettleForLess_Feb2022_1920x520_WB.jpg" alt="Don't Settle For Less">
+   </picture>
+   </a>
+  </div>
+ </section>
+ <section class="content">
+  <div class="row center-row contentContain pb-xl pt-lg">
+   <div class="col-lg-9">
+    <div class="row center-row infoSection">
+     <div class="col-lg-12">
+      <div id="wtd" class="sectionHeader">
+       <h2>What To Do</h2>
+       <div class="heroLine"></div>
+       <h4>Follow a few easy steps to get your cash.</h4>
+      </div>
+     </div>
+     <div class="col-lg-4 col-xs-12 blockInfo">
+      <div class="infoIcon"><img src="https://autocanadaprod-com.cdn-convertus.com/uploads/sites/10/2022/01/OrangeTextIcon.png" alt="Get an Offer"></div>
+      <h3>Get an Offer</h3>
+      <p>Tell us about your vehicle by filling out the form below or by using our digital assistant.</p>
+     </div>
+     <div class="col-lg-4 col-xs-12 blockInfo">
+      <div class="infoIcon"><img src="https://autocanadaprod-com.cdn-convertus.com/uploads/sites/10/2022/01/OrangeMoney.png" alt="Trade Or Sell Icon"></div>
+      <h3>Sell or Trade</h3>
+      <p>Bring your vehicle down to the dealership. You can choose to either just sell it to us or to trade-in.</p>
+     </div>
+     <div class="col-lg-4 col-xs-12 blockInfo">
+      <div class="infoIcon"><img src="https://autocanadaprod-com.cdn-convertus.com/uploads/sites/10/2022/01/OrangeWallet.png" alt="Get Paid Icon"></div>
+      <h3>Get Paid</h3>
+      <p>After a vehicle inspection, you walk away with your money or drive away in your new vehicle.</p>
+     </div>
+    </div>
+   </div>
+  </div>
+ </section>
+ <section class="cta">
+  <div class="wrapper">
+   <h3>Don't Like Filling Out a Web Form?</h3><a class="button modal-trigger" data-target="coupon-modal">Try Our Digital Assistant!</a>
+  </div>
+  <div class="modal small" id="coupon-modal">
+   <div class="modal-content">
+    <div class="offer-container">
+     <picture>
+      <source media="(max-width:960px)" srcset="https://autocanadaprod-com.cdn-convertus.com/uploads/sites/10/2022/01/1892657_DOM_DontSettleForLess_Feb2022_1920x520_MB.jpg" alt="Don't Settle For Less">
+      <source media="(min-width:961px)" srcset="https://autocanadaprod-com.cdn-convertus.com/uploads/sites/10/2022/01/1892657_DOM_DontSettleForLess_Feb2022_FB-IG.jpg" alt="Don't Settle For Less">
+      <img src="https://autocanadaprod-com.cdn-convertus.com/uploads/sites/10/2022/01/1892657_DOM_DontSettleForLess_Feb2022_1920x520_MB.jpg" alt="Don't Settle For Less">
+     </picture>
+    </div>
+    <div class="form"> [custom_form title="Dynamic Source - Conversational Form" is_vdp="Dont-Settle-For-Less"] <div id="cf-context" role="cf-context" cf-context>
+     </div>
+    </div>
+   </div>
+ </section>
+ <section class="form" id="embedded-form">
+  <div class="wrapper">
+   <h3>Get Started Now!</h3>[custom_form title="Dynamic Source - Vehicle Trade" is_vdp="Dont-Settle-For-Less"]
+  </div>
+ </section>
+ <section class="disclaimer">
+  <div class="disclaimer">
+   <details>
+    <summary>Disclaimer</summary>
+    <p>DISCLAIMER</p>
+   </details>
+  </div>
+ </section>
+</div>
+<script>
+ //jQuery('[name="preferred-vehicle"]').val('Tuscadero Pink Jeep Wrangler');
+ jQuery('.cta .wpcf7-submit').val('Get Started!');
+</script>
+<script src="https://fca1.wpengine.com/wp-content/uploads/custom-css-js/launch-modal.js?version=1a"></script>
 <script src="https://cdn.jsdelivr.net/gh/space10-community/conversational-form@latest/dist/conversational-form.min.js"></script>
 <script id="rendered-js">
  window.onload = function () {
   var conversationalForm = window.cf.ConversationalForm.startTheConversation({
-   formEl: document.querySelector(".conversational-form"),
-   theme: "dark",
+   formEl: document.querySelector(".dynamic-source-conversational-form"),
    showProgressBar: true,
    context: document.getElementById("cf-context"),
    submitCallback: function () {
@@ -41,9 +240,10 @@ cf-input input[type=email] {
     var formDataSerialized = conversationalForm.getFormData(true);
     console.log("Formdata:", formData);
     console.log("Formdata, serialized:", formDataSerialized);
-    conversationalForm.addRobotChatResponse("Alright, you are done.");
-    document.querySelector('.conversational-form .wpcf7-submit').click();
+    conversationalForm.addRobotChatResponse("Thank you for submitting your vehicle information. Someone from are team will get back to you soon.");
+    document.querySelector('.dynamic-source-conversational-form .wpcf7-submit').click();
    }
   });
+  jQuery('#coupon-modal .form, .dynamic-source-conversational-form .wpcf7-form__wrapper').addClass('hide');
  };
 </script>
