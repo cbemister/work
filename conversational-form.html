@@ -1,15 +1,36 @@
 [honeypot email-pot class:cf7-honeypot validautocomplete:true]
 [honeypot name-pot class:cf7-honeypot validautocomplete:true]
- <input cf-questions="Hi friend. Ready to signup for our demo newsletter?" cf-label="Yes, let's begin!" type="radio" value="0"> Start 
-<input cf-questions="What's your gender?" type="radio" name="gender" value="female" cf-label="female">
- <input type="radio" name="gender" value="male" cf-label="male">
- <input type="radio" name="gender" value="other" cf-label="other">
- <input type="text" name="FNAME" cf-questions="What is your firstname?" required>
- <input type="text" name="LNAME" cf-questions="What is your lastname?" required>
- <input type="email" name="EMAIL" cf-questions="What is your email?" required>
-<fieldset cf-questions="Would you like to submit?"">
-	<input type="radio" name="cfc-intro" id="intro-yes" value="yes">
-	<label for="intro-yes">Yes
+<input cf-questions="Hi there, would you like to receive an above market value offer to sell your vehicle?" cf-label="Yes, let's begin!" type="radio" value="0"> Start 
+<cf-robot-message cf-questions="Great! Let's get started by telling me about your vehicle." />
+<input type="text" name="vehicle-year" cf-questions="What year is the vehicle?" cf-input-placeholder="2016" minlength="2" maxlength="4" required>
+<input type="text" name="vehicle-make" cf-questions="What is the make?" cf-input-placeholder="Dodge" required>
+<input type="text" name="vehicle-model" cf-questions="What is the model?" cf-input-placeholder="Charger" required>
+<input type="text" name="vehicle-trim" cf-questions="What is the trim level?" cf-input-placeholder="SXT" required>
+<input type="number" name="vehicle-mileage" cf-questions="How many kilometres?" cf-input-placeholder="100000" minlength="4" required>
+<input cf-questions="What condition is your vehicle in?" type="radio" name="vehicle-condition" value="excellent" cf-label="Excellent">
+<input type="radio" name="vehicle-condition" value="good" cf-label="Good">
+<input type="radio" name="vehicle-condition" value="fair" cf-label="Fair">
+<cf-robot-message cf-questions="Great! Now I need to get a few contact details from you and you'll be on your way." />
+<input type="text" name="full-name" cf-questions="What is your full name?" cf-input-placeholder="Jane Doe" required>
+<input type="email" name="email" cf-questions="What is your email?" cf-input-placeholder="janedoe@gmail.com" required>
+
+<fieldset cf-questions="Would you like to provide your phone number?">
+ <input type="radio" name="cfc-phone" id="phone-yes" value="yes" cf-label="Yes">
+ <input type="radio" name="cfc-phone"phone id="phone-no" value="no" cf-label="No">
+</fieldset>
+
+ <!--this input tag shows only if radio button with value yes was clicked-->
+<input type="tel" name="phone" cf-conditional-cfc-phone="yes" cf-questions="Okay. Great! Please enter your phone number." cf-input-placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"> 
+ <!--this input tag shows only if radio button with value no was clicked-->
+<cf-robot-message cf-conditional-cfc-phone="no" cf-questions="Okay.  No problem." />
+
+<fieldset cf-questions="Almost done. Would you like to to receive periodical offers, newsletter, safety and recall updates from the dealership? Consent can be withdrawn at any time.">
+<input type="radio" name="communication" id="consent-yes" value="yes" cf-label="yes">
+<input type="radio" name="communication" id="consent-no" value="no" cf-label="no">
+</fieldset>
+<fieldset cf-questions="Would you like to submit?">
+<input type="radio" name="cfc-intro" id="intro-yes" value="yes" cf-label="yes">
 </fieldset>
 <!--this input tag shows only if radio button with value yes was clicked-->
 <input type="submit" cf-conditional-cfc-intro="yes" class="wpcf7-form-control wpcf7-submit button button--centered">
+[hidden is_vdp default:shortcode_attr]
