@@ -1,12 +1,17 @@
 <script>
-// SLIDER DYNAMIC CONTENT - CB
-$('.desktop-slider img[title*="overlay"], .mobile-slider img[title*="overlay"]').each(function(){
-	let overlayTitle = $(this).attr('title').split('|')[1];
-	$(this).before('<div class="banner-overlay"><span class="heading">'+ overlayTitle +'</span></div>');
-	$(this).attr('title', overlayTitle);
-})
-</script>
 
+// SLIDER DYNAMIC CONTENT - CB
+// ADD OVERLAY CONTENT BY ADDING 'overlay|sometextORhtml' TO TITLE FIELD IN SLIDE
+
+$('.desktop-slider img[title*="overlay"], .mobile-slider img[title*="overlay"]').each(function(){
+ let imageTitle = $(this).attr('title').split('|')[0]
+ let overlayTitle = $(this).attr('title').split('|')[1]
+ if (overlayTitle) {
+  $(this).before('<div class="banner-overlay"><span class="heading">'+ overlayTitle +'</span></div>');
+  $(this).attr('title', imageTitle);
+ }
+});
+</script>
 
 <style>
 
