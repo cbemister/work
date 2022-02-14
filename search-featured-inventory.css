@@ -1,0 +1,57 @@
+.search .wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin: 6rem auto 0rem;
+}
+
+#featured-vehicle-search {
+	width: 300px;
+}
+
+#search-results-message {
+    display:none;
+	font-size: 13px;
+    color: var(--color-primary);
+}
+
+// #inventory .g-vehicle-card, #inventory .show-inventory__wrap.bottom-controls {
+//     display: none;
+// }
+
+.search label {
+    margin-right: 10px;
+    font-size: 1.6rem;
+}
+
+.floating-label-group {
+	position: relative;
+
+	.floating-label {
+		font-size: 13px;
+		color: #CCCCCC;
+		position: absolute;
+		pointer-events: none;
+		top: 9px;
+		left: 45px;
+		transition: all 0.1s ease;
+	}
+
+	input:focus ~ .floating-label,
+	input:not(:focus):valid ~ .floating-label {
+		top: -20px;
+		bottom: 0px;
+		left: 45px;
+		font-size: 11px;
+		opacity: 1;
+		color: #404040;
+	}
+}
+
+.search .icon {
+  padding: 10px;
+  background: var(--color-primary);
+  color: white;
+  height: 40px;
+  text-align: center;
+}
