@@ -58,7 +58,7 @@ $(document).ready(function () {
 			const embedVideoHTML = `<iframe width="560" height="315" src="https://www.youtube.com/embed/${youtubeID}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
 
 			function loadYoutubeVideo() {
-				$(this).closest(".vehicle-card").find(".video-player.srp-video-modal").html(embedVideoHTML)
+				$(".video-player.srp-video-modal").html(embedVideoHTML)
 			}
 
 			const observer = new MutationObserver(mCallback);
