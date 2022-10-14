@@ -1,0 +1,101 @@
+<style>
+.col-sm-6 ~ p, .col-md-4 ~ p {
+    display: none;
+}
+.col-sm-6, .col-md-4 {
+    font-size: 16px;
+}
+.singlePart span.left {
+    width: 70%;
+    display: inline-block;
+}
+.singlePart span.right {
+    float: right;
+}
+.singlePart .pricing {
+    display: flex;
+    justify-content: space-between;
+}
+.singlePart {
+background: #ffffff; /* Old browsers */
+background: -moz-linear-gradient(top,  #ffffff 0%, #e5e5e5 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  #ffffff 0%,#e5e5e5 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+    padding: 25px;
+    height: 500px;
+    margin-bottom: 25px;
+}
+.singlePart img {
+    margin: 10px 0;
+    max-height: 254px;
+    min-height: 254px;
+    overflow-y: hidden;
+    width: 100%;
+    object-fit: cover;
+    border: 1px solid var(--primary);
+    margin-bottom: 0;
+}
+.singlePart span {
+    font-size: 16px;
+}
+.pricing {
+    font-size: 18px;
+    font-weight: 800;
+    margin-top: 10px;
+    background: var(--primary);
+    padding: 5px;
+}
+.pricing span:not(.savings) {
+    color: white;
+}
+.savings{color: var(--secondary);}
+h3.h2 {overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display:block; width:100%; min-width:1px; font-size: 26px;}
+h4 {height: 35px;}
+</style>
+<h2>Give our parts department a call at <a href='tel:+1[di_option option="di_phone_parts"]'>1-[di_option option="di_phone_parts"]</a> to inquire about any of the parts listed below.</h2>
+<div id="partsContainer"></div>
+<script>
+const partsContainer = document.getElementById('partsContainer')
+jQuery.getJSON("https://spreadsheets.google.com/feeds/cells/1qDaQAwDo2UBeGE-IF_sAlqu6eRiM9rB5Wb39TOYnYxo/4/public/full?alt=json", function(response){ 
+       let partsList = response.feed.entry;
+    partsList.splice(0,6); // Remove Column Headers
+    let partsDirectory = [];
+    let partIndex = 0;
+    for (let i = 0; i <= partsList.length; i++) {
+        if (Number.isInteger((i + 1) / 6)) {
+           let savings = parseInt(partsList[i-1].content.$t) - parseInt(partsList[i].content.$t)
+            partsDirectory[partIndex] = {
+                    'QUANTITY': partsList[i-5].content.$t,
+                    'PART NUMBER': partsList[i-4].content.$t,
+                    'DESCRIPTION': partsList[i-3].content.$t,
+                    'FITMENT': partsList[i-2].content.$t,
+                    'RETAIL PRICE': partsList[i-1].content.$t,
+                    'BLOWOUT PRICE': partsList[i].content.$t,
+                    'SAVINGS PRICE': savings
+                }
+                partIndex++
+            }
+    }
+    const htmlTemplate = `</p>
+<div class="row"><p>${partsDirectory.map(part => `</p>
+<div class="col-sm-6 col-md-4">
+<div class="singlePart">
+<h3 class="h2" data-toggle="tooltip" title="${part['DESCRIPTION']}">${part['DESCRIPTION']}</h3>
+<p><span class="left">Part #: ${part['PART NUMBER']}</span><span class="right">Qty: ${part['QUANTITY']}</span><img alt="${part['DESCRIPTION']}"src="https://di-uploads-pod25.dealerinspire.com/audiwinnipeg/uploads/2020/08/${part['IMAGE SOURCE']}.jpg" onerror="imgError(this);"></p>
+<div>
+<h4>Notes: ${part['FITMENT'] + ''}</h4>
+<div class="pricing"><span>Was: ${'$' + part['RETAIL PRICE']}</span><span class="savings">Save: ${'$' + part['SAVINGS PRICE']}</span><span class="salePrice">Now: ${'$' + part['BLOWOUT PRICE']}</span></div>
+</div>
+</div>
+</div>
+<p>`)}</div>
+<p>`;
+    partsContainer.innerHTML = htmlTemplate;
+});
+function imgError(image) {
+    image.onerror = "";
+    image.src = "https://di-uploads-pod25.dealerinspire.com/audiwinnipeg/uploads/2020/07/partsCatalogueIcon.jpg";
+    return true;
+}
+</script>
