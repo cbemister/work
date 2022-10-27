@@ -1,0 +1,167 @@
+<style>
+.inventoryCount {
+    font-size: 3vw;
+    font-weight: 600;
+    text-align: center
+}
+
+.inventoryCount span.remaining {
+    font-size: 5vw;
+    padding: 0
+}
+
+.inventoryCount span.remaining>span {
+    padding: 0 8px
+}
+
+.inventoryCount span.remaining>span:first-child {
+    padding-left: 0 !important
+}
+
+.inventoryCount span.remaining>span:last-child {
+    padding-right: 0 !important
+}
+
+.inventoryCount span.remaining>span:not(:last-child) {
+    text-decoration: line-through
+}
+
+.inventoryCount span span:last-child {
+    color: #ff0505
+}
+
+.inventoryCount span.remaining span.truncated {
+    color: #ff0505;
+    padding: 0;
+    text-decoration: none
+}
+
+.invisible {
+    visibility: hidden
+}
+
+#disclaimer {
+    margin-left: 300px;
+    padding: 15px 30px;
+}
+
+@media screen and (max-width: 1699px) {
+    #disclaimer {
+        margin-left: 240px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    #disclaimer {
+        margin-left: 0px;
+    }
+}
+
+@media screen and (max-width: 864px) {
+    .inventoryCount {
+        font-size: 4.2vw;
+        line-height: 5vw;
+        padding: 10px;
+    }
+
+    .inventoryCount span.remaining {
+        font-size: 5vw;
+    }
+
+}
+
+@media screen and (max-width: 767px) {
+    #disclaimer {
+        padding: 15px;
+    }
+}
+</style>
+<img src="#" alt="" width="1400" height="175" id="vlpBanner" class="aligncenter size-full wp-image-6305" />
+<div class="countContainer invisible">
+    <div class="inventoryCount">Only <span class="remaining">#</span><span class="new-line"> Vehicles Remain
+            In-Stock.</span></span></div>
+</div>
+[inventory_lightning type="New" year="2019" model="Golf, Atlas, Jetta, Golf Sportwagen"/]
+<p id="disclaimer"></p>
+<script>
+    const domain = window.location.hostname;
+    const dealerSpecific = {
+        'www.abbotsfordvw.ca': {
+            'banner': 'https://di-uploads-pod14.dealerinspire.com/northlandvolkswagen/uploads/2020/06/1308054_AVW_DealsDecade_VLP.jpg',
+            'startingInventory': '41',
+            'models': 'Jetta, Atlas, Golf, Golf Sportwagen',         
+            'disclaimer': ' VSA31164. Vehicles may not be exactly as shown. Prices and payments are plus taxes. Price and finance terms are based OAC. All dealer rebates, discounts, factory incentives, prices and interest rates are subject to change or end without notice as new retail incentive programs are announced. All incentives and rebates are reflected on advertised vehicles. Advertised payment of $85 weekly + taxes based on a selling price of $24,536 plus taxes over 96 months @ 4.99% applies to stock #GW521535, $0 down payment OAC. Payments on Stk#GN034936 are $79 weekly plus taxes based on price of $22,910 plus taxes and fees at 4.99% over 96 months OAC. Payments on Stk#JN256517 are $75 weekly plus taxes based on price of $21,499 plus taxes and fees at 4.99% over 96 months OAC. $142 a week payments are based on biweekly payments of $284/biweekly on Stk#AN570453 plus taxes and doc fee based on price of $40,870 (taxes + Doc fees included) at 4.99% over 96 months OAC; $0 down. Offers expire June 30th, 2020. PLUS with the purchase of select 2019 VW Golf Sportwagens choose one (1) of the following: (1) Receive two (2) years free gas maximum value of $1,500. Free Gas represents $1,500 prepaid fuel card, based on average driving of 15,000km/year and posted price of $0.75/L. OR, (2) No payments until 2021. No payments until 2021 days means payments are deferred not skipped. Full term of payments is still required to be paid in full to satisfy the terms of the finance contract. Payments would commence January 1, 2021. Interest accrues during the payments free time based on the contractual terms and must be satisfied regardless if full payments are made at any point. OR, $3,000 trade-in cash. All vehicle evaluations are estimates only and vehicles must be physically inspected. Actual condition of vehicle will ultimately determine the actual assessed value. Effective June 1st to June 30th select 2019 VW Models sold in retail will get a free 4-year Prepaid Maintenance contract valued at $1600 consisting of scheduled maintenance at 15,000 km, 30,000 km, 45,000 km, and 60,000 km, and expires 48 months after the original vehicle in-service date or once the vehicle’s mileage exceeds 60,000 km, whichever occurs first. This program is valid at all participating Volkswagen dealers within Canada only. Receive two (2) years free gas with every new in-stock 2019 VW Golf or Jetta models maximum value of $1,200. Free Gas represents $1,200 prepaid fuel card, based on average driving of 15,000km/year and posted price of $0.75/L. See dealer for details. Offers expire June 30th, 2020.'
+        },
+        'www.chilliwackvw.ca': {
+            'banner': 'https://di-uploads-pod14.dealerinspire.com/chilliwackvolkswagen/uploads/2020/06/1305654_CVW_DealsDecade_VLP.jpg',
+            'startingInventory': '28',
+            'models': 'Golf R, Atlas, Golf Sportwagen',            
+            'disclaimer': 'VSA31163. Vehicles may not be exactly as shown. Prices and payments are plus taxes. Price and finance terms are based OAC. All dealer rebates, discounts, factory incentives, prices and interest rates are subject to change or end without notice as new retail incentive programs are announced. All incentives and rebates are reflected on advertised vehicles. Advertised payment of $179.99 bi-weekly + taxes over 84 months @ 4.99% applies to stock #GW513725, $0 down payment OAC. Effective May 1st to May 31st select 2019 VW Models sold in retail will get a free 4-year Prepaid Maintenance contract valued at $1600 consisting of scheduled maintenance at 15,000 km, 30,000 km, 45,000 km, and 60,000 km, and expires 48 months after the original vehicle in-service date or once the vehicle’s mileage exceeds 60,000 km, whichever occurs first. This program is valid at all participating Volkswagen dealers within Canada only. With the purchase of select 2019 VW Golf Sportwagens choose one (1) of the following: (1) Receive two (2) years free gas maximum value of $1,500. Free Gas represents $1,500 prepaid fuel card, based on average driving of 15,000km/year and posted price of $0.75/L. OR, (2) No payments until 2021. No payments until 2021 days means payments are deferred not skipped. Full term of payments is still required to be paid in full to satisfy the terms of the finance contract. Payments would commence January 1, 2021. Interest accrues during the payments free time based on the contractual terms and must be satisfied regardless if full payments are made at any point. OR, 7 Years comprehensive warranty, Warranty included is Volkswagen Genuine Protection Plus Warranty at retail value of $2,975 and coverage period is 120,000km or 84 months, whichever occurs first. For full list of covered repairs/parts and applicable details, please see in-store for detail or full warranty documentation. Advertised discount up to $6000 applies to stock#GR160750. Advertised payment of $270 bi-weekly + taxes applies to stock # GR160750, $3,000 down payment required. Effective June 1st to June 30th all 2019 VW Golf R Models sold in retail will get a free 4-year Prepaid Maintenance contract valued at $1600 consisting of scheduled maintenance at 15,000 km, 30,000 km, 45,000 km, and 60,000 km, and expires 48 months after the original vehicle in-service date or once the vehicle’s mileage exceeds 60,000 km, whichever occurs first. This program is valid at all participating Volkswagen dealers within Canada only. Offers expire June 30th, 2020. See Dealer for details.'
+        },
+        'www.mapleridge-vw.ca': {
+            'banner': 'https://di-uploads-pod14.dealerinspire.com/northlandvolkswagen/uploads/2020/06/1306663_MRV_DealsDecade_VLP.jpg',
+            'startingInventory': '50',
+            'models': 'Jetta, Atlas, Golf, Golf Sportwagen',            
+            'disclaimer': 'VSA30090. Vehicles may not be exactly as shown. Prices and payments are plus taxes. Price and finance terms are based OAC. All dealer rebates, discounts, factory incentives, prices and interest rates are subject to change or end without notice as new retail incentive programs are announced. All incentives and rebates are reflected on advertised vehicles. Advertised payment of $85 weekly + taxes over 96 months @ 4.99% applies to stock #GW521535, $0 down payment OAC. Effective May 1st to May 31st select 2019 VW Models sold in retail will get a free 4-year Prepaid Maintenance contract valued at $1600 consisting of scheduled maintenance at 15,000 km, 30,000 km, 45,000 km, and 60,000 km, and expires 48 months after the original vehicle in-service date or once the vehicle’s mileage exceeds 60,000 km, whichever occurs first. This program is valid at all participating Volkswagen dealers within Canada only. PLUS with the purchase of select 2019 VW Golf Sportwagens choose one (1) of the following: (1) Receive two (2) years free gas maximum value of $1,500. Free Gas represents $1,500 prepaid fuel card, based on average driving of 15,000km/year and posted price of $0.75/L. OR, (2) No payments until 2021. No payments until 2021 days means payments are deferred not skipped. Full term of payments is still required to be paid in full to satisfy the terms of the finance contract. Payments would commence January 1, 2021. Interest accrues during the payments free time based on the contractual terms and must be satisfied regardless if full payments are made at any point. OR, $3,000 trade-in cash. All vehicle evaluations are estimates only and vehicles must be physically inspected. Actual condition of vehicle will ultimately determine the actual assessed value.Payments on Stk#JN021438 are $75 weekly plus taxes based on a price of $21,499 plus taxes and fees @ 4.99% over 96 months OAC; $0 down payment required. Payments on Stk#GN004957 are $79 weekly plus taxes based on price of $22,910 plus taxes and fees at 4.99% over 96 months OAC; $0 down payment required. Effective June 1st to June 30th select 2019 VW Models sold in retail will get a free 4-year Prepaid Maintenance contract valued at $1600 consisting of scheduled maintenance at 15,000 km, 30,000 km, 45,000 km, and 60,000 km, and expires 48 months after the original vehicle in-service date or once the vehicle’s mileage exceeds 60,000 km, whichever occurs first. This program is valid at all participating Volkswagen dealers within Canada only. Receive two (2) years free gas with every new in-stock 2019 VW Golf or Jetta models maximum value of $1,200. Free Gas represents $1,200 prepaid fuel card. Vehicles may not be exactly as shown/Vehicles are for illustrative purposes only. All vehicles were available at time of print. Prices and payments are plus tax. All dealer rebates, discounts, factory incentives, prices, and interest rates are subject to change or end without notice as new retail incentive programs are announced. $126 a week payments are based on biweekly payments of $252/biweekly on Stk#AT515699 plus taxes and doc fee based on price of $44,535.68 (taxes + Doc fees included) at 4.99% over 96 months OAC; COB $10,805 Offers expire June 30th, 2020. See Dealer for details.'
+        },
+        'www.northland-vw.ca': {
+            'banner': 'https://di-uploads-pod14.dealerinspire.com/northlandvolkswagen/uploads/2020/06/1305550_NVW_DealsDecade_VLP.jpg',
+            'startingInventory': '68',
+            'models': 'Atlas, Golf, Golf R, Golf Sportwagen',            
+            'disclaimer': 'AMVIC Licensed. Vehicles may not be exactly as shown. Prices and payments are plus taxes. Price and finance terms are based OAC. All dealer rebates, discounts, factory incentives, prices and interest rates are subject to change or end without notice as new retail incentive programs are announced. All incentives and rebates are reflected on advertised vehicles. Advertised payment of $179.99 bi-weekly + taxes applies to stock #1904500, $0 down payment. With the purchase of select 2019 VW Golf Sportwagen models, receive complimentary extended warranty. Warranty included is Volkswagen Genuine Protection Plus Warranty at retail value of $2,975 and coverage period is 120,000km or 84 months, whichever occurs first. For full list of covered repairs/parts and applicable details, please see in-store for detail or full warranty documentation. Advertised payments of $240 (bi) weekly applies to stock#1911831. $6,000 discount applies to Stk#1606654. Advertised payment of $159.99 bi-weekly + taxes applies to stock # WU1716. Effective June 1st to June 30th all 2019 VW Golf R Models & 2019 VW Golf Comfortline Models sold in retail will get a free 4-year Prepaid Maintenance contract valued at $1600 consisting of scheduled maintenance at 15,000 km, 30,000 km, 45,000 km, and 60,000 km, and expires 48 months after the original vehicle in-service date or once the vehicle’s mileage exceeds 60,000 km, whichever occurs first. Effective May 1st, 2020 until June 1st 2020, any MY2019 sold in retail will get a free 4-year Prepaid Maintenance contract valued at $1600. Plus eligible customers are entitled to one (1) of the following: $6,000 Cash Purchase Rebate applies to all 2019 VW Atlas Models. OR, No payments for 90 days means payments deferred not skipped. Full term payments are still required to be paid in full to satisfy the terms of the finance contract. Payments would commence 90 days after the contract start date. Interest accrues during the payments free time based on the contractual terms and must be satisfied regardless if full payments is made at any point OAC. OR, 0% financing applies to all 2019 VW Atlas Models OAC. See dealer for details. Offers expire June 30th, 2020.'
+        },
+        'www.sherwoodpark-vw.ca': {
+            'banner': 'https://di-uploads-pod14.dealerinspire.com/northlandvolkswagen/uploads/2020/06/1305601_SPV_DealsDecade_VLP.jpg',
+            'startingInventory': '49',
+            'models': 'Golf, Golf R, Atlas, Jetta',            
+            'disclaimer': 'AMVIC Licensed. Vehicles may not be exactly as shown/Vehicles are for illustrative purposes only. All vehicles were available at time of print. Prices and payments are plus tax. All dealer rebates, discounts, factory incentives, prices, and interest rates are subject to change or end without notice as new retail incentive programs are announced. Payments on Stk#19GF3558 are $241.15 (bi) weekly plus taxes based on price of $41,300.25 plus taxes at 4.99% over 96 months OAC; $0 down. $6,000 discount applies to stock #19GF2332. Payments on Stk#9GF7921 are $79.05 weekly plus taxes based on price of $24,180.20 plus taxes at 5.00% over 96 months OAC; $0 down payment required. Payments on Stk#19JE9598 are $76.87 weekly plus taxes based on price of $23,371.13 plus taxes at 5.00% over 96 months OAC; $0 down payment required. Advertised payment offer of $111 a week is based on $222 bi-weekly payment + tax applies to stock# 19AT7119 on a 96 month finance term w/ $0 down @ 4.99% OAC. Effective June 1st- June 3oth select 2019 VW Models sold in retail will get a free 4-year Prepaid Maintenance contract valued at $1600 consisting of scheduled maintenance at 15,000 km, 30,000 km, 45,000 km, and 60,000 km, and expires 48 months after the original vehicle in-service date or once the vehicle’s mileage exceeds 60,000 km, whichever occurs first. This program is valid at all participating Volkswagen dealers within Canada only. Offers expire June 30th, 2020. See Dealer for details.'
+        },
+        'www.gpvolkswagen.ca': {
+            'banner': 'https://di-uploads-pod14.dealerinspire.com/northlandvolkswagen/uploads/2020/06/1304429_GPV_DealsDecade_VLP.jpg',
+            'startingInventory': '35',
+            'models': 'Jetta, Golf, Golf R, Golf Sportwagen',        
+            'disclaimer': 'AMVIC Licensed. Vehicles may not be exactly as shown. Prices and payments are plus taxes. Price and finance terms are based OAC. All dealer rebates, discounts, factory incentives, prices and interest rates are subject to change or end without notice as new retail incentive programs are announced. All incentives and rebates are reflected on advertised vehicles. Payments on Stk#19GN3386 are $135.69 (bi) weekly plus taxes based on price of $23,340 plus taxes at 5.00% over 96 months OAC; $2,000 down payment required. Offer advertised is on a demonstrator vehicle which may have some mileage and only the balance of factory warranty remaining. $5,500 discount applies to Stk#19G2761. Effective May 1st to May 31st select 2019 VW Models sold in retail will get a free 4-year Prepaid Maintenance contract valued at $1600 consisting of scheduled maintenance at 15,000 km, 30,000 km, 45,000 km, and 60,000 km, and expires 48 months after the original vehicle in-service date or once the vehicle’s mileage exceeds 60,000 km, whichever occurs first. This program is valid at all participating Volkswagen dealers within Canada only. PLUS with the purchase of select 2019 VW models, receive complimentary extended warranty. Warranty included is Volkswagen Genuine Protection Plus Warranty at retail value of $2,975 and coverage period is 120,000km or 84 months, whichever occurs first. For full list of covered repairs/parts and applicable details, please see in-store for detail or full warranty documentation. Advertised discount up to $6000 applies to stock#19GR2761. Payments on Stk#19GR4080 are $238 (bi) weekly plus taxes based on price of $39,845 plus taxes at 5.00% over 96 months OAC; $2,000 down payment required. Effective May 1st to May 31st all 2019 VW Golf R Models sold in retail will get a free 4-year Prepaid Maintenance contract valued at $1600 consisting of scheduled maintenance at 15,000 km, 30,000 km, 45,000 km, and 60,000 km, and expires 48 months after the original vehicle in-service date or once the vehicle’s mileage exceeds 60,000 km, whichever occurs first. This program is valid at all participating Volkswagen dealers within Canada only. PLUS Offers expire June 30th, 2020. All vehicles were available at time of print. Prices and payments are plus tax. All dealer rebates, discounts, factory incentives, prices, and interest rates are subject to change or end without notice as new retail incentive programs are announced. Advertised payment offer of $207 bi-weekly + tax applies to stock# 19AT9041 on a 96 month finance term w/ $2,500 down @ 5.99% OAC. See dealer for details. Offers expire June 30th, 2020.'
+        },
+        'www.stjamesvw.ca': {
+            'banner': 'https://di-uploads-pod14.dealerinspire.com/northlandvolkswagen/uploads/2020/06/1302102_SJV_DealsDecade_VLP.jpg',
+            'startingInventory': '38',
+            'models': 'Jetta, Atlas, Golf, Golf Sportwagen',            
+            'disclaimer': 'Dealer #4934. Vehicles may not be exactly as shown. Prices and payments are plus taxes. Price and finance terms are based OAC. All dealer rebates, discounts, factory incentives, prices and interest rates are subject to change or end without notice as new retail incentive programs are announced. All incentives and rebates are reflected on advertised vehicles. Advertised payment of $169 bi-weekly + taxes over 84 months @ 4.99% applies to stock #1945171, $0 down payment OAC. Advertised payment of $159 bi-weekly + taxes over 84 months @ 4.99% applies to stock # 19471171, $0 down payment OAC. Advertised payment of $139 bi-weekly + taxes over 84 months @ 4.99% applies to stock# 19032161, $0 down payment OAC. Advertised payment offer of $220 bi-weekly + tax applies to stock# 19424551 on a 96 month finance term w/ $2,500 down @ 5.99% OAC. Offers expire June 30th, 2020. Effective June 1st to June 30th select 2019 VW Models sold in retail will get a free 4-year Prepaid Maintenancecontract valued at $1600 consisting of scheduled maintenance at 15,000 km, 30,000 km, 45,000 km, and 60,000 km, and expires 48 months after the original vehicle in-service date or once the vehicle’s mileage exceeds 60,000 km, whichever occurs first. This program is valid at all participating Volkswagen dealers within Canada only. PLUS with the purchase of select 2019 VW Golf Sportwagens choose one (1) of the following: (1) Receive two (2) years free gas maximum value of $1,500. Free Gas represents $1,500 prepaid fuel card, based on average driving of 15,000km/year and posted price of $0.75/L. OR, (2) No payments until 2021. No payments until 2021 days means payments are deferred not skipped. Full term of payments is still required to be paid in full to satisfy the terms of the finance contract. Payments would commence January 1, 2021. Interest accrues during the payments free time based on the contractual terms and must be satisfied regardless if full payments are made at any point OR, 7 Years comprehensive warranty, Warranty included is Volkswagen Genuine Protection Plus Warranty at retail value of $2,975 and coverage period is 120,000km or 84 months, whichever occurs first. For full list of covered repairs/parts and applicable details, please see in-store for detail or full warranty documentation. Receive two (2) years free gas with every new in-stock 2019 VW Golf or Jetta models maximum value of $1,500. Free Gas represents $1,500 prepaid fuel card, based on average driving of 15,000km/year and posted price of $0.75/L. Offers expire June 30th, 2020.'
+        }
+    }
+    jQuery(document).ready(function () {
+        //Swap Disclaimer
+        jQuery('#disclaimer').text(dealerSpecific[domain].disclaimer);
+        //Swap Banner
+        if (dealerSpecific[domain].banner) {
+            jQuery('#vlpBanner').attr('src', dealerSpecific[domain].banner);
+        }
+    });
+    jQuery(window).load(function () {
+        const vehicleCount = jQuery('#results-title .stats').text().split(' ')[0];
+        const currentInventory = parseInt(vehicleCount)
+        let soldInventory = dealerSpecific[domain].startingInventory - currentInventory;
+        let countdown = [];
+        let truncated = false;
+        let i;
+        for (i = dealerSpecific[domain].startingInventory; i >= vehicleCount; i--) {
+            if (i > (dealerSpecific[domain].startingInventory - 3) || i < (currentInventory + 3)) {
+                countdown.push('<span>' + i + '</span>');
+            } else {
+                if (!truncated) {
+                    countdown.push('<span class="truncated">...</span>');
+                    truncated = true;
+                }
+            }
+        }
+        let inventoryCountdown = countdown.join('');
+        const remainingInventory = jQuery('.inventoryCount span.remaining');
+        remainingInventory.html(inventoryCountdown);
+        if (jQuery('span.remaining > span').length > 0 && jQuery('span.remaining > span').length < 4 || jQuery('span.remaining > span').length > 4 && truncated ) {
+            jQuery('.countContainer.invisible').removeClass('invisible');
+        }
+        if (truncated) {
+            jQuery('span.new-line').css('display', 'block');
+        }
+    });
+</script>
