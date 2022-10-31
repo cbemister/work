@@ -1,0 +1,62 @@
+<link rel="stylesheet" href="https://fca1.wpengine.com/wp-content/uploads/ac-dev/cbemister/page-templates/landing-page-1.min.css">
+<style>
+ .container {
+  --display-label-prefix: none;
+  --campaign-dark: #000;
+  --campaign-light: #de2227;
+  --cta-button-colour: #121212;
+  --cta-headline-colour: #fff;
+  --cta-headline-max-size: 2.8rem;
+  --cta-headline-min-size: 2rem;
+  --background-dark: #c9c9c9;
+  --background-light: #f7f7f7;
+ }
+</style>
+<div class="container">
+ <section class="hero">
+  <div class="row">
+   <div class="col">
+    <a href="#inventory" title="View inventory">
+     <picture>
+      <source media="(max-width:960px)" srcset="_1920x520_MB" alt="CAMPAIGN_NAME @ [dealership_settings info=general_name]">
+      <source media="(min-width:961px)" srcset="_1920x520_WB" alt="CAMPAIGN_NAME @ [dealership_settings info=general_name]">
+      <img src="_1920x520_WB" alt="CAMPAIGN_NAME @ [dealership_settings info=general_name]">
+     </picture>
+    </a>
+   </div>
+  </div>
+ </section>
+ <section class="cta">
+  <div class="wrapper">
+   <h3>Take advantage of this limited time offer.</h3><a class="button modal-trigger" data-target="coupon-modal">Inquire Now</a>
+  </div>
+  <div class="modal small" id="coupon-modal">
+   <div class="modal-content">
+    <div class="offer-container">
+     <figure>
+      <img src="650x650_WebSpecial" id="coupon-image" alt="CAMPAIGN_NAME @ [dealership_settings info=general_name]">
+      <figcaption></figcaption>
+     </figure>
+    </div>
+    <div class="form">
+     <h3>Find Your Next Vehicle</h3>[custom_form title="Dynamic Source - Pass Vehicle Data" is_vdp="CAMPAIGN-NAME"]
+    </div>
+   </div>
+  </div>
+ </section>
+ <section class="disclaimer">
+  <div class="disclaimer">
+   <details>
+    <summary>Disclaimer</summary>
+    <p>DISCLAIMER</p>
+   </details>
+  </div>
+ </section>
+</div>
+<script src="https://fca1.wpengine.com/wp-content/uploads/ac-dev/cbemister/site-functionality/landing-page/launch-modal.min.js"></script>
+<script>
+ // SET PREFERRED VEHICLE FIELD
+ //jQuery('[name="preferred-vehicle"]').val('Tuscadero Pink Jeep Wrangler');
+ // CHANGE CTA BUTTON TEXT
+ jQuery('.cta .wpcf7-submit').val('Get Started!');
+</script>
