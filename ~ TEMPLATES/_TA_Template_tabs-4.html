@@ -82,30 +82,19 @@
   </div>
  </section>
 </div>
+<script>
+ let leadSource = 'CAMPAIGN-NAME',
+  cardCTA = 'Inquire About This Vehicle',
+  formCTA = 'Inquire Now';
+</script>
 <script src="https://fca1.wpengine.com/wp-content/uploads/ac-dev/cbemister/site-functionality/landing-page/tabbed-inventory.min.js"></script>
 <script src="https://fca1.wpengine.com/wp-content/uploads/ac-dev/cbemister/site-functionality/landing-page/capture-vehicle-data.min.js"></script>
 <script src="https://fca1.wpengine.com/wp-content/uploads/ac-dev/cbemister/site-functionality/landing-page/launch-modal.min.js"></script>
 <script>
  jQuery(document).ready(function () {
-  let leadSource = 'CAMPAIGN_NAME',
-   cardCTA = 'Inquire About This Vehicle',
-   formCTA = 'Inquire Now';
-  // ON PAGE LOAD - LOOP THORUGH VEHICLES TO ADD SECONDARY CTA BUTTON
-  setTimeout(addSecondaryCTAbutton, 500);
   // REMOVE VEHICLE DATA FROM FORM AND RESET MODAL GRAPHIC   
   jQuery('.cta .wrapper .button.modal-trigger').click(function () {
    resetData('Find Your Next Vehicle', '650x650_WebSpecial', 'Get Started', leadSource);
   });
-  // ON TAB CLICK - LOOP THORUGH VEHICLES TO ADD SECONDARY CTA BUTTON 
-  jQuery('.tablist a').click(function () {
-   setTimeout(addSecondaryCTAbutton, 0);
-  });
-
-  function addSecondaryCTAbutton() {
-   let vehicles = document.querySelectorAll('.g-vehicle-card');
-   for (let vehicle of vehicles) {
-    modifyVehicleCard(vehicle, leadSource);
-   }
-  }
  });
 </script>
