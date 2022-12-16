@@ -1,0 +1,102 @@
+<style>
+ .category-heading {
+  height: 100px;
+  margin: 2rem;
+  font-size: large;
+  margin-bottom: 5rem;
+  text-align: center;
+  line-height: 36px;
+ }
+
+ .category-heading::after,
+ .category-heading::before {
+  border-bottom: 2px solid #ebebeb;
+  content: "";
+  display: block;
+  width: 90%;
+  margin: 2rem auto;
+ }
+
+ .category-heading h3 {
+  margin-bottom: 0.5rem;
+ }
+
+ .category-heading input {
+  font-size: 16px;
+  margin-left: 0.5rem;
+  height: 14px;
+ }
+
+ .divider {
+  color: #c4172c;
+  margin: 1rem;
+ }
+
+ .inventory-container {
+  margin-bottom: 7rem;
+ }
+</style>
+<!-- Add 'checked' to input to manually select check box -->
+<div class="category-section">
+ <div class="category-heading">
+  <h3>Demo Vehicles</h3>
+  <u>Demo</u> Value Added to HomeNet in Comment 2: <input type="checkbox" name="homenet-demo" value="HomeNet Demo"> <span class="divider">|</span> Inventory Tagged as <u>Demo</u> in 1Source: <input type="checkbox" class="auto-checkbox" name="1source-demo" value="1Source Demo">
+ </div>
+ <div class="inventory-container"> [show_inventory tag="InventoryTagDemo" carousel="false" sort="asking_price,asc" limit="3"] </div>
+</div>
+<div class="category-section">
+ <div class="category-heading">
+  <h3>As is Vehicles</h3>
+  <u>As is</u> Value Added to HomeNet in Comment 2: <input type="checkbox" name="homenet-demo-as-is" value="HomeNet As is"> <span class="divider">|</span> Inventory Tagged as <u>As is</u> in 1Source: <input type="checkbox" class="auto-checkbox" name="1source-as-is" value="1Source As is">
+ </div>
+ <div class="inventory-container"> [show_inventory tag="InventoryTagAsIs" carousel="false" sort="asking_price,asc" limit="3"] </div>
+</div>
+<div class="category-section">
+ <div class="category-heading">
+  <h3>Sale Vehicles</h3>
+  <u>Sale</u> Value Added to HomeNet in Comment 4: <input type="checkbox" name="homenet-sale" value="HomeNet Sale"> <span class="divider">|</span> Inventory Tagged as <u>Sale</u> in 1Source: <input type="checkbox" class="auto-checkbox" name="1source-sale" value="1Source Sale">
+ </div>
+ <div class="inventory-container"> [show_inventory tag="InventoryTagSale" carousel="false" sort="asking_price,asc" limit="3"] </div>
+</div>
+<div class="category-section">
+ <div class="category-heading">
+  <h3>Electric Vehicles</h3>
+  <u>Electric</u> Value Added to HomeNet in Comment 5: <input type="checkbox" class="manual-checkbox" name="homenet-electric" value="HomeNet Electric"> <span class="divider">|</span> Inventory Tagged as <u>Electric</u> in 1Source: <input type="checkbox" class="auto-checkbox" name="1source-electric" value="1Source Electric">
+ </div>
+ <div class="inventory-container">
+ </div> [show_inventory tag="InventoryTagElectric" carousel="false" sort="asking_price,asc" limit="3"]
+</div>
+<div class="category-section">
+ <div class="category-heading">
+  <h3>Special Vehicles</h3>
+  <u>Special</u> Value Added to HomeNet in Comment 5: <input type="checkbox" class="manual-checkbox" name="homenet-special" value="HomeNet Special"> <span class="divider">|</span> Inventory Tagged as <u>Special</u> in 1Source: <input type="checkbox" class="auto-checkbox" name="1source-special" value="1Source Special">
+ </div>
+ <div class="inventory-container">
+ </div> [show_inventory tag="InventoryTagSpecial" carousel="false" sort="asking_price,asc" limit="3"]
+</div>
+<div class="category-section">
+ <div class="category-heading">
+  <h3>Featured Vehicles</h3>
+  <u>Featured</u> Value Added to HomeNet in Comment 5: <input type="checkbox" class="manual-checkbox" name="homenet-featured" value="HomeNet Featured"> <span class="divider">|</span> Inventory Tagged as <u>Featured</u> in 1Source: <input type="checkbox" class="auto-checkbox" name="1source-featured" value="1Source Featured">
+ </div>
+ <div class="inventory-container">
+ </div> [show_inventory tag="InventoryTagFeatured" carousel="false" sort="asking_price,asc" limit="3"]
+</div>
+<div class="category-section">
+ <div class="category-heading">
+  <h3>Clearance Vehicles</h3>
+  <u>Clearance</u> Value Added to HomeNet in Comment 5: <input type="checkbox" class="manual-checkbox" name="homenet-clearance" value="HomeNet Clearance"> <span class="divider">|</span> Inventory Tagged as <u>Clearance</u> in 1Source: <input type="checkbox" class="auto-checkbox" name="1source-clearance" value="1Source Clearance">
+ </div>
+ <div class="inventory-container">
+ </div> [show_inventory tag="InventoryTagClearance" carousel="false" sort="asking_price,asc" limit="3"]
+</div>
+<script>
+ addEventListener('load', () => {
+  $('.category-section').each(function () {
+   var noResults = $(this).find('.no-results').length ? true : false;
+   if (!noResults) {
+    $(this).find('.auto-checkbox').prop("checked", true);
+   }
+  })
+ })
+</script>

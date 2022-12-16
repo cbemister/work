@@ -1,0 +1,86 @@
+<style>
+	.category-table {
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	.category-section {
+		text-align: center;
+		margin: 0 auto;
+		border: 1px solid #dedede;
+		width: 48%;
+		margin: 1%;
+		background: #f2f2f2;
+	}
+
+	.category-heading {
+		height: 100px;
+		margin: 2rem;
+		margin-bottom: 5rem;
+		text-align: center;
+		line-height: 36px;
+	}
+
+	.category-heading::before {
+		border-bottom: 2px solid #ebebeb;
+		content: "";
+		display: block;
+		width: 90%;
+		margin: 2rem auto;
+	}
+
+	.category-heading h3 {
+		margin-bottom: 0.5rem;
+	}
+
+	.category-heading input {
+		font-size: 16px;
+		margin-left: 0.5rem;
+		height: 14px;
+	}
+
+	.inventory-container {
+		display: none;
+	}
+</style>
+<!-- Add 'checked' to input to manually select check box -->
+<div class="category-table">
+	<div class="category-section">
+		<div class="category-heading">
+			<h3>Demo Vehicles</h3>
+			<u>Demo</u> Added to HomeNet in Comment 2: <input type="checkbox" name="homenet-demo" value="HomeNet Demo"> <br /> Inventory Tagged as <u>Demo</u> in 1Source: <input type="checkbox" class="auto-checkbox" name="1source-demo" value="1Source Demo">
+		</div>
+		<div class="inventory-container"> [show_inventory tag="InventoryTagDemo" carousel="false" sort="asking_price,asc" limit="3"] </div>
+	</div>
+	<div class="category-section">
+		<div class="category-heading">
+			<h3>As is Vehicles</h3>
+			<u>As is</u> Added to HomeNet in Comment 2: <input type="checkbox" name="homenet-demo-as-is" value="HomeNet As is"> <br /> Inventory Tagged as <u>As is</u> in 1Source: <input type="checkbox" class="auto-checkbox" name="1source-as-is" value="1Source As is">
+		</div>
+		<div class="inventory-container"> [show_inventory tag="InventoryTagAsIs" carousel="false" sort="asking_price,asc" limit="3"] </div>
+	</div>
+	<div class="category-section">
+		<div class="category-heading">
+			<h3>Sale Vehicles</h3>
+			<u>Sale</u> Added to HomeNet in Comment 4: <input type="checkbox" name="homenet-sale" value="HomeNet Sale"> <br /> Inventory Tagged as <u>Sale</u> in 1Source: <input type="checkbox" class="auto-checkbox" name="1source-sale" value="1Source Sale">
+		</div>
+		<div class="inventory-container"> [show_inventory tag="InventoryTagSale" carousel="false" sort="asking_price,asc" limit="3"] </div>
+	</div>
+	<div class="category-section">
+		<div class="category-heading">
+			<h3>Electric Vehicles</h3>
+			<u>Electric</u> Added to HomeNet in Comment 5: <input type="checkbox" class="manual-checkbox" name="homenet-electric" value="HomeNet Electric"> <br /> Inventory Tagged as <u>Electric</u> in 1Source: <input type="checkbox" class="auto-checkbox" name="1source-electric" value="1Source Electric">
+		</div>
+		<div class="inventory-container"> [show_inventory tag="InventoryTagElectric" carousel="false" sort="asking_price,asc" limit="3"] </div>
+	</div>
+</div>
+<script>
+	addEventListener('load', () => {
+		$('.category-section').each(function () {
+			var noResults = $(this).find('.no-results').length ? true : false;
+			if (!noResults) {
+				$(this).find('.auto-checkbox').prop("checked", true);
+			}
+		})
+	})
+</script>
