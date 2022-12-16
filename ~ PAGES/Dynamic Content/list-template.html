@@ -1,0 +1,30 @@
+[raw_html]
+<link rel="stylesheet" href="https://fca1.wpengine.com/wp-content/uploads/custom-css-js/sheetson.css">
+<section id="content-container" class="spacer">
+ <div class="row"></div>
+</section>
+<script>
+ let contentContainer = document.querySelector("#content-container div.row");
+ const params = {
+  apiKey: "API_KEY",
+  spreadsheetId: "1dcna5nOACmq_81wZRNvvLRRRKDHe2s0WLfK5b0IvVeo"
+ }
+ const url = new URL("https://api.sheetson.com/v2/sheets/NationalOffers/");
+ Object.keys(params).forEach(key => url.searchParams.append(key, encodeURIComponent(params[key])));
+ fetch(url).then(r => r.json()).then(result => writeHtml(result))
+
+ function writeHtml(data) {
+  const htmlData = data.results.map(rowData => {
+   const {
+    image,
+    url,
+    title,
+    inventory,
+    expiry,
+    disclaimer
+   } = rowData
+   return `<div class="col-xs-6 col-lg-4 promo-vehicle"><a class="details-options__button" href="${'/page-template/?content=' + title}"><img src="${image}" alt="${title}" /><span> View Offer </span></div></a></div>`
+  }).join('')
+  contentContainer.innerHTML = htmlData;
+ }
+</script> [/raw_html]
