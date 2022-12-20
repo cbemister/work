@@ -1,0 +1,51 @@
+[raw_html]
+<link rel="stylesheet" href="#">
+<section id="details-container" class="spacer">
+ <div class="row"></div>
+</section>
+<script>
+ const detailsContainer = document.querySelector("#details-container div.row");
+ const dealershipName = dataLayer[0].dealer.name;
+ const dates = ["2022-12-22", "2022-12-23", "2022-12-24", "2022-12-25", "2022-12-26", "2022-12-27", "2022-12-28", "2022-12-29", "2022-12-30", "2022-12-31", "2023-01-01", "2023-01-02", "2023-01-03", "2023-01-04"]
+ const params = {
+  apiKey: "8P18oJ_YApuB_nVunUvsk0mMNBa4rblTQ3FuYOiMoMpZIxsFJZXNpchTvWsOPw",
+  spreadsheetId: "1dcna5nOACmq_81wZRNvvLRRRKDHe2s0WLfK5b0IvVeo"
+ }
+ const url = new URL("https://api.sheetson.com/v2/sheets/HolidayHours/");
+ Object.keys(params).forEach(key => url.searchParams.append(key, encodeURIComponent(params[key])));
+ //fetch(url).then(r => r.json()).then(result => console.log(result))
+ fetch(url).then(r => r.json()).then(data => generateContent(data, dealershipName))
+
+ function generateContent(data, id) {
+  const rowData = data.results.filter(row => row.dealership === id)
+  let result = writeHtml(rowData)
+  detailsContainer.innerHTML = result;
+ }
+
+ function writeHtml(data) {
+  // dealership department
+  // const {
+  //  image,
+  //  url,
+  //  title,
+  //  inventory,
+  //  expiry,
+  //  disclaimer
+  // } = data[0]
+  // ${data[0]["2022-12-31"]}
+  return `<table class="hours hours--simple">
+            <caption class="seo-hidden">Dealership hours of operation</caption>
+            <tbody>
+
+            </tbody>
+           </table>`
+ }
+ // 👇️ in Local time
+ const date = new Date();
+ const year = date.getFullYear();
+ // 👇️ getMonth returns integer from 0(January) to 11(December)
+ const month = date.getMonth() + 1;
+ const day = date.getDate();
+ const withHyphens = [year, month, day].join('-');
+ console.log(withHyphens); // 👉️ 2022-10-25
+</script> [/raw_html]

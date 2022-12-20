@@ -1,0 +1,44 @@
+[raw_html]
+<link rel="stylesheet" href="#">
+<main></main>
+<section id="details-container" class="spacer">
+ <div class="row"></div>
+</section>
+<script src="https://cdn.rawgit.com/Keyang/node-csvtojson/d41f44aa/browser/csvtojson.min.js"></script>
+<script>
+ const detailsContainer = document.querySelector("#details-container div.row");
+ const dealership = dataLayer[0].dealer.name;
+ const currentDate = new Date();
+ //const url = "https://docs.google.com/spreadsheets/d/1dcna5nOACmq_81wZRNvvLRRRKDHe2s0WLfK5b0IvVeo/export?format=csv?nocache=" + Date.now();
+ const url = "https://docs.google.com/spreadsheets/d/1dcna5nOACmq_81wZRNvvLRRRKDHe2s0WLfK5b0IvVeo/gviz/tq?tqx=out:csv&sheet=Specials";
+ //fetch(url).then(r => r.json()).then(result => console.log(result))
+ //fetch(url).then(r => r.text()).then(data => generateContent(data))
+ fetch(url).then(r => r.text()).then(data => csv().fromString(data)).then(data => generateContent(data));
+ console.log('dealership ', dealership)
+
+ function generateContent(data) {
+  console.log('unfiltered data ', data)
+  // const rowData = data.results.filter(row => row.dealership === dealership && row.type === 'sales' && row.active === 'TRUE')
+  // const rowData = data.results.filter(row => row.dealership === dealership && row.type === 'service' && row.active === 'TRUE')
+  const rowData = data.filter(row => row.dealership === dealership && row.active === 'TRUE')
+  writeHtml(rowData)
+  //writeHtml(data.results)
+ }
+
+ function writeHtml(data) {
+  console.log('filtered data ', data)
+  const htmlData = data.map(rowData => {
+   const {
+    active,
+    dealership,
+    title,
+    description,
+    type,
+    web_special,
+    disclaimer
+   } = rowData
+   return `<div class="col-xs-6 col-lg-4"><h3>${title}</h3><a class="details-options__button" href="${'/page-template/?content=' + title}"><img src="${web_special}" alt="${title}" /><span> ${description} </span></div></a></div>`
+  }).join('')
+  detailsContainer.innerHTML = htmlData;
+ }
+</script> [/raw_html]
