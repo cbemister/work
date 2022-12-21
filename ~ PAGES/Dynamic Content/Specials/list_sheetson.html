@@ -14,10 +14,10 @@
  const url = new URL("https://api.sheetson.com/v2/sheets/Specials/?nocache=" + Date.now());
  Object.keys(params).forEach(key => url.searchParams.append(key, encodeURIComponent(params[key])));
  //fetch(url).then(r => r.json()).then(result => console.log(result))
- fetch(url).then(r => r.json()).then(data => generateContent(data))
+ fetch(url).then(r => r.json()).then(data => filterData(data))
  console.log('dealership ', dealership)
 
- function generateContent(data) {
+ function filterData(data) {
   console.log('unfiltered data ', data)
   // const rowData = data.results.filter(row => row.dealership === dealership && row.type === 'sales' && row.active === 'TRUE')
   // const rowData = data.results.filter(row => row.dealership === dealership && row.type === 'service' && row.active === 'TRUE')
