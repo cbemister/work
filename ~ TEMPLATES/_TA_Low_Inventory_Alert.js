@@ -2,7 +2,7 @@
  emailjs.init("qjcDHhnoIC4bjqlAW");
 })();
 // Set min inventory level for alert
-const minInventoryLevel = 3;
+const minLevel = minInventoryLevel || 3;
 // Select the element you want to monitor
 const targetNode = document.querySelector('#inventory');
 // Create a new MutationObserver object
@@ -12,7 +12,7 @@ const observer = new MutationObserver((mutationsList, observer) => {
   if (mutation.type === 'childList' && mutation.addedNodes && mutation.target.innerText && mutation.target.innerText.includes('Available') && mutation.target.innerText.split(' ')[0] !== '00') {
    //const inventoryCount = mutation.target.innerText.split(' ')[0]
    const inventoryCount = document.querySelector(".show-inventory__wrap .row").childNodes.length
-   if (inventoryCount < minInventoryLevel) {
+   if (inventoryCount < minLevel) {
     sendMail(inventoryCount);
     break;
    }
