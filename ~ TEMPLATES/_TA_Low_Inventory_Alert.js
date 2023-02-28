@@ -1,6 +1,3 @@
-(function () {
- emailjs.init("qjcDHhnoIC4bjqlAW");
-})();
 // Set min inventory level for alert
 const minLevel = minInventoryLevel || 3;
 // Select the element you want to monitor
@@ -13,7 +10,8 @@ const observer = new MutationObserver((mutationsList, observer) => {
    //const inventoryCount = mutation.target.innerText.split(' ')[0]
    const inventoryCount = document.querySelector(".show-inventory__wrap .row").childNodes.length
    if (inventoryCount < minLevel) {
-    sendMail(inventoryCount);
+    //sendMail(inventoryCount);
+    postToGoogleSheet(inventoryCount)
     break;
    }
   }
@@ -37,4 +35,24 @@ function sendMail(inventoryCount) {
  emailjs.send(serviceID, templateID, params).then(res => {
   console.log(res);
  }).catch(err => console.log(err));
+}
+
+function postToGoogleSheet(inventoryCount) {
+ const data = {
+  "date": new Date(),
+  "page": window.location.href,
+  "count": inventoryCount
+ };
+ $.ajax({
+  url: "https://script.google.com/macros/s/AKfycbzuowTgB7cKOBs_taasw7jILKm_JvXjmW25mSQzqErrksoYLmRf3Z7KdeWkrRRGcqDm3w/exec",
+  method: "POST",
+  dataType: "json",
+  data: data,
+  success: function (response) {
+   console.log("Data written successfully to Google Sheet.");
+  },
+  error: function (xhr, status, error) {
+   console.error("Error writing data to Google Sheet:", error);
+  }
+ });
 }
