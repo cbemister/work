@@ -1,0 +1,2 @@
+//ADD LOCK-IN YOUR DEAL CTA
+jQuery('.button-group').prepend('<section class="vdp_button_widget-custom vdp-button-1"><div id="vdp_button_widget-custom" class="vdp-button-widget"><a data-target="vdp-coupon-modal" convertus-data-id="vdp__cta--lock-in-your-deal" class="button-group__button button button--alternate button--centered modal-trigger button--solid"> Lock-in Your Deal </a> </div></section>');

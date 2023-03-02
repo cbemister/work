@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?adf version="1.0"?>
+<adf>
+	<prospect>
+		<id source="Sales Coupon">00001</id>
+		<requestdate>[_date] [_time]</requestdate>
+			<vehicle status="[vdp-saleclass]" interest="">
+					<year>[vdp-year]</year>
+					<make>[vdp-make]</make>
+					<model>[vdp-model]</model>
+					<trim>[vdp-trim]</trim>
+					<bodystyle>[vdp-bodystyle]</bodystyle>
+					<price>[vdp-price]</price>
+					<doors>[vdp-doors]</doors>
+					<transmission>[vdp-transmission]</transmission>
+					<odometer>[vdp-odometer]</odometer>
+					<stock>[vdp-stock]</stock>
+					<imagetag alt="[vdp-year] [vdp-make] [vdp-model] [vdp-trim]">[vdp-img-url]</imagetag>
+					<colorcombination>
+								<exteriorcolor>[vdp-exteriorcolor]</exteriorcolor>
+					</colorcombination>
+			</vehicle>
+		<customer>
+			<contact>
+				<name part="full">[full-name]</name>
+				<email>[email]</email>
+				<phone type="voice">[phone]</phone>
+			</contact>
+			<comments>
+				----------------------------------------
+				--Contact Information--
+				----------------------------------------
+				Full Name: [full-name]
+				Email: [email]
+				--------------------------------------------
+				------Other--------
+				--------------------------------------------
+				Vehicle Location: [vdp-company-name]
+				User's Preferred Location: [_raw_location]
+				Consent: [communication]
+			</comments>
+		</customer>
+		<vendor>
+			<vendorname>[dealership_settings info=general_name]</vendorname>
+			<id>[dealership_settings info=general_dealer_number]</id>
+			<contact>
+				<name part="full">[dealership_settings info=general_name]</name>
+			</contact>
+		</vendor>
+		<provider>
+			<name part="full">TAdvantage - Sales Coupon</name>
+		</provider>
+		<leadtype>sales</leadtype>
+	</prospect>
+</adf>
