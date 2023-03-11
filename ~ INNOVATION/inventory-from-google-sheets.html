@@ -1,0 +1,312 @@
+[raw_html] <style>
+ .page-title {
+  display: none;
+ }
+
+ .loader {
+  border: 16px solid #f3f3f3;
+  /* Light grey */
+  border-top: 16px solid #3498db;
+  /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+ }
+
+ @keyframes spin {
+  0% {
+   transform: rotate(0deg);
+  }
+
+  100% {
+   transform: rotate(360deg);
+  }
+ }
+</style>
+<link rel="stylesheet" href="https://fca1.wpengine.com/wp-content/uploads/ac-dev/cbemister/page-templates/landing-page-1.min.css">
+<div class="container">
+ <section class="hero">
+  <div class="row">
+   <div class="col">
+    <a href="#inventory" title="View inventory">
+     <picture>
+      <source media="(max-width:960px)" srcset="https://tadvantagesites-com.cdn-convertus.com/uploads/sites/515/2023/03/2252174_FCA_NoLimits_1920x520_MB.jpg" alt="No Limits 2022 RAM Clearance @ [dealership_settings info=general_name]">
+      <source media="(min-width:961px)" srcset="https://tadvantagesites-com.cdn-convertus.com/uploads/sites/515/2023/03/2252174_FCA_NoLimits_1920x520_LP.jpg" alt="No Limits 2022 RAM Clearance @ [dealership_settings info=general_name]">
+      <img src="https://tadvantagesites-com.cdn-convertus.com/uploads/sites/515/2023/03/2252174_FCA_NoLimits_1920x520_LP.jpg" alt="No Limits 2022 RAM Clearance @ [dealership_settings info=general_name]">
+     </picture>
+    </a>
+   </div>
+  </div>
+ </section>
+ <section class="cta">
+  <!-- <div class="wrapper">
+   <h3>Take advantage of this limited time offer.</h3><a class="button modal-trigger" data-target="coupon-modal">Inquire Now</a>
+  </div> -->
+  <div class="modal small" id="coupon-modal">
+   <div class="modal-content">
+    <div class="offer-container">
+     <figure>
+      <img src="#" id="coupon-image" alt="No Limits 2022 RAM Clearance @ [dealership_settings info=general_name]">
+      <figcaption></figcaption>
+     </figure>
+    </div>
+    <div class="form">
+     <h3>Find Your Next Vehicle</h3>[custom_form title="Dynamic Source - Pass Vehicle Data - BC Clearance" is_vdp="No-Limits-2022-RAM-Clearance"]
+    </div>
+   </div>
+  </div>
+ </section>
+ <section id="inventory" class="inventory mt-xxxl">
+  <div id="show-inventory-640a35d7a61ad" style="min-height: 45rem;">
+   <div>
+    <!---->
+    <div convertus-data-id="show-inventory__view-all" class="df aic mb-xs">
+     <h4 class="mr-sm count"></h4>
+    </div>
+    <div class="show-inventory__wrap">
+     <div class="row">
+      <div class="col-xs-12 df jcc">
+       <div class="loader"></div>
+      </div>
+     </div>
+    </div>
+    <!---->
+   </div>
+  </div>
+ </section>
+ <!-- <section class="disclaimer">
+  <div class="disclaimer">
+   <details>
+    <summary>Disclaimer</summary>
+    <p>DISCLAIMER</p>
+   </details>
+  </div>
+ </section> -->
+</div>
+<script src="https://cdn.rawgit.com/Keyang/node-csvtojson/d41f44aa/browser/csvtojson.min.js"></script>
+<script>
+ const sheet_id = "1sKZZaPxyiAXzSkguR_slGJn7DAOIKCqc8HJlbaa0VLM"
+ const dealership = dataLayer[0].dealer.name;
+ const currentDate = new Date();
+ const sheet_name = "Specials"
+ const inventoryContainer = document.querySelector('#inventory .show-inventory__wrap .row');
+ const inventoryCount = document.querySelector('#inventory h4.count');
+ const loader = document.querySelector('.loader');
+ const url = "https://docs.google.com/spreadsheets/d/" + sheet_id + "/gviz/tq?tqx=out:csv&sheet=" + sheet_name;
+ let pagenumber = 0,
+  limit = 6,
+  inventoryData,
+  loadLock = false;
+ fetch(url).then(r => r.text()).then(data => csv().fromString(data)).then(data => loadData(data));
+ // function filterData(data) {
+ //  console.log('unfiltered data ', data)
+ //  const rowData = data.filter(row => row.dealership.includes(dealership) && row.active === 'TRUE')
+ //  writeHtml(data)
+ // }
+ function writeHtml(data) {
+  const htmlData = data.map(rowData => {
+   rowData['mileage'] = {
+    'value': rowData.mileage.value,
+    'unit': rowData.mileage.unit
+   }
+   rowData['image'] = rowData.image['0'].url.replace('0x0', '420x315');
+   rowData['savings'] = (rowData.MSRP - rowData.price).toLocaleString("en-US");
+   rowData['MSRP_formatted'] = (+rowData.MSRP).toLocaleString("en-US");
+   rowData['price_formatted'] = (+rowData.price).toLocaleString("en-US");
+   const {
+    vehicle_id,
+    vin,
+    make,
+    model,
+    trim,
+    year,
+    image,
+    mileage,
+    MSRP,
+    price,
+    MSRP_formatted,
+    price_formatted,
+    savings,
+    Transmission,
+    body_style,
+    fuel_type,
+    drivetrain,
+    description,
+    url,
+    title,
+    state_of_vehicle,
+    exterior_color,
+    interior_color,
+    fb_page_id,
+    address,
+    latitude,
+    longitude,
+    carfax_dealership_id,
+    car_history_link,
+    chrome_id,
+    dealer_communication_channel,
+    dealer_id,
+    dealername,
+    stock_number,
+    vehicle_type,
+    days_on_lot
+   } = rowData
+   return `<div class="col-lg-4 col-sm-6 col-xs-12">
+     <div class="g-vehicle-card gtm_vehicle_tile g-vehicle-card--no-carousel" data-vehicle-list="Inventory Carousel" data-vehicle-pos="1" data-vehicle-image-url="${image}" data-vehicle-make="${make}" data-vehicle-model="${model}" data-vehicle-year="${year}" data-vehicle-condition="New" data-vehicle-id="${vehicle_id}" data-vehicle-body-style="SUV" data-vehicle-odo="${rowData.mileage.value}" data-vehicle-stock="${stock_number}" data-vehicle-vin="1C4HJXEG9NW209501" data-vehicle-colour="${exterior_color}" data-vehicle-msrp="${MSRP}" data-vehicle-internet-price="${price}" data-vehicle-trim="${trim}" data-vehicle-status="" data-vehicle-transmission="${Transmission}" data-vehicle-vdp-url="${url}" data-vehicle-location="${dealername}" data-vehicle-cpo="">
+      <div href="" convertus-data-id="g-vehicle-card">
+       <!---->
+       <!----> <div class="g-vehicle-card__image gtm_vehicle_tile_cta" style="background-image: url('${image}');" data-anl-event_action="redirect" data-anl-element_order="11" data-anl-event="cta_interaction" data-anl-element_text="" data-anl-glb-page_type="page_type" data-anl-glb-element_color="element_color" data-anl-event_action_result="success">
+        <!---->
+        <!----></div>
+       <div class="g-vehicle-card__description">
+        <h3 class="g-vehicle-card__vehicle-title">${year} ${make} ${model} ${trim}
+         <!---->
+        </h3>
+        <!---->
+        <div class="g-vehicle-card__details-list g-vehicle-card__details-list--advanced">
+         <div class="g-vehicle-card__details-single">
+          <div class="" style="display: flex; width: 100%;">
+           <div class="price-block__single price-block--expanded price-block--hide-line"><span class="price-block__label">Suggested Price</span>
+            <div class="price-block__price price-block__price--md price-block__price--grey">
+             <!----> <span class="df aifs" style="text-decoration: line-through;"><span class="convertus-dollar-sign">$</span>${MSRP_formatted}</span>
+             <!---->
+            </div> <span class="price-block__sub"> + Tax </span>
+            <!---->
+           </div>
+          </div>
+         </div>
+         <!---->
+         <div class="g-vehicle-card__details-single price-block--expanded price-block--hide-line">
+          <div class="" style="display: flex; width: 100%;">
+           <div class="price-block__single price-block--expanded price-block--hide-line"><span class="price-block__label">You Save</span>
+            <div class="price-block__price price-block__price--sm price-block__price--primary">
+             <!----> <span convertus-data-id="srp__credits" class="df aifs" style="text-decoration: none;"><span class="convertus-dollar-sign">$</span>${savings}</span>
+             <!---->
+            </div> <span class="price-block__sub">
+             <div data-delay="200" data-title="Savings Breakdown" class="tooltip-wrapper vehicle-card__colored-sub"><span class="tooltip-trigger"><strong>Hover for details.</strong></span>
+              <div class="tooltip-content">
+               <!---->
+               <p>Discount<strong class="df aifs tooltip-content__amount"><span class="convertus-dollar-sign">$</span>${savings}</strong></p>
+              </div>
+             </div>
+            </span>
+            <!---->
+           </div>
+          </div>
+         </div>
+         <!---->
+         <div class="g-vehicle-card__details-single">
+          <div class="" style="display: flex; width: 100%;">
+           <div class="price-block__single price-block--expanded"><span class="price-block__label">Sale Price</span>
+            <div class="price-block__price price-block__price--lg price-block__price--primary">
+             <!----> <span class="df aifs" style="text-decoration: none;"><span class="convertus-dollar-sign">$</span>${price_formatted}</span>
+             <div data-delay="200" class="tooltip-wrapper"><span class="tooltip-trigger"><em class="price-block__tooltip-icon fas fa-exclamation-circle"></em></span>
+              <div class="tooltip-content">
+               <p>Tax Not Included</p>
+              </div>
+             </div>
+            </div> <span class="price-block__sub"> + Tax </span>
+            <!---->
+           </div>
+          </div>
+          <!---->
+         </div>
+        </div>
+        <div class="g-vehicle-card__savings"><span><span class="convertus-dollar-sign">$</span>${savings}</span> in total Savings <div data-delay="200" data-title="Savings Breakdown" class="tooltip-wrapper"><span class="tooltip-trigger"><strong>Hover for details.</strong></span>
+          <div class="tooltip-content">
+           <!---->
+           <p>Dealer Discount<strong class="df aifs tooltip-content__amount"><span class="convertus-dollar-sign">$</span>${savings}</strong></p>
+          </div>
+         </div>
+        </div>
+        <ul class="g-vehicle-card__specs">
+         <li class="single-spec"><span>Body Style:</span>${body_style}</li>
+         <li class="single-spec"><span>Transmission:</span>${Transmission}</li>
+         <li class="single-spec"><span>Stock #:</span>#${stock_number}</li>
+        </ul>
+        <!---->
+        <a class="button modal-trigger" data-target="coupon-modal" style="margin-top:1rem">Inquire About This Vehicle</a>
+        // <!--<a href="${url}/details/?vin="${vin}" class="button mt-xxs gtm_vehicle_tile_cta" data-anl-event_action="redirect" data-anl-element_order="13" data-anl-event="cta_interaction" data-anl-element_text="View More Details" data-anl-glb-page_type="page_type" data-anl-glb-element_color="element_color" data-anl-event_action_result="success">View More Details</a>-->
+       </div>
+      </div>
+     </div>
+    </div>`
+  }).join('')
+  //jQuery('#inventory').find('.show-inventory__wrap .row').append(htmlData);
+  //jQuery(inventoryContainer).append(htmlData);
+  loader.style.setProperty('display', 'none');
+  inventoryContainer.innerHTML += htmlData;
+  triggerEventListener();
+ }
+
+ function loadData(data) {
+  inventoryCount.innerText = data.length + ' Available';
+  inventoryData = data;
+  let vehicles = data.slice(pagenumber * limit, (pagenumber * limit) + limit);
+  pagenumber++
+  writeHtml(vehicles);
+ }
+
+ function loadVehicleDataIntoForm(card) {
+  let vehicleCard = card;
+  let currentVehicle = {};
+  sessionStorage.setItem('modalActive', 'false');
+  currentVehicle.vdpUrl = jQuery(vehicleCard).attr('data-vehicle-vdp-url');
+  currentVehicle.imgUrl = jQuery(vehicleCard).attr('data-vehicle-image-url');
+  currentVehicle.stock = jQuery(vehicleCard).attr('data-vehicle-stock');
+  currentVehicle.vin = jQuery(vehicleCard).attr('data-vehicle-vin');
+  currentVehicle.condition = jQuery(vehicleCard).attr('data-vehicle-condition');
+  currentVehicle.location = jQuery(vehicleCard).attr('data-vehicle-location');
+  currentVehicle.year = jQuery(vehicleCard).attr('data-vehicle-year');
+  currentVehicle.make = jQuery(vehicleCard).attr('data-vehicle-make');
+  currentVehicle.model = jQuery(vehicleCard).attr('data-vehicle-model');
+  currentVehicle.trim = jQuery(vehicleCard).attr('data-vehicle-trim');
+  currentVehicle.bodyStyle = jQuery(vehicleCard).attr('data-vehicle-body-style');
+  currentVehicle.odometer = jQuery(vehicleCard).attr('data-vehicle-odo');
+  currentVehicle.colour = jQuery(vehicleCard).attr('data-vehicle-colour');
+  currentVehicle.price = jQuery(vehicleCard).attr('data-vehicle-internet-price');
+  currentVehicle.transmission = jQuery(vehicleCard).attr('data-vehicle-transmission');
+  currentVehicle.fullName = `${currentVehicle.year} ${currentVehicle.make} ${currentVehicle.model} ${currentVehicle.trim}`;
+  jQuery('#coupon-image ~ figcaption').html(currentVehicle.fullName);
+  jQuery('#coupon-image').attr('src', currentVehicle.imgUrl);
+  jQuery('#coupon-image').attr('alt', currentVehicle.fullName);
+  jQuery('input[name="url_path"]').val(currentVehicle.linkUrl);
+  jQuery('input[name="vdp-img-url"]').val(currentVehicle.imgUrl);
+  jQuery('input[name="vdp-vin"]').val(currentVehicle.vin);
+  jQuery('input[name="vdp-stock"]').val(currentVehicle.stock);
+  jQuery('input[name="vdp-saleclass"]').val(currentVehicle.condition);
+  jQuery('input[name="vdp-year"]').val(currentVehicle.year);
+  jQuery('input[name="vdp-make"]').val(currentVehicle.make);
+  jQuery('input[name="vdp-model"]').val(currentVehicle.model);
+  jQuery('input[name="vdp-trim"]').val(currentVehicle.trim);
+  jQuery('input[name="vdp-bodystyle"]').val(currentVehicle.bodyStyle);
+  jQuery('input[name="vdp-odometer"]').val(currentVehicle.odometer);
+  jQuery('input[name="vdp-exteriorcolor"]').val(currentVehicle.colour);
+  jQuery('input[name="vdp-price"]').val(currentVehicle.price);
+  jQuery('input[name="vdp-transmission"]').val(currentVehicle.transmission);
+  jQuery('input[name="preferred-vehicle"]').val(currentVehicle.fullName);
+  jQuery('input[name="location"]').val(currentVehicle.location);
+  jQuery('input[name="vdp-url"]').val(currentVehicle.vdpUrl);
+  jQuery('input[name="lead-source"]').val(leadSource)
+ }
+
+ function triggerEventListener() {
+  // add event listener for button click
+  document.querySelectorAll('.g-vehicle-card').forEach(card => {
+   card.addEventListener('click', event => {
+    let vehicleCard = event.target.closest('.g-vehicle-card');
+    loadVehicleDataIntoForm(vehicleCard);
+   })
+  })
+ }
+ // add event listener to trigger loading more data when scrolling to bottom of page
+ window.addEventListener('scroll', function () {
+  let isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent);
+  let windowOffSet = isMobile ? 600 : 300;
+  if (window.innerHeight + window.scrollY + windowOffSet >= document.body.offsetHeight) {
+   loadData(inventoryData);
+  }
+ });
+</script>
+<script src="https://fca1.wpengine.com/wp-content/uploads/ac-dev/cbemister/site-functionality/landing-page/functions.min.js"></script> [/raw_html]
