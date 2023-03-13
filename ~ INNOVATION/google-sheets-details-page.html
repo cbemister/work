@@ -1,55 +1,106 @@
 [raw_html] <style>
- /* The grid: Four equal columns that floats next to each other */
- .column {
-  float: left;
-  width: 25%;
-  padding: 10px;
- }
-
- /* Style the images inside the grid */
- .column img {
-  opacity: 0.8;
-  cursor: pointer;
- }
-
- .column img:hover {
-  opacity: 1;
- }
-
- /* Clear floats after the columns */
- .row:after {
-  content: "";
-  display: table;
-  clear: both;
- }
-
- /* The expanding image container (positioning is needed to position the close button and the text) */
- .container {
-  position: relative;
- }
-
- /* Expanding image text */
- #imgtext {
-  position: absolute;
-  bottom: 15px;
-  left: 15px;
-  color: white;
-  font-size: 20px;
- }
-
- @media screen and (max-width: 768px) {
-  .column {
-   width: 24.5%;
-  }
+ .page-title {
+  display: none;
  }
 </style>
+<link rel="stylesheet" href="https://fca1.wpengine.com/wp-content/uploads/custom-css-js/ta-custom-vdp.css.css">
 <main>
  <div class="vdp-wrapper" convertus-data-id="vdp-theme--convertus-v2" style="background: url() ">
-  <div id="vdp-app">
-   <div>
+  <div id="vdp-app" class="df jcc aic" style="min-height: 400px;">
+   <div class="row">
+    <div class="col-xs-12">
+     <div class="loader"></div>
+    </div>
+   </div>
+  </div>
+ </div>
+</main>
+<script src="https://cdn.rawgit.com/Keyang/node-csvtojson/d41f44aa/browser/csvtojson.min.js"></script>
+<script>
+ const sheet_id = "1sKZZaPxyiAXzSkguR_slGJn7DAOIKCqc8HJlbaa0VLM"
+ const dealership = dataLayer[0].dealer.name;
+ const currentDate = new Date();
+ const sheet_name = "BC_Clearance"
+ const vdpContainer = document.querySelector('#vdp-app');
+ const loader = document.querySelector('.loader');
+ const leadSource = "No-Limits-2022-RAM-Clearance";
+ const url = "https://docs.google.com/spreadsheets/d/" + sheet_id + "/gviz/tq?tqx=out:csv&sheet=" + sheet_name;
+ let inventoryData;
+ let params = new URLSearchParams(document.location.search);
+ const vin = params.get("vin");
+ fetch(url).then(r => r.text()).then(data => csv().fromString(data)).then(data => findVehicle(data));
+ console.log('vin: ', vin);
+
+ function myFunction(imgs) {
+  // Get the expanded image
+  var expandImg = document.getElementById("expandedImg");
+  // Get the image text
+  var imgText = document.getElementById("imgtext");
+  // Use the same src in the expanded image as the image being clicked on from the grid
+  expandImg.src = imgs.src;
+  // Use the value of the alt attribute of the clickable image as text inside the expanded image
+  imgText.innerHTML = imgs.alt;
+  // Show the container element (hidden with CSS)
+  expandImg.parentElement.style.display = "block";
+ }
+
+ function writeHtml(vehicleData) {
+  vehicleData['images'] = [vehicleData.image[0].url, vehicleData.image[1].url, vehicleData.image[2].url, vehicleData.image[3].url, vehicleData.image[4].url, vehicleData.image[5].url, vehicleData.image[6].url, vehicleData.image[7].url, vehicleData.image[8].url, vehicleData.image[9].url, vehicleData.image[10].url, vehicleData.image[11].url, vehicleData.image[12].url, vehicleData.image[13].url, vehicleData.image[14].url, vehicleData.image[15].url, vehicleData.image[16].url, vehicleData.image[17].url, vehicleData.image[18].url, vehicleData.image[19].url]
+  vehicleData['filteredImages'] = vehicleData['images'].filter(image => image !== '');
+  vehicleData['mileage'] = {
+   'value': vehicleData.mileage.value,
+   'unit': vehicleData.mileage.unit
+  }
+  //vehicleData['image'] = vehicleData.image['0'].url.replace('0x0', '420x315');
+  vehicleData['savings'] = (vehicleData.MSRP - vehicleData.price).toLocaleString("en-US");
+  vehicleData['MSRP_formatted'] = (+vehicleData.MSRP).toLocaleString("en-US");
+  vehicleData['price_formatted'] = (+vehicleData.price).toLocaleString("en-US");
+  const {
+   vehicle_id,
+   vin,
+   make,
+   model,
+   trim,
+   year,
+   image,
+   mileage,
+   MSRP,
+   price,
+   MSRP_formatted,
+   price_formatted,
+   savings,
+   Transmission,
+   body_style,
+   fuel_type,
+   drivetrain,
+   description,
+   url,
+   title,
+   state_of_vehicle,
+   exterior_color,
+   interior_color,
+   fb_page_id,
+   address,
+   latitude,
+   longitude,
+   carfax_dealership_id,
+   car_history_link,
+   chrome_id,
+   dealer_communication_channel,
+   dealer_id,
+   dealername,
+   stock_number,
+   vehicle_type,
+   days_on_lot
+  } = vehicleData
+  console.log('filtered images ', vehicleData['filteredImages']);
+  const imageGallery = vehicleData['filteredImages'].map(image => `<div class="column">
+          <img src="${image}" alt="${vehicleData.year} ${vehicleData.make} ${vehicleData.model} ${vehicleData.trim}" onclick="myFunction(this);">
+         </div>`).join('')
+  const htmlData = `<div>
     <!---->
     <div class="wrapper main-content">
-     <h1 convertus-data-id="vdp__title" class="vdp-title mb-sm mt-xs">2019 Dodge Charger SRT Hellcat | 707HP, Brass Monkey, Red Seats, No A </h1>
+     <h1 convertus-data-id="vdp__title" class="vdp-title mb-sm mt-xs">New ${vehicleData.year} ${vehicleData.make} ${vehicleData.model} ${vehicleData.trim} </h1>
      <!---->
      <div class="row">
       <div class="col-lg-8 col-sm-7 col-xs-12">
@@ -61,42 +112,14 @@
         <!-- The expanding image container -->
         <div class="container">
          <!-- Expanded image -->
-         <img id="expandedImg" style="width:100%" src="https://autocanadaprod-com.cdn-convertus.com/uploads/sites/24/2023/03/img_nature.jpg">
+         <img id="expandedImg" style="width:100%" src="${vehicleData.filteredImages[0]}">
          <!-- Image text -->
          <div id="imgtext"></div>
         </div>
         <!-- The grid: four columns -->
-        <div class="row">
-         <div class="column">
-          <img src="https://autocanadaprod-com.cdn-convertus.com/uploads/sites/24/2023/03/img_nature.jpg" alt="Nature" onclick="myFunction(this);">
-         </div>
-         <div class="column">
-          <img src="https://autocanadaprod-com.cdn-convertus.com/uploads/sites/24/2023/03/img_snow.jpg" alt="Snow" onclick="myFunction(this);">
-         </div>
-         <div class="column">
-          <img src="https://autocanadaprod-com.cdn-convertus.com/uploads/sites/24/2023/03/img_mountains.jpg" alt="Mountains" onclick="myFunction(this);">
-         </div>
-         <div class="column">
-          <img src="https://autocanadaprod-com.cdn-convertus.com/uploads/sites/24/2023/03/img_lights.jpg" alt="Lights" onclick="myFunction(this);">
-         </div>
-         <div class="column">
-          <img src="https://autocanadaprod-com.cdn-convertus.com/uploads/sites/24/2023/03/img_nature.jpg" alt="Nature" onclick="myFunction(this);">
-         </div>
-         <div class="column">
-          <img src="https://autocanadaprod-com.cdn-convertus.com/uploads/sites/24/2023/03/img_snow.jpg" alt="Snow" onclick="myFunction(this);">
-         </div>
-         <div class="column">
-          <img src="https://autocanadaprod-com.cdn-convertus.com/uploads/sites/24/2023/03/img_mountains.jpg" alt="Mountains" onclick="myFunction(this);">
-         </div>
-         <div class="column">
-          <img src="https://autocanadaprod-com.cdn-convertus.com/uploads/sites/24/2023/03/img_lights.jpg" alt="Lights" onclick="myFunction(this);">
-         </div>
+        <div class="row ml-xxxs">
+          ${imageGallery}
         </div>
-       </div>
-       <div class="contact-group">
-        <div class="contact-group__title">
-         <h6>Located at: Maple Ridge Chrysler Jeep Dodge</h6>
-        </div> <a href="https://maps.google.com/?q=11911 West St Maple Ridge BC V2X3M6" convertus-data-id="vdp__location-address" class="contact-group__simple-link gtm_directions"><i class="fas fa-map-marker-alt fa-fw"></i> 11911 West St, Maple Ridge, BC V2X3M6 </a> <a convertus-data-id="vdp__phone-number" href="tel:18669394798" data-phone-type="sales" class="contact-group__simple-link"><i class="fas fa-phone fa-fw"></i> 1-(866)-939-4798 </a>
        </div>
        <!---->
        <div class="overview-group">
@@ -109,12 +132,12 @@
         </div>
         <div class="overview-group__single"><i class="fas fa-cog"></i>
          <div class="overview-group__content">
-          <h5 class="overview-group__title">8 Cylinder Engine</h5> <span class="overview-group__subtitle">Drive Train: RWD</span>
+          <h5 class="overview-group__title" style="background-color: yellow;">8 Cylinder Engine</h5> <span class="overview-group__subtitle">Drive Train: ${vehicleData.drivetrain}</span>
          </div>
         </div>
         <div class="overview-group__single"><i class="fas fa-clipboard"></i>
          <div class="overview-group__content">
-          <h5 class="overview-group__title">Stock #: UCC27509</h5>
+          <h5 class="overview-group__title">Stock #: ${vehicleData.stock_number}</h5>
          </div>
         </div>
        </div>
@@ -128,7 +151,7 @@
        <div class="tabs__content mb-lg">
         <div>
          <div class="description-tab">
-          <p class="description-tab__description apply-read-more apply-read-more--desktop" aria-expanded="false">* Supercharged 6.2L V8, RWD, Red Seats, Brass Monkey Wheels, 707HP, Low KMs. *<br> <br>Dealer's Note:<br> <br>This 2019 Dodge Charger SRT Hellcat is powered by the legendary Supercharged 6.2L Hemi V8, we now refer to as the Hellcat engine, producing 707HP crank HP. Optioned with the rare Brass Money wheel package, black painted roof, black painted hood, Laguna red leather seats /w red door skins, heated/vented front seats, heated steering wheel, adjustble drive modes, launch control, line-lock, power sunroof, remote start, Harman/Kardon 19-speaker audio system, black brake calipers, 8.4-Inch UConnect...<span class="apply-read-more__button" data-anl-event_action="click" data-anl-element_order="13" data-anl-event="cta_interaction" data-anl-element_text="Read More" data-anl-glb-page_type="page_type" data-anl-glb-element_color="element_color" data-anl-event_action_result="success">Read More <i class="apply-read-more__icon far fa-plus"></i></span></p>
+          <p class="description-tab__description apply-read-more apply-read-more--desktop" aria-expanded="false">${vehicleData.description}</p>
          </div>
         </div>
        </div>
@@ -148,18 +171,18 @@
           <div class="" style="display: flex; width: 100%;">
            <div class="price-block__single price-block--expanded price-block--hide-line"><span class="price-block__label">Was</span>
             <div class="price-block__price price-block__price--lg price-block__price--primary">
-             <!----> <span class="df aifs" style="text-decoration: none;"><span class="convertus-dollar-sign">$</span>119,768</span>
+             <!----> <span class="df aifs" style="text-decoration: none;"><span class="convertus-dollar-sign">$</span>${vehicleData.MSRP_formatted}</span>
              <!---->
             </div>
             <!---->
             <!---->
            </div>
           </div>
-          <div class="main-price__savings">Total Savings: <span><span class="convertus-dollar-sign">$</span>10,970</span>
+          <div class="main-price__savings">Total Savings: <span><span class="convertus-dollar-sign">$</span>${vehicleData.savings}</span>
            <div data-delay="200" data-title="Savings Breakdown" class="tooltip-wrapper"><span class="tooltip-trigger"><strong>Hover for details.</strong></span>
             <div class="tooltip-content">
              <!---->
-             <p>Discount<strong class="df aifs tooltip-content__amount"><span class="convertus-dollar-sign">$</span>10,970</strong></p>
+             <p>Discount<strong class="df aifs tooltip-content__amount"><span class="convertus-dollar-sign">$</span>${vehicleData.savings}</strong></p>
             </div>
            </div>
           </div>
@@ -170,7 +193,7 @@
           <div class="" style="display: flex; width: 100%;">
            <div class="price-block__single price-block--expanded price-block--hide-line"><span class="price-block__label">Now</span>
             <div class="price-block__price price-block__price--xl price-block__price--primary">
-             <!----> <span class="df aifs" style="text-decoration: none;"><span class="convertus-dollar-sign">$</span>108,798</span>
+             <!----> <span class="df aifs" style="text-decoration: none;"><span class="convertus-dollar-sign">$</span>${vehicleData.price_formatted}</span>
              <!---->
             </div>
             <!---->
@@ -180,78 +203,85 @@
           <p class="main-price__disclaimer">*Tax Not Included</p>
           <!---->
          </div>
-        </div> <span data-cg-vin="2C3CDXL99KH527509" data-cg-price="108798" id="cargurus"><span data-cg-error="no information"></span></span>
+        </div> 
+        <span data-cg-vin="${vehicleData.vin}" data-cg-price="${vehicleData.price_formatted}" id="cargurus"><span data-cg-error="no information"></span></span>
         <div class="button-group">
+         <a class="button modal-trigger button-primary" data-target="coupon-modal" style="margin-top:1rem">Inquire About This Vehicle</a>
          <!---->
          <!---->
          <!---->
-         <!---->
-        </div>
-        <div class="badges-wrap">
-         <!---->
-         <div data-languagereport="en" class="carfax-section" isdevicetype="desktop"><a data-target="carfax-modal" class="modal-trigger"><img src="https://www.mapleridgechrysler.com/wp-content/themes/convertus-achilles/achilles/assets/images/car-fax-badge-view-report-en.svg" alt="Carfax badge report logo" data-anl-event="media_interaction" data-anl-creative_name="Carfax badge report logo" data-anl-media_type="image" data-anl-event_action_result="click">
-           <!----></a>
-          <div data-vin="2C3CDXL99KH527509" data-language="en" class="carproof-badge carproof-badge__vdp">
-           <div onclick="ga('CarProofGA.send', 'event', 'Badges', 'Click', 'AccidentFree', 1, '');" style="width: 268px; height: 30px; padding: 15px;"><a target="_blank" href="https://vhr.carfax.ca/?id=7vR7M+BbCTaq87wIE3MR9aPLG0rioncs" style="display: inline-block;" rel="noopener"><img src="https://badgingapi.carfax.ca/Content/Images/en/CarProofLogo_Small.svg"></a><img src="https://badgingapi.carfax.ca/Content/Images/en/Badge_AccidentFree.svg" style="display: inline-block;background-color:#3879CE;height:30px;width:25%;"></div>
-          </div>
-         </div>
          <!---->
         </div>
         <!---->
-        <div class="trader-vdp-ecomm">
-         <div class="fas fa-calculator"></div>
-         <div id="av_widget-dcce4f2d-a531-4021-8187-33396574b2cb" data-av-tracker-id="dcce4f2d-a531-4021-8187-33396574b2cb" data-av-widget-type="ecomV2" class="av_widget_root av_widget__reference-dcce4f2d-a531-4021-8187-33396574b2cb">
-          <div class="av_button_widget__container av_button-widget--default" data-anl-event_action="click" data-anl-element_order="28" data-anl-event="cta_interaction" data-anl-element_text="" data-anl-glb-page_type="page_type" data-anl-glb-element_color="element_color" data-anl-event_action_result="success">
-           <div class="inner">
-            <a href="javascript:void(0)" role="button" aria-label="View my payment options" class="av_modal__button av_event__attached" style="display: block; position: relative; width: 100%; height: 56px;  ">
-             <iframe src="https://integrations.autoverify.com/en_CA/ecomV2/render/dcce4f2d-a531-4021-8187-33396574b2cb?deviceType=desktop&amp;referrerUrl=https://www.mapleridgechrysler.com/vehicles/2019/dodge/charger/maple-ridge/bc/51699597/?sale_class=used" scrolling="no" frameborder="0" style="width:100%;height: 100%;border:none;" tabindex="-1" data-anl-event_action="redirect" data-anl-element_order="29" data-anl-event="cta_interaction" data-anl-element_text="" data-anl-glb-page_type="page_type" data-anl-glb-element_color="element_color" data-anl-event_action_result="success"></iframe>
-             <div class="av_button-widget-inner" style="width:100%;height:100%;position: absolute;top:0;left:0;" data-anl-event_action="click" data-anl-element_order="30" data-anl-event="cta_interaction" data-anl-element_text="" data-anl-glb-page_type="page_type" data-anl-glb-element_color="element_color" data-anl-event_action_result="success"></div>
-            </a>
-           </div>
-          </div>
-         </div>
-        </div>
         <div class="details-group" isdevicetype="desktop">
          <div>
           <!---->
           <ul class="detailed-specs block-view">
-           <li class="detailed-specs__single"><span class="detailed-specs__label">Stock #:</span> <span class="detailed-specs__value">UCC27509</span></li>
-           <li class="detailed-specs__single"><span class="detailed-specs__label">Kilometres:</span> <span class="detailed-specs__value">16,388</span></li>
-           <li class="detailed-specs__single"><span class="detailed-specs__label">Exterior Colour:</span> <span class="detailed-specs__value">White</span></li>
-           <li class="detailed-specs__single"><span class="detailed-specs__label">Engine:</span> <span class="detailed-specs__value">8 Cylinder Engine</span></li>
-           <li class="detailed-specs__single"><span class="detailed-specs__label">Drive Train:</span> <span class="detailed-specs__value">RWD</span></li>
-           <li class="detailed-specs__single"><span class="detailed-specs__label">Transmission:</span> <span class="detailed-specs__value">Automatic</span></li>
-           <li class="detailed-specs__single"><span class="detailed-specs__label">Fuel Type:</span> <span class="detailed-specs__value">Gas</span></li>
-           <li class="detailed-specs__single"><span class="detailed-specs__label"># of Passengers:</span> <span class="detailed-specs__value">5</span></li>
-           <li class="detailed-specs__single"><span class="detailed-specs__label">VIN:</span> <span class="detailed-specs__value">2C3CDXL99KH527509</span></li>
+           <li class="detailed-specs__single"><span class="detailed-specs__label">Stock #:</span> <span class="detailed-specs__value">${vehicleData.stock_number}</span></li>
+           <li class="detailed-specs__single"><span class="detailed-specs__label">Kilometres:</span> <span class="detailed-specs__value">${vehicleData.mileage.value}${vehicleData.mileage.unit}</span></li>
+           <li class="detailed-specs__single"><span class="detailed-specs__label">Exterior Colour:</span> <span class="detailed-specs__value">${vehicleData.exterior_color}</span></li>
+           <li class="detailed-specs__single"><span class="detailed-specs__label">Engine:</span> <span class="detailed-specs__value" style="background-color: yellow;">8 Cylinder Engine</span></li>
+           <li class="detailed-specs__single"><span class="detailed-specs__label">Drive Train:</span> <span class="detailed-specs__value">${vehicleData.drivetrain}</span></li>
+           <li class="detailed-specs__single"><span class="detailed-specs__label">Transmission:</span> <span class="detailed-specs__value">${vehicleData.Transmission}</span></li>
+           <li class="detailed-specs__single"><span class="detailed-specs__label">Fuel Type:</span> <span class="detailed-specs__value">${vehicleData.fuel_type}</span></li>
+           <li class="detailed-specs__single"><span class="detailed-specs__label"># of Passengers:</span> <span class="detailed-specs__value" style="background-color: yellow;">5</span></li>
+           <li class="detailed-specs__single"><span class="detailed-specs__label">VIN:</span> <span class="detailed-specs__value">${vehicleData.vin}</span></li>
           </ul>
          </div>
         </div>
        </div>
       </div>
      </div>
-     <p class="vdp-disclaimer apply-read-more" aria-expanded="false">VSA: 30538. Pricing shown does not include taxes (including sales and luxury goods tax, if applicable), as well as other additional products or services not listed that may be available to you for purchase through your selected dealership. Prices in British Columbia represent the selling price minus current incentives and include air conditioning charge, freight, tire levy (where applicable), dealer-installed options, accessories, pre-delivery, administration charges and other retailer charges and exclude taxes, license and insurance.&nbsp;All prices are in Canadian Dollars unless otherwise stated and all financing is OAC. Please contact the dealership for more information.</p>
+     <p class="vdp-disclaimer apply-read-more" aria-expanded="false">Pricing shown does not include taxes (including sales and luxury goods tax, if applicable), as well as other additional products or services not listed that may be available to you for purchase through your selected dealership. Prices in British Columbia represent the selling price minus current incentives and include air conditioning charge, freight, tire levy (where applicable), dealer-installed options, accessories, pre-delivery, administration charges and other retailer charges and exclude taxes, license and insurance.&nbsp;All prices are in Canadian Dollars unless otherwise stated and all financing is OAC. Please contact the dealership for more information.</p>
      <!---->
     </div>
    </div>
+   <div class="modal small" id="coupon-modal">
+  <div class="modal-content">
+   <div class="offer-container">
+    <figure>
+     <img src="${vehicleData.filteredImages[0]}" id="coupon-image" alt=${vehicleData.year} ${vehicleData.make} ${vehicleData.model} ${vehicleData.trim}">
+     <figcaption>${vehicleData.year} ${vehicleData.make} ${vehicleData.model} ${vehicleData.trim}</figcaption>
+    </figure>
+   </div>
+   <div class="form">
+    <h3>Find Your Next Vehicle</h3>[custom_form title="Dynamic Source - Pass Vehicle Data - BC Clearance" is_vdp="No-Limits-2022-RAM-Clearance"]
+   </div>
   </div>
- </div>
-</main>
-<script>
- let params = new URLSearchParams(document.location.search);
- const vin = params.get("vin");
- console.log('vin: ', vin);
-
- function myFunction(imgs) {
-  // Get the expanded image
-  var expandImg = document.getElementById("expandedImg");
-  // Get the image text
-  var imgText = document.getElementById("imgtext");
-  // Use the same src in the expanded image as the image being clicked on from the grid
-  expandImg.src = imgs.src;
-  // Use the value of the alt attribute of the clickable image as text inside the expanded image
-  imgText.innerHTML = imgs.alt;
-  // Show the container element (hidden with CSS)
-  expandImg.parentElement.style.display = "block";
+ </div>`
+  //jQuery('#inventory').find('.show-inventory__wrap .row').append(htmlData);
+  //jQuery(vdpContainer).append(htmlData);
+  loader.style.setProperty('display', 'none');
+  vdpContainer.innerHTML += htmlData;
+  loadVehicleDataIntoForm(vehicleData)
+  return
  }
-</script> [/raw_html]
+
+ function findVehicle(data) {
+  const vehicleData = data.find(row => row.vin === vin)
+  writeHtml(vehicleData)
+ }
+
+ function loadVehicleDataIntoForm(vehicleData) {
+  jQuery('input[name="url_path"]').val(vehicleData.url);
+  jQuery('input[name="vdp-img-url"]').val(vehicleData.image);
+  jQuery('input[name="vdp-vin"]').val(vehicleData.vin);
+  jQuery('input[name="vdp-stock"]').val(vehicleData.stock_number);
+  jQuery('input[name="vdp-saleclass"]').val('New');
+  jQuery('input[name="vdp-year"]').val(vehicleData.year);
+  jQuery('input[name="vdp-make"]').val(vehicleData.make);
+  jQuery('input[name="vdp-model"]').val(vehicleData.model);
+  jQuery('input[name="vdp-trim"]').val(vehicleData.trim);
+  jQuery('input[name="vdp-bodystyle"]').val(vehicleData.body_style);
+  jQuery('input[name="vdp-odometer"]').val(vehicleData.mileage.value);
+  jQuery('input[name="vdp-exteriorcolor"]').val(vehicleData.exterior_color);
+  jQuery('input[name="vdp-price"]').val(vehicleData.price);
+  jQuery('input[name="vdp-transmission"]').val(vehicleData.Transmission);
+  jQuery('input[name="preferred-vehicle"]').val(vehicleData.fullName);
+  jQuery('input[name="location"]').val(vehicleData.dealername);
+  jQuery('input[name="vdp-url"]').val(vehicleData.url);
+  jQuery('input[name="preferred-vehicle"]').val(`${vehicleData.year} ${vehicleData.make} ${vehicleData.model} ${vehicleData.trim}`);
+  jQuery('input[name="lead-source"]').val(leadSource)
+ }
+</script>
+<script src="https://fca1.wpengine.com/wp-content/uploads/ac-dev/cbemister/site-functionality/landing-page/functions.min.js"></script> [/raw_html]
