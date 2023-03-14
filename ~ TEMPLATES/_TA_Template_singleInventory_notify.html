@@ -1,0 +1,75 @@
+<link rel="stylesheet" href="https://fca1.wpengine.com/wp-content/uploads/ac-dev/cbemister/page-templates/landing-page-1.min.css">
+<link rel="stylesheet" href="https://fca1.wpengine.com/wp-content/uploads/ac-dev/cbemister/site-functionality/landing-page/notification.min.css">
+<style>
+ .container {
+  --cta-button-colour: #121212;
+ }
+</style>
+<div class="container">
+ <section class="hero">
+  <div class="row">
+   <div class="col">
+    <a href="#inventory" title="View inventory">
+     <picture>
+      <source media="(max-width:960px)" srcset="_1920x520_MB" alt="CAMPAIGN_NAME @ [dealership_settings info=general_name]">
+      <source media="(min-width:961px)" srcset="_1920x520_WB" alt="CAMPAIGN_NAME @ [dealership_settings info=general_name]">
+      <img src="_1920x520_WB" alt="CAMPAIGN_NAME @ [dealership_settings info=general_name]">
+     </picture>
+    </a>
+   </div>
+  </div>
+ </section>
+ <section class="cta">
+  <!-- <div class="wrapper">
+   <h3>Take advantage of this limited time offer.</h3><a class="button modal-trigger" data-target="coupon-modal">Inquire Now</a>
+  </div> -->
+  <div class="modal small" id="coupon-modal">
+   <div class="modal-content">
+    <div class="offer-container">
+     <figure>
+      <img src="650x650_WebSpecial" id="coupon-image" alt="CAMPAIGN_NAME @ [dealership_settings info=general_name]">
+      <figcaption></figcaption>
+     </figure>
+    </div>
+    <div class="form">
+     <h3>Find Your Next Vehicle</h3>[custom_form title="Dynamic Source - Pass Vehicle Data" is_vdp="CAMPAIGN_NAME"]
+    </div>
+   </div>
+  </div>
+ </section>
+ <section class="inventory" id="inventory">
+  <div class="row">
+   <div class="col">
+    <div id="singleInventory"> [show_inventory carousel="false" condition="used" sort="price,asc" show_full_name="true"] </div>
+   </div>
+  </div>
+ </section>
+ <section id="no-results" class="wrapper">
+  <div class="notification mb-xl">
+   <div class="">
+    <h3>It looks like we've sold our last {category} vehicle</h3>
+    <h5>Check out our other specials or fill out the form below</h5>
+   </div>
+   <div class="">
+    <a href="/specials/sales/" class="button mt-md">Sales Specials</a>
+    <a href="/specials/service-parts/" class="button button--alternate mt-sm ml-xs">Service Specials</a>
+   </div>
+  </div>
+  <h3>Contact Us</h3>[custom_form title="Dynamic Source - Basic" is_vdp="PAGE_NAME"]
+ </section>
+ <!-- <section class="disclaimer">
+  <div class="disclaimer">
+   <details>
+    <summary>Disclaimer</summary>
+    <p>DISCLAIMER</p>
+   </details>
+  </div>
+ </section> -->
+</div>
+<script>
+ let leadSource = 'CAMPAIGN_NAME',
+  cardCTA = 'Inquire About This Vehicle',
+  formCTA = 'Inquire Now';
+</script>
+<script src="https://fca1.wpengine.com/wp-content/uploads/ac-dev/cbemister/site-functionality/landing-page/functions.min.js"></script>
+<script src="https://fca1.wpengine.com/wp-content/uploads/ac-dev/cbemister/site-functionality/landing-page/inventory-alert.min.js"></script>
