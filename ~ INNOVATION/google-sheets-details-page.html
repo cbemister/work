@@ -3,7 +3,9 @@
   display: none;
  }
 </style>
+<link rel="stylesheet" href="https://fca1.wpengine.com/wp-content/uploads/custom-css-js/lp-reset.css">
 <link rel="stylesheet" href="https://fca1.wpengine.com/wp-content/uploads/custom-css-js/ta-custom-vdp.css.css">
+<link id="appendCss" rel="stylesheet" href="#">
 <main>
  <div class="vdp-wrapper" convertus-data-id="vdp-theme--convertus-v2" style="background: url() ">
   <div id="vdp-app" class="df jcc aic" style="min-height: 400px;">
@@ -30,7 +32,7 @@
  const vin = params.get("vin");
  fetch(url).then(r => r.text()).then(data => csv().fromString(data)).then(data => findVehicle(data));
 
- function loadThumbnailImage(imgs) {
+ function loadImageGallery(imgs) {
   // Get the expanded image
   var expandImg = document.getElementById("expandedImg");
   // Get the image text
@@ -92,14 +94,15 @@
    vehicle_type,
    days_on_lot
   } = vehicleData
-  console.log('filtered images ', vehicleData['filteredImages']);
-  const imageGallery = vehicleData['filteredImages'].map(image => `<div class="column">
-          <img src="${image}" alt="${vehicleData.year} ${vehicleData.make} ${vehicleData.model} ${vehicleData.trim}" onclick="loadThumbnailImage(this);">
-         </div>`).join('')
+  const descriptionArray = vehicleData['description'].split('*');
+  const descriptionHtml = descriptionArray.map(text => `${text.length < 50 ? `<strong class="db mt-md mb-xs">${text}</strong>` : `<p>${text}</p>`}`).join('');
+  const imageGallery = vehicleData['filteredImages'].map(image => `<div>
+          <img src="${image}" alt="${vehicleData.year} ${vehicleData.make} ${vehicleData.model} ${vehicleData.trim}" onclick="loadImageGallery(this);">
+         </div>`).join('');
   const htmlData = `<div>
     <!---->
     <div class="wrapper main-content">
-     <h1 convertus-data-id="vdp__title" class="vdp-title mb-sm mt-xs">New ${vehicleData.year} ${vehicleData.make} ${vehicleData.model} ${vehicleData.trim} </h1>
+     <h1 convertus-data-id="vdp__title" class="vdp-title mb-sm mt-md">New ${vehicleData.year} ${vehicleData.make} ${vehicleData.model} ${vehicleData.trim} </h1>
      <!---->
      <div class="row">
       <div class="col-lg-8 col-sm-7 col-xs-12">
@@ -109,48 +112,29 @@
          <!---->
         </div>
         <!-- The expanding image container -->
-        <div class="container">
+        <div>
          <!-- Expanded image -->
-         <img id="expandedImg" style="width:100%" src="${vehicleData.filteredImages[0]}">
-         <!-- Image text -->
-         <div id="imgtext"></div>
+         <img id="expandedImg" style="width:100%" src="${vehicleData.filteredImages[0]}">         
         </div>
-        <!-- The grid: four columns -->
-        <div class="row ml-xxxs">
-          ${imageGallery}
-        </div>
-       </div>
-       <!---->
-       <div class="overview-group">
-        <!---->
-        <div class="overview-group__single"><i class="fas fa-brush"></i>
-         <div class="overview-group__content">
-          <h5 class="overview-group__title">White</h5>
-          <!---->
-         </div>
-        </div>
-        <div class="overview-group__single"><i class="fas fa-cog"></i>
-         <div class="overview-group__content">
-          <h5 class="overview-group__title" style="background-color: yellow;">8 Cylinder Engine</h5> <span class="overview-group__subtitle">Drive Train: ${vehicleData.drivetrain}</span>
-         </div>
-        </div>
-        <div class="overview-group__single"><i class="fas fa-clipboard"></i>
-         <div class="overview-group__content">
-          <h5 class="overview-group__title">Stock #: ${vehicleData.stock_number}</h5>
-         </div>
-        </div>
-       </div>
-       <!---->
+        <!-- The grid: four columns -->        
+        <div class="col-img-thumbs mt-xs mb-xs">${imageGallery}</div>
+       </div>       
        <!---->
        <div class="tabs">
-        <div class="tabs__tab tabs__tab--active"><span><i class="far fa-info-circle"></i><strong>Description</strong></span></div>
-        <div class="tabs__tab" data-anl-event_action="click" data-anl-element_order="11" data-anl-event="cta_interaction" data-anl-element_text="Options" data-anl-glb-page_type="page_type" data-anl-glb-element_color="element_color" data-anl-event_action_result="success"><span><i class="far fa-cogs"></i><strong>Options</strong></span></div>
-        <div class="tabs__tab" data-anl-event_action="click" data-anl-element_order="12" data-anl-event="cta_interaction" data-anl-element_text="Tech Specs" data-anl-glb-page_type="page_type" data-anl-glb-element_color="element_color" data-anl-event_action_result="success"><span><i class="far fa-cogs"></i><strong>Tech Specs</strong></span></div>
+        <div class="tabs__tab tabs__tab--active"><h3 class="mb-xs" style="color:var(--color-primary)"><i class="far fa-info-circle pr-xs"></i> <strong>Description</strong></h3></div>
+        <!--<div class="tabs__tab" data-anl-event_action="click" data-anl-element_order="11" data-anl-event="cta_interaction" data-anl-element_text="Options" data-anl-glb-page_type="page_type" data-anl-glb-element_color="element_color" data-anl-event_action_result="success"><span><i class="far fa-cogs"></i><strong>Options</strong></span></div>
+        <div class="tabs__tab" data-anl-event_action="click" data-anl-element_order="12" data-anl-event="cta_interaction" data-anl-element_text="Tech Specs" data-anl-glb-page_type="page_type" data-anl-glb-element_color="element_color" data-anl-event_action_result="success"><span><i class="far fa-cogs"></i><strong>Tech Specs</strong></span></div>-->
        </div>
        <div class="tabs__content mb-lg">
         <div>
          <div class="description-tab">
-          <p class="description-tab__description apply-read-more apply-read-more--desktop" aria-expanded="false">${vehicleData.description}</p>
+          <div class="read-more">
+    <input type="checkbox" id="read-more-toggle" class="read-more-toggle">
+    <label for="read-more-toggle" class="read-more-label mt-xs">&nbsp;</label>
+    <div class="read-more-content">
+      <p class="description-tab__description apply-read-more apply-read-more--desktop" aria-expanded="false">${descriptionHtml}</p>
+    </div>
+  </div>
          </div>
         </div>
        </div>
@@ -158,7 +142,7 @@
        <!---->
        <!---->
       </div>
-      <div class="col-lg-4 col-sm-5 hidden-xs-down">
+      <div class="col-lg-4 col-sm-5 col-xs-12">
        <div class="vdp-sidebar mb-md vdp-sidebar--sticky" style="top: 0px;">
         <div>
          <!---->
@@ -205,7 +189,7 @@
         </div> 
         <span data-cg-vin="${vehicleData.vin}" data-cg-price="${vehicleData.price_formatted}" id="cargurus"><span data-cg-error="no information"></span></span>
         <div class="button-group">
-         <a class="button modal-trigger button-primary" data-target="coupon-modal" style="margin-top:1rem">Inquire About This Vehicle</a>
+         <a class="button modal-trigger button-primary" data-target="coupon-modal">Get Your Price</a>
          <!---->
          <!---->
          <!---->
@@ -218,12 +202,10 @@
           <ul class="detailed-specs block-view">
            <li class="detailed-specs__single"><span class="detailed-specs__label">Stock #:</span> <span class="detailed-specs__value">${vehicleData.stock_number}</span></li>
            <li class="detailed-specs__single"><span class="detailed-specs__label">Kilometres:</span> <span class="detailed-specs__value">${vehicleData.mileage.value}${vehicleData.mileage.unit}</span></li>
-           <li class="detailed-specs__single"><span class="detailed-specs__label">Exterior Colour:</span> <span class="detailed-specs__value">${vehicleData.exterior_color}</span></li>
-           <li class="detailed-specs__single"><span class="detailed-specs__label">Engine:</span> <span class="detailed-specs__value" style="background-color: yellow;">8 Cylinder Engine</span></li>
+           <li class="detailed-specs__single"><span class="detailed-specs__label">Exterior Colour:</span> <span class="detailed-specs__value">${vehicleData.exterior_color}</span></li>           
            <li class="detailed-specs__single"><span class="detailed-specs__label">Drive Train:</span> <span class="detailed-specs__value">${vehicleData.drivetrain}</span></li>
            <li class="detailed-specs__single"><span class="detailed-specs__label">Transmission:</span> <span class="detailed-specs__value">${vehicleData.Transmission}</span></li>
            <li class="detailed-specs__single"><span class="detailed-specs__label">Fuel Type:</span> <span class="detailed-specs__value">${vehicleData.fuel_type}</span></li>
-           <li class="detailed-specs__single"><span class="detailed-specs__label"># of Passengers:</span> <span class="detailed-specs__value" style="background-color: yellow;">5</span></li>
            <li class="detailed-specs__single"><span class="detailed-specs__label">VIN:</span> <span class="detailed-specs__value">${vehicleData.vin}</span></li>
           </ul>
          </div>
@@ -231,20 +213,14 @@
        </div>
       </div>
      </div>
-     <p class="vdp-disclaimer apply-read-more" aria-expanded="false">Pricing shown does not include taxes (including sales and luxury goods tax, if applicable), as well as other additional products or services not listed that may be available to you for purchase through your selected dealership. Prices in British Columbia represent the selling price minus current incentives and include air conditioning charge, freight, tire levy (where applicable), dealer-installed options, accessories, pre-delivery, administration charges and other retailer charges and exclude taxes, license and insurance.&nbsp;All prices are in Canadian Dollars unless otherwise stated and all financing is OAC. Please contact the dealership for more information.</p>
+     <p class="vdp-disclaimer apply-read-more lh-normal" aria-expanded="false"><small>Pricing shown does not include taxes (including sales and luxury goods tax, if applicable), as well as other additional products or services not listed that may be available to you for purchase through your selected dealership. Prices in British Columbia represent the selling price minus current incentives and include air conditioning charge, freight, tire levy (where applicable), dealer-installed options, accessories, pre-delivery, administration charges and other retailer charges and exclude taxes, license and insurance.&nbsp;All prices are in Canadian Dollars unless otherwise stated and all financing is OAC. Please contact the dealership for more information.</small></p>
      <!---->
     </div>
    </div>
    <div class="modal small" id="coupon-modal">
-  <div class="modal-content">
-   <div class="offer-container">
-    <figure>
-     <img src="${vehicleData.filteredImages[0]}" id="coupon-image" alt=${vehicleData.year} ${vehicleData.make} ${vehicleData.model} ${vehicleData.trim}">
-     <figcaption>${vehicleData.year} ${vehicleData.make} ${vehicleData.model} ${vehicleData.trim}</figcaption>
-    </figure>
-   </div>
+  <div class="modal-content">   
    <div class="form">
-    <h3>Find Your Next Vehicle</h3>[custom_form title="Dynamic Source - Pass Vehicle Data - BC Clearance" is_vdp="No-Limits-2022-RAM-Clearance"]
+    <h3>Receive a special price quote by email</h3>[custom_form title="Dynamic Source - Pass Vehicle Data - BC Clearance" is_vdp="No-Limits-2022-RAM-Clearance"]
    </div>
   </div>
  </div>`
@@ -281,6 +257,13 @@
   jQuery('input[name="vdp-url"]').val(vehicleData.url);
   jQuery('input[name="preferred-vehicle"]').val(`${vehicleData.year} ${vehicleData.make} ${vehicleData.model} ${vehicleData.trim}`);
   jQuery('input[name="lead-source"]').val(leadSource)
+ }
+ appendcssAnticache()
+
+ function appendcssAnticache() {
+  var version = new Date().getTime();
+  var getfile = 'https://fca1.wpengine.com/wp-content/uploads/custom-css-js/lp-clearance-provincewide.css?ver=' + version;
+  $('#appendCss').attr('href', getfile);
  }
 </script>
 <script src="https://fca1.wpengine.com/wp-content/uploads/ac-dev/cbemister/site-functionality/landing-page/functions.min.js"></script> [/raw_html]
