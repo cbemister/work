@@ -29,9 +29,8 @@
  let params = new URLSearchParams(document.location.search);
  const vin = params.get("vin");
  fetch(url).then(r => r.text()).then(data => csv().fromString(data)).then(data => findVehicle(data));
- console.log('vin: ', vin);
 
- function myFunction(imgs) {
+ function loadThumbnailImage(imgs) {
   // Get the expanded image
   var expandImg = document.getElementById("expandedImg");
   // Get the image text
@@ -95,7 +94,7 @@
   } = vehicleData
   console.log('filtered images ', vehicleData['filteredImages']);
   const imageGallery = vehicleData['filteredImages'].map(image => `<div class="column">
-          <img src="${image}" alt="${vehicleData.year} ${vehicleData.make} ${vehicleData.model} ${vehicleData.trim}" onclick="myFunction(this);">
+          <img src="${image}" alt="${vehicleData.year} ${vehicleData.make} ${vehicleData.model} ${vehicleData.trim}" onclick="loadThumbnailImage(this);">
          </div>`).join('')
   const htmlData = `<div>
     <!---->

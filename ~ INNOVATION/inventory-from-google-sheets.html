@@ -99,11 +99,7 @@
   inventoryData,
   loadLock = false;
  fetch(url).then(r => r.text()).then(data => csv().fromString(data)).then(data => loadData(data));
- // function filterData(data) {
- //  console.log('unfiltered data ', data)
- //  const rowData = data.filter(row => row.dealership.includes(dealership) && row.active === 'TRUE')
- //  writeHtml(data)
- // }
+
  function writeHtml(data) {
   const htmlData = data.map(rowData => {
    rowData['mileage'] = {
@@ -156,9 +152,9 @@
      <div class="g-vehicle-card gtm_vehicle_tile g-vehicle-card--no-carousel" data-vehicle-list="Inventory Carousel" data-vehicle-pos="1" data-vehicle-image-url="${image}" data-vehicle-make="${make}" data-vehicle-model="${model}" data-vehicle-year="${year}" data-vehicle-condition="New" data-vehicle-id="${vehicle_id}" data-vehicle-body-style="SUV" data-vehicle-odo="${rowData.mileage.value}" data-vehicle-stock="${stock_number}" data-vehicle-vin="1C4HJXEG9NW209501" data-vehicle-colour="${exterior_color}" data-vehicle-msrp="${MSRP}" data-vehicle-internet-price="${price}" data-vehicle-trim="${trim}" data-vehicle-status="" data-vehicle-transmission="${Transmission}" data-vehicle-vdp-url="${url}" data-vehicle-location="${dealername}" data-vehicle-cpo="">
       <div href="" convertus-data-id="g-vehicle-card">
        <!---->
-       <!----> <div class="g-vehicle-card__image gtm_vehicle_tile_cta" style="background-image: url('${image}');" data-anl-event_action="redirect" data-anl-element_order="11" data-anl-event="cta_interaction" data-anl-element_text="" data-anl-glb-page_type="page_type" data-anl-glb-element_color="element_color" data-anl-event_action_result="success">
+       <!----> <a href="/no-limits-2022-ram-clearance/details/?vin=${vin}" class="g-vehicle-card__image gtm_vehicle_tile_cta" style="background-image: url('${image}');" data-anl-event_action="redirect" data-anl-element_order="11" data-anl-event="cta_interaction" data-anl-element_text="" data-anl-glb-page_type="page_type" data-anl-glb-element_color="element_color" data-anl-event_action_result="success">
         <!---->
-        <!----></div>
+        <!----></a>
        <div class="g-vehicle-card__description">
         <h3 class="g-vehicle-card__vehicle-title">${year} ${make} ${model} ${trim}
          <!---->
@@ -233,8 +229,6 @@
      </div>
     </div>`
   }).join('')
-  //jQuery('#inventory').find('.show-inventory__wrap .row').append(htmlData);
-  //jQuery(inventoryContainer).append(htmlData);
   loader.style.setProperty('display', 'none');
   inventoryContainer.innerHTML += htmlData;
   triggerEventListener();
