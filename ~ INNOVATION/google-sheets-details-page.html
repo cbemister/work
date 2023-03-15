@@ -5,9 +5,9 @@
 </style>
 <link rel="stylesheet" href="https://fca1.wpengine.com/wp-content/uploads/custom-css-js/lp-reset.css">
 <link rel="stylesheet" href="https://fca1.wpengine.com/wp-content/uploads/custom-css-js/ta-custom-vdp.css.css">
-<link id="appendCss" rel="stylesheet" href="#">
+<link rel="stylesheet" href="https://fca1.wpengine.com/wp-content/uploads/custom-css-js/lp-clearance-provincewide.css">
 <main>
- <div class="vdp-wrapper" convertus-data-id="vdp-theme--convertus-v2" style="background: url() ">
+ <div class="vdp-wrapper-custom" convertus-data-id="vdp-theme--convertus-v2" style="background: url() ">
   <div id="vdp-app" class="df jcc aic" style="min-height: 400px;">
    <div class="row">
     <div class="col-xs-12">
@@ -21,7 +21,6 @@
 <script>
  const sheet_id = "1sKZZaPxyiAXzSkguR_slGJn7DAOIKCqc8HJlbaa0VLM"
  const dealership = dataLayer[0].dealer.name;
- const currentDate = new Date();
  const sheet_name = "BC_Clearance"
  const vdpContainer = document.querySelector('#vdp-app');
  const loader = document.querySelector('.loader');
@@ -30,6 +29,9 @@
  let inventoryData;
  let params = new URLSearchParams(document.location.search);
  const vin = params.get("vin");
+ if (!vin || vin.length < 17) {
+  window.location.replace("/no-limits-2022-ram-clearance/");
+ }
  fetch(url).then(r => r.text()).then(data => csv().fromString(data)).then(data => findVehicle(data));
 
  function loadImageGallery(imgs) {
@@ -52,12 +54,11 @@
    'value': vehicleData.mileage.value,
    'unit': vehicleData.mileage.unit
   }
-  //vehicleData['image'] = vehicleData.image['0'].url.replace('0x0', '420x315');
+  vehicleData['image'] = vehicleData.image['0'].url.replace('0x0', '420x315');
   vehicleData['savings'] = (vehicleData.MSRP - vehicleData.price).toLocaleString("en-US");
   vehicleData['MSRP_formatted'] = (+vehicleData.MSRP).toLocaleString("en-US");
   vehicleData['price_formatted'] = (+vehicleData.price).toLocaleString("en-US");
   const {
-   vehicle_id,
    vin,
    make,
    model,
@@ -76,33 +77,26 @@
    drivetrain,
    description,
    url,
-   title,
    state_of_vehicle,
    exterior_color,
    interior_color,
-   fb_page_id,
    address,
-   latitude,
-   longitude,
-   carfax_dealership_id,
-   car_history_link,
-   chrome_id,
-   dealer_communication_channel,
-   dealer_id,
    dealername,
    stock_number,
-   vehicle_type,
    days_on_lot
   } = vehicleData
+  vehicleData['model'] = (vehicleData['description']).includes('1500 Classic') ? '1500 Classic' : '1500';
   const descriptionArray = vehicleData['description'].split('*');
-  const descriptionHtml = descriptionArray.map(text => `${text.length < 50 ? `<strong class="db mt-md mb-xs">${text}</strong>` : `<p>${text}</p>`}`).join('');
+  const descriptionHtml = descriptionArray.map(text => `${text.length < 70 ? `<strong class="db mt-md mb-xs">${text}</strong>` : `<p>${text}</p>`}`).join('');
   const imageGallery = vehicleData['filteredImages'].map(image => `<div>
-          <img src="${image}" alt="${vehicleData.year} ${vehicleData.make} ${vehicleData.model} ${vehicleData.trim}" onclick="loadImageGallery(this);">
+          <img src="${image}" alt="${vehicleData.year} ${(vehicleData.make).toUpperCase()} ${vehicleData.model} ${vehicleData.trim}" onclick="loadImageGallery(this);">
          </div>`).join('');
   const htmlData = `<div>
     <!---->
     <div class="wrapper main-content">
-     <h1 convertus-data-id="vdp__title" class="vdp-title mb-sm mt-md">New ${vehicleData.year} ${vehicleData.make} ${vehicleData.model} ${vehicleData.trim} </h1>
+     <div class="links-container-no-retail">
+       <a href="/no-limits-2022-ram-clearance/" class="vdp__back-button db mt-md"><i class="fas fa-chevron-left"></i><strong> Back To No Limits 2022 RAM Clearance</strong></a></div>
+     <h1 convertus-data-id="vdp__title" class="vdp-title mb-sm mt-md">New ${vehicleData.year} ${(vehicleData.make).toUpperCase()} ${vehicleData.model} ${vehicleData.trim} </h1>
      <!---->
      <div class="row">
       <div class="col-lg-8 col-sm-7 col-xs-12">
@@ -154,7 +148,7 @@
           <div class="" style="display: flex; width: 100%;">
            <div class="price-block__single price-block--expanded price-block--hide-line"><span class="price-block__label">Was</span>
             <div class="price-block__price price-block__price--lg price-block__price--primary">
-             <!----> <span class="df aifs" style="text-decoration: none;"><span class="convertus-dollar-sign">$</span>${vehicleData.MSRP_formatted}</span>
+             <!----> <span class="df aifs" style="text-decoration: line-through;"><span class="convertus-dollar-sign">$</span>${vehicleData.MSRP_formatted}</span>
              <!---->
             </div>
             <!---->
@@ -200,12 +194,14 @@
          <div>
           <!---->
           <ul class="detailed-specs block-view">
+           <li class="detailed-specs__single"><span class="detailed-specs__label">Kilometres:</span> <span class="detailed-specs__value">${vehicleData.mileage.value}</span></li>
+           <li class="detailed-specs__single"><span class="detailed-specs__label">Condition:</span> <span class="detailed-specs__value">New</span></li>
+           <li class="detailed-specs__single"><span class="detailed-specs__label">Exterior Colour:</span> <span class="detailed-specs__value">${vehicleData.exterior_color}</span></li>
+           <li class="detailed-specs__single"><span class="detailed-specs__label">Interior Colour:</span> <span class="detailed-specs__value">${vehicleData.interior_color}</span></li>              
+           <li class="detailed-specs__single"><span class="detailed-specs__label">Drive Train:</span> <span class="detailed-specs__value">${(vehicleData.drivetrain.toLowerCase())}</span></li>
+           <li class="detailed-specs__single"><span class="detailed-specs__label">Transmission:</span> <span class="detailed-specs__value" style="text-transform: capitalize;">${(vehicleData.Transmission).toLowerCase()}</span></li>
+           <li class="detailed-specs__single"><span class="detailed-specs__label">Fuel Type:</span> <span class="detailed-specs__value" style="text-transform: capitalize;">${(vehicleData.fuel_type.toLowerCase())}</span></li>
            <li class="detailed-specs__single"><span class="detailed-specs__label">Stock #:</span> <span class="detailed-specs__value">${vehicleData.stock_number}</span></li>
-           <li class="detailed-specs__single"><span class="detailed-specs__label">Kilometres:</span> <span class="detailed-specs__value">${vehicleData.mileage.value}${vehicleData.mileage.unit}</span></li>
-           <li class="detailed-specs__single"><span class="detailed-specs__label">Exterior Colour:</span> <span class="detailed-specs__value">${vehicleData.exterior_color}</span></li>           
-           <li class="detailed-specs__single"><span class="detailed-specs__label">Drive Train:</span> <span class="detailed-specs__value">${vehicleData.drivetrain}</span></li>
-           <li class="detailed-specs__single"><span class="detailed-specs__label">Transmission:</span> <span class="detailed-specs__value">${vehicleData.Transmission}</span></li>
-           <li class="detailed-specs__single"><span class="detailed-specs__label">Fuel Type:</span> <span class="detailed-specs__value">${vehicleData.fuel_type}</span></li>
            <li class="detailed-specs__single"><span class="detailed-specs__label">VIN:</span> <span class="detailed-specs__value">${vehicleData.vin}</span></li>
           </ul>
          </div>
@@ -224,8 +220,6 @@
    </div>
   </div>
  </div>`
-  //jQuery('#inventory').find('.show-inventory__wrap .row').append(htmlData);
-  //jQuery(vdpContainer).append(htmlData);
   loader.style.setProperty('display', 'none');
   vdpContainer.innerHTML += htmlData;
   loadVehicleDataIntoForm(vehicleData)
@@ -257,13 +251,6 @@
   jQuery('input[name="vdp-url"]').val(vehicleData.url);
   jQuery('input[name="preferred-vehicle"]').val(`${vehicleData.year} ${vehicleData.make} ${vehicleData.model} ${vehicleData.trim}`);
   jQuery('input[name="lead-source"]').val(leadSource)
- }
- appendcssAnticache()
-
- function appendcssAnticache() {
-  var version = new Date().getTime();
-  var getfile = 'https://fca1.wpengine.com/wp-content/uploads/custom-css-js/lp-clearance-provincewide.css?ver=' + version;
-  $('#appendCss').attr('href', getfile);
  }
 </script>
 <script src="https://fca1.wpengine.com/wp-content/uploads/ac-dev/cbemister/site-functionality/landing-page/functions.min.js"></script> [/raw_html]
