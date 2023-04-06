@@ -1,0 +1,85 @@
+[raw_html]
+<link rel="stylesheet" href="#">
+<script>
+ document.body.classList.add("sales-specials");
+</script>
+<style>
+ #specials-app {
+  display: none;
+ }
+</style>
+<link rel="stylesheet" href="https://fca1.wpengine.com/wp-content/uploads/custom-css-js/specials-layout-v2.css?id=1006">
+<main></main>
+<div>
+ <p>When you choose [dealership_settings info=general_name], you're connecting with a company that has the knowledge and the know-how to make sure its customers get the most out of their vehicle and services.</p>
+ <p>With that in mind we've set up a fantastic Specials area to show off all the currently-available offers.You may just find exactly what you're looking for here at a price that can't be beat! Come back often to see what offers [dealership_settings info=general_name] has to offer you today.</p>
+ <div id="specials-v2" class="modal small">
+  <div class="modal-content">[custom_form title="Current Offer Specials Inquiry"]</div>
+ </div>
+</div>
+<script src="https://cdn.rawgit.com/Keyang/node-csvtojson/d41f44aa/browser/csvtojson.min.js"></script>
+<script>
+ const sheet_id = "1mFYx3CfcI-Ax1fxLGUnQYc7rmtIudvxAXKeXJhe9-V4"
+ const specialsContainer = document.querySelector("#specials-department-sales .types__title");
+ const dealership = dataLayer[0].dealer.name;
+ const currentDate = new Date();
+ const sheet_name = "Specials"
+ const url = "https://docs.google.com/spreadsheets/d/" + sheet_id + "/gviz/tq?tqx=out:csv&sheet=" + sheet_name;
+ fetch(url).then(r => r.text()).then(data => csv().fromString(data)).then(data => filterData(data));
+ console.log('dealership ', dealership)
+
+ function filterData(data) {
+  console.log('unfiltered data ', data)
+  const rowData = data.filter(row => row.dealership.includes(dealership) && row.active === 'TRUE')
+  writeHtml(rowData)
+ }
+
+ function writeHtml(data) {
+  console.log('filtered data ', data)
+  const htmlData = data.map(rowData => {
+   const {
+    active,
+    dealership,
+    title,
+    description,
+    type,
+    link_url,
+    web_special,
+    disclaimer
+   } = rowData
+   const specials_id = title.toLowerCase().replaceAll(' ', '-');
+   return `<div id="${specials_id}" class="special mb-lg">
+    <h4 convertus-data-id="specials__name" class="special__name">${title}</h4>
+    <div class="row">
+     <div class="col-lg-3 col-sm-4 col-xs-12">
+      <div class="special__content">
+       <strong><span class="special__content--available mb-xxs">Available For</span> <span class="special__content--time">Offers End Soon</span></strong> <a href="#" data-target="specials-v2" convertus-data-id="specials__request-form" class="button mt-md mb-xs modal-trigger"><span class="request-info">Request More Info</span></a> <a convertus-data-id="specials__cta-button" href="${link_url}" target="_self" class="button button--alternate">Shop Now</a>
+       <div class="special__content--description mt-xl mb-md">
+        <p>${description}</p>
+        <div class="disclaimer ${ disclaimer === '' ? 'hide' : '' }">
+         <details>
+          <summary>Disclaimer</summary>
+          <p>${disclaimer}</p>
+         </details>
+        </div>
+       </div>
+       <div class="special__content--extras"><a data-target="email-special-modal" class="modal-trigger"><i class="fas fa-envelope"></i>Email a friend</a> <a class="print-special"><i class="fas fa-print"></i>Print</a></div>
+      </div>
+     </div>
+     <div class="col-lg-9 col-sm-8 col-xs-12">
+      <div class="special__image"><img src="${web_special}" alt="${title}"></div>
+     </div>
+    </div>
+   </div>`
+  }).join('')
+  //jQuery('#specials-department-sales .types__title').after(htmlData);
+  if (!jQuery('div#specials-department-sales').length) {
+   jQuery('#specials-app .transition-container').append('<div id="specials-department-sales" class="types"><h3 convertus-data-id="specials__type-sales" class="types__title">Sales</h3></div>');
+   jQuery('#specials-department-sales .types__title').after(htmlData);
+  } else {
+   jQuery('#specials-department-sales .special').filter(":last").after(htmlData);
+  }
+  jQuery('#specials-app').show();
+ }
+</script>
+<script src="https://fca1.wpengine.com/wp-content/uploads/custom-css-js/specials-layout.js"></script> [/raw_html]
