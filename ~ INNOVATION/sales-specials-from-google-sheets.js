@@ -1,18 +1,19 @@
-const sheet_id = "1mFYx3CfcI-Ax1fxLGUnQYc7rmtIudvxAXKeXJhe9-V4"
-const specialsContainer = document.querySelector("#specials-department-sales .types__title");
+const sheet_id = '1mFYx3CfcI-Ax1fxLGUnQYc7rmtIudvxAXKeXJhe9-V4';
 const dealership = dataLayer[0].dealer.name;
-const currentDate = new Date();
-const sheet_name = "Specials"
-const url = "https://docs.google.com/spreadsheets/d/" + sheet_id + "/gviz/tq?tqx=out:csv&sheet=" + sheet_name;
+const sheet_name = 'Specials';
+const url = 'https://docs.google.com/spreadsheets/d/' + sheet_id + '/gviz/tq?tqx=out:csv&sheet=' + sheet_name;
 fetch(url).then(r => r.text()).then(data => csv().fromString(data)).then(data => filterData(data));
 
 function filterData(data) {
- const rowData = data.filter(row => row.dealership.includes(dealership) && row.active === 'TRUE' && row.type === 'Sales')
+ const rowData = data.filter(row => row.dealership.includes(dealership) && row.active === 'TRUE' && row.type === 'Sales');
  if (rowData.length) {
   writeHtml(rowData);
  } else if (jQuery('div#specials-department-sales').length) {
   jQuery('#specials-app').show();
- } else if (!jQuery('div#specials-department-sales').length) {
+ } else if (!rowData.length && (jQuery('div#specials-department-service').length && !jQuery('div#specials-department-sales').length)) {
+  jQuery('.primary.col').append('<div class="no-results"><i class="fal fa-file no-results__icon"></i><h2 class="no-results__title">Sorry, our specials are being updated at the moment.</h2><p class="no-results__text">Contact us for the latest promotions</p><a href="/contact" class="button button--alternate button--centered" data-anl-event_action="redirect" data-anl-element_order="7" data-anl-event="cta_interaction" data-anl-element_text="Contact Us" data-anl-glb-page_type="page_type" data-anl-glb-element_color="element_color" data-anl-event_action_result="success">Contact Us</a></div>');
+  jQuery('.no-results').show();
+ } else {
   jQuery('.no-results').show();
  }
 }
@@ -20,15 +21,12 @@ function filterData(data) {
 function writeHtml(data) {
  const htmlData = data.map(rowData => {
   const {
-   active,
-   dealership,
    title,
    description,
-   type,
    link_url,
    web_special,
    disclaimer
-  } = rowData
+  } = rowData;
   const specials_id = title.toLowerCase().replaceAll(' ', '-');
   return `<div id="${specials_id}" class="special mb-lg">
     <h4 convertus-data-id="specials__name" class="special__name">${title}</h4>
@@ -52,17 +50,16 @@ function writeHtml(data) {
       <div class="special__image"><img src="${web_special}" alt="${title}"></div>
      </div>
     </div>
-   </div>`
- }).join('')
+   </div>`;
+ }).join('');
  //jQuery('#specials-department-sales .types__title').after(htmlData);
  if (!jQuery('div#specials-department-sales').length) {
-  jQuery('#specials-v2').after("<div id='specials-app' style='display:block'><div class='transition-container'><div id='specials-department-sales' class='types'></div></div></div>");
+  jQuery('#specials-v2').after('<div id="specials-app" style="display:block"><div class="transition-container"><div id="specials-department-sales" class="types"></div></div></div>');
   jQuery('#specials-department-sales.types').append(htmlData);
  } else {
-  jQuery('#specials-department-sales .special').filter(":last").after(htmlData);
+  jQuery('#specials-department-sales .special').filter(':last').after(htmlData);
  }
  modifySpecialCards();
- jQuery('.no-results').hide()
  jQuery('#specials-app').show();
 }
 
